@@ -28,27 +28,28 @@ public class ConexionBaseDatosJDBC extends ConexionConBasedeDatos {
         }
         return instanciaInterfaz;
     }
-   /* public List<Alumno> listaAlumnosDeUnCentro(String centro){
-        ArrayList<Alumno> lEquipos = new ArrayList<>();
-        String selectQueryBody = "SELECT * FROM JUGADOR WHERE idEquipo=?";
+    public List<Alumno> listaAlumnosDeUnCentro(String centro){
+        ArrayList<Alumno> lAlumno = new ArrayList<>();
+        String selectQueryBody = "SELECT * FROM ALUMNO WHERE Centro=?";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(selectQueryBody);
-            preparedStatement.setInt(1, idEq);
+            preparedStatement.setString(1, Centro);
             ResultSet rs = preparedStatement.executeQuery();
             // position result to first
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
                     int id = rs.getInt(1);
-                    String name = rs.getString(2);
-                    int edad = rs.getInt(3);
-                    int idEquipo = rs.getInt(4);
-                    lEquipos.add(new Jugador(id, name, edad, idEquipo));
+                    String centro = rs.getString(2);
+                    String nombre = rs.getInt(3);
+                    String ap1 = rs.getInt(4);
+                    String ap2 = rs.getInt(5);
+                    lAlumno.add(new Alumno(id, centro, nombre, ap1, ap2));
                 }
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return lEquipos;
-    }*/
+        return lAlumno;
+    }
 }
