@@ -40,9 +40,9 @@ public class ConexionBaseDatosJDBC extends ConexionConBasedeDatos {
                 while (rs.next()) {
                     int id = rs.getInt(1);
                     String centro = rs.getString(2);
-                    String nombre = rs.getInt(3);
-                    String ap1 = rs.getInt(4);
-                    String ap2 = rs.getInt(5);
+                    String nombre = rs.getString(3);
+                    String ap1 = rs.getString(4);
+                    String ap2 = rs.getString(5);
                     lAlumno.add(new Alumno(id, centro, nombre, ap1, ap2));
                 }
             }
@@ -51,5 +51,26 @@ public class ConexionBaseDatosJDBC extends ConexionConBasedeDatos {
             e.printStackTrace();
         }
         return lAlumno;
+    }
+
+    public List<Jugador> listaJugadores() {
+        ArrayList<Jugador> lMaterias = new ArrayList<>();
+        String selectQueryBody = "SELECT * FROM MATERIA";
+        Statement querySt;
+        try {
+            querySt = conn.createStatement();
+            ResultSet rs = querySt.executeQuery(selectQueryBody);
+            // position result to first
+            if (rs.isBeforeFirst()) {
+                while (rs.next()) {
+                    String id = rs.getString(1);
+                    lMaterias.add(new Materia(id));
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lMaterias;
     }
 }
