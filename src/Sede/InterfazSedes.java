@@ -85,6 +85,7 @@ public class InterfazSedes {
 		panel_1.add(btnNewButton_5);
 		
 		TextArea textArea = new TextArea();
+		textArea.setEditable(false);
 		panel_1.add(textArea);
 		
 		JPanel panel_2 = new JPanel();
@@ -152,7 +153,7 @@ public class InterfazSedes {
 		panel_2.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		JFormattedTextField frmtdtxtfldAa = new JFormattedTextField();
-		frmtdtxtfldAa.setText("aa");
+		frmtdtxtfldAa.setText("sede1");
 		GridBagConstraints gbc_frmtdtxtfldAa = new GridBagConstraints();
 		gbc_frmtdtxtfldAa.insets = new Insets(0, 0, 5, 5);
 		gbc_frmtdtxtfldAa.fill = GridBagConstraints.HORIZONTAL;
