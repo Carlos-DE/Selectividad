@@ -21,11 +21,16 @@ import java.awt.List;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 public class InterfazSedes {
 
 	private JFrame frame;
 	private JTextField textField;
+	/**
+	 * @wbp.nonvisual location=-38,-31
+	 */
+	private final JTextArea textArea_1 = new JTextArea();
 
 	/**
 	 * Launch the application.
@@ -63,20 +68,32 @@ public class InterfazSedes {
 		panel.setBackground(new Color(0, 64, 128));
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 		
-		Button button_4 = new Button("Sedes");
-		panel.add(button_4);
+		JButton btnNewButton_6 = new JButton("New button");
+		btnNewButton_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		
-		Button button_3 = new Button("New button");
-		panel.add(button_3);
+		JButton btnNewButton_11 = new JButton("Sedes");
+		btnNewButton_11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		panel.add(btnNewButton_11);
+		panel.add(btnNewButton_6);
 		
-		Button button_2 = new Button("New button");
-		panel.add(button_2);
+		JButton btnNewButton_7 = new JButton("New button");
+		panel.add(btnNewButton_7);
 		
-		Button button_1 = new Button("New button");
-		panel.add(button_1);
+		JButton btnNewButton_8 = new JButton("New button");
+		panel.add(btnNewButton_8);
 		
-		Button button = new Button("New button");
-		panel.add(button);
+		JButton btnNewButton_9 = new JButton("New button");
+		panel.add(btnNewButton_9);
+		
+		JButton btnNewButton_10 = new JButton("New button");
+		panel.add(btnNewButton_10);
 		
 		JPanel panel_1 = new JPanel();
 		frame.getContentPane().add(panel_1, BorderLayout.SOUTH);
@@ -153,7 +170,6 @@ public class InterfazSedes {
 		panel_2.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		JFormattedTextField frmtdtxtfldAa = new JFormattedTextField();
-		frmtdtxtfldAa.setText("sede1");
 		GridBagConstraints gbc_frmtdtxtfldAa = new GridBagConstraints();
 		gbc_frmtdtxtfldAa.insets = new Insets(0, 0, 5, 5);
 		gbc_frmtdtxtfldAa.fill = GridBagConstraints.HORIZONTAL;
