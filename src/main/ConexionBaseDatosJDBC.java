@@ -95,4 +95,28 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
         }
         return lSedes;
     }
+
+    public List<Responsable> listaResponsables() {
+        ArrayList<Responsable> lResponsables = new ArrayList<>();
+        String selectQueryBody = "SELECT * FROM RESPONSABLE";
+        Statement querySt;
+        try {
+            querySt = conn.createStatement();
+            ResultSet rs = querySt.executeQuery(selectQueryBody);
+            // position result to first
+            if (rs.isBeforeFirst()) {
+                while (rs.next()) {
+                    int id = rs.getInt(1);
+                    String nombre = rs.getString(2);
+                    String ap1 = rs.getString(3);
+                    String ap2 = rs.getString(4);
+                    lResponsables.add(new Responsable(id, nombre, ap1, ap2));
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lResponsables;
+    }
 }
