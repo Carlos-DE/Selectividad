@@ -22,7 +22,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
-public class Sedes {
+public class InterfazSedes {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -34,7 +34,7 @@ public class Sedes {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Sedes window = new Sedes();
+					InterfazSedes window = new InterfazSedes();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +46,7 @@ public class Sedes {
 	/**
 	 * Create the application.
 	 */
-	public Sedes() {
+	public InterfazSedes() {
 		initialize();
 	}
 
@@ -137,27 +137,28 @@ public class Sedes {
 		gbc_btnNewButton_1.gridy = 3;
 		panel_2.add(btnNewButton_1, gbc_btnNewButton_1);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel("label1");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 5;
 		gbc_lblNewLabel.gridy = 3;
 		panel_2.add(lblNewLabel, gbc_lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
+		JLabel lblNewLabel_1 = new JLabel("Label2");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_1.gridx = 6;
 		gbc_lblNewLabel_1.gridy = 3;
 		panel_2.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		GridBagConstraints gbc_formattedTextField = new GridBagConstraints();
-		gbc_formattedTextField.insets = new Insets(0, 0, 5, 5);
-		gbc_formattedTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_formattedTextField.gridx = 5;
-		gbc_formattedTextField.gridy = 4;
-		panel_2.add(formattedTextField, gbc_formattedTextField);
+		JFormattedTextField frmtdtxtfldAa = new JFormattedTextField();
+		frmtdtxtfldAa.setText("aa");
+		GridBagConstraints gbc_frmtdtxtfldAa = new GridBagConstraints();
+		gbc_frmtdtxtfldAa.insets = new Insets(0, 0, 5, 5);
+		gbc_frmtdtxtfldAa.fill = GridBagConstraints.HORIZONTAL;
+		gbc_frmtdtxtfldAa.gridx = 5;
+		gbc_frmtdtxtfldAa.gridy = 4;
+		panel_2.add(frmtdtxtfldAa, gbc_frmtdtxtfldAa);
 		
 		textField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
