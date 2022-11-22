@@ -6,7 +6,7 @@ public class prueba{
 
 
 public static void main(String[] args) {
-        ConexionConBasedeDatos accesoBD;
+        ConexionConBaseDeDatos accesoBD;
 
         accesoBD = ConexionBaseDatosJDBC.getInstance();
 

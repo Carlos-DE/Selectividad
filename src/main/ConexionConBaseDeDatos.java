@@ -2,7 +2,7 @@ package main;
 
 import java.util.List;
 
-public abstract class ConexionConBasedeDatos {
+public abstract class ConexionConBaseDeDatos {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "database-pevau.cobadwnzalab.eu-central-1.rds.amazonaws.com";
     static final String DB_SCHEMA = "grupo11DB";

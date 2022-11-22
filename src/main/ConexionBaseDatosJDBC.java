@@ -3,7 +3,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConexionBaseDatosJDBC extends ConexionConBasedeDatos {
+public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 
     private Connection conn;
 
@@ -33,17 +33,17 @@ public class ConexionBaseDatosJDBC extends ConexionConBasedeDatos {
         String selectQueryBody = "SELECT * FROM ALUMNO WHERE Centro=?";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(selectQueryBody);
-            preparedStatement.setString(1, Centro);
+            preparedStatement.setString(1, centro);
             ResultSet rs = preparedStatement.executeQuery();
             // position result to first
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
                     int id = rs.getInt(1);
-                    String centro = rs.getString(2);
+                    String c = rs.getString(2);
                     String nombre = rs.getString(3);
                     String ap1 = rs.getString(4);
                     String ap2 = rs.getString(5);
-                    lAlumno.add(new Alumno(id, centro, nombre, ap1, ap2));
+                    lAlumno.add(new Alumno(id, c, nombre, ap1, ap2));
                 }
             }
 
@@ -84,9 +84,9 @@ public class ConexionBaseDatosJDBC extends ConexionConBasedeDatos {
             // position result to first
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    int id = rs.getint(1);
+                    int id = rs.getInt(1);
                     String nombre = rs.getString(2);
-                    lSedess.add(new Sede(id, nombre));
+                    lSedes.add(new Sede(id, nombre));
                 }
             }
 
