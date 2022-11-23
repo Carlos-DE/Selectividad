@@ -7,6 +7,7 @@ public class Controlador{
 	private VistaHome vistaHome;
 	private VistaSedes vistaSedes;
 	private VistaAsignaturas vistaAsignaturas;
+	private VistaAlumnos vistaAlumnos;
 	
 	public void setVistaHome(VistaHome vistaHome) {
 		this.vistaHome = vistaHome;
@@ -18,6 +19,10 @@ public class Controlador{
 
 	public void setVistaAsignaturas(VistaAsignaturas vistaAsignaturas) {
 		this.vistaAsignaturas = vistaAsignaturas;
+	}
+	
+	public void setVistaAlumnos(VistaAlumnos vistaAlumnos){
+		this.vistaAlumnos = vistaAlumnos;
 	}
 	
 	public void mostrarHome() {
