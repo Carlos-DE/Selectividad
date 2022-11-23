@@ -11,10 +11,15 @@ import java.awt.event.ActionListener;
 public class VistaHome extends JFrame implements ActionListener{
 
 	private Controlador controlador;
-
-	private JButton bSedes;
+	
 	private JButton bHome;
+	private JButton bAlumnos;
 	private JButton bAsignaturas;
+	private JButton bSedes;
+	private JButton bAulas;
+	private JButton bResponsables;
+	private JButton bInstitutos;
+	private JButton bGenerar;
 	
 	/**
 	 * Create the application.
@@ -32,9 +37,9 @@ public class VistaHome extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
+	
 		
-		
-		
+		//alumno,asignatura, sede,aula,resp,inst,generar
 		Panel menu = new Panel();
 		menu.setFont(new Font("Dialog", Font.PLAIN, 14));
 		menu.setBackground(new Color(0, 64, 128));
@@ -44,25 +49,53 @@ public class VistaHome extends JFrame implements ActionListener{
 		bHome.addActionListener(this);
 		menu.add(bHome);
 		
+		bAsignaturas = new JButton("Asignaturas");
+		bAsignaturas.addActionListener(this);
+		menu.add(bAsignaturas);
+		
 		bSedes = new JButton("Sedes");
 		bSedes.addActionListener(this);
 		menu.add(bSedes);
 		
-		bAsignaturas = new JButton("Asignaturas");
-		bAsignaturas.addActionListener(this);
-		menu.add(bAsignaturas);
+		bAulas = new JButton("Aulas");
+		bAulas.addActionListener(this);
+		menu.add(bAulas);
+		
+		bResponsables = new JButton("Responsables");
+		bResponsables.addActionListener(this);
+		menu.add(bResponsables);
+		
+		bInstitutos = new JButton("Institutos");
+		bInstitutos.addActionListener(this);
+		menu.add(bInstitutos);
+		
+		bGenerar = new JButton("Generar");
+		bGenerar.addActionListener(this);
+		menu.add(bGenerar);
+		
+		
 		
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==bSedes) {
-			controlador.mostrarSedes();
-		} else if (e.getSource()==bHome) {
+		if(e.getSource()==bHome) {
 			controlador.mostrarHome();
+		} else if (e.getSource()==bAlumnos) {
+			controlador.mostrarAlumnos();
 		} else if (e.getSource()==bAsignaturas) {
 			controlador.mostrarAsignaturas();
-		}
+		} else if (e.getSource()==bSedes) {
+			controlador.mostrarSedes();
+		} else if (e.getSource()==bAulas) {
+			controlador.mostrarAulas();
+		} else if (e.getSource()==bResponsables) {
+			controlador.mostrarResponsables();
+		} else if (e.getSource()==bInstitutos) {
+			controlador.mostrarInstitutos();
+		} else if (e.getSource()==bGenerar) {
+			controlador.mostrarGenerar();
+		} 
 	}
 	
 	
