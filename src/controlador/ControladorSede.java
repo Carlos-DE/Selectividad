@@ -1,10 +1,14 @@
 package controlador;
 
 import javax.swing.*;
+
+import modelo.Sede;
+
 import java.io.*;
 
 public class ControladorSede {
     public String ruta;
+    public  ConexionBaseDatosJDBC conexionBaseDatosJDBC = new ConexionBaseDatosJDBC();
     public  ControladorSede(){
 
     }
@@ -26,8 +30,14 @@ public class ControladorSede {
         String cadena;
         FileReader f = new FileReader(ruta);
         BufferedReader b = new BufferedReader(f);
+        b.readLine();
+        
         while((cadena = b.readLine())!=null) {
+        	cadena = cadena.substring(6);
             System.out.println(cadena);
+            var sede = new Sede(cadena);
+ 
+			conexionBaseDatosJDBC.insertarSede(sede);
         }
         b.close();
     }

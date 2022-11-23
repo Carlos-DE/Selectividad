@@ -15,7 +15,7 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 
     private static ConexionBaseDatosJDBC instanciaInterfaz = null;
 
-    private ConexionBaseDatosJDBC() {
+    public ConexionBaseDatosJDBC() {
         try {
             // create connection for database called DBB_SCHEMA in a server installed in
             // DB_URL, with a user USER with password PASS

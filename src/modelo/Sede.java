@@ -12,6 +12,9 @@ public class Sede{
     String nombre;
 
    
+    public Sede (String nombre) {
+    	this.nombre = nombre;
+    }
     
     public Sede(Integer idSede, String nombre) {
         this.idSede = idSede;
