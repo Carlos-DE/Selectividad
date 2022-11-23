@@ -160,7 +160,19 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
             preparedStatement.setString(2, s.getNombre());
             res = preparedStatement.executeUpdate();
         } catch (SQLException ex) {
-            // TODO Auto-generated catch block
+            ex.printStackTrace();
+        }
+        return res;
+    }
+
+    public int borrarSede(Sede s) {
+        String deleteBody = "DELETE FROM " + "SEDE" + " WHERE (idSede = ?)";
+        int res = 0;
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(deleteBody);
+            preparedStatement.setInt(1, s.getIdSede());
+            res = preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return res;
