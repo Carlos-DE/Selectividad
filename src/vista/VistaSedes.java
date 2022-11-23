@@ -14,7 +14,7 @@ import java.io.IOException;
 public class VistaSedes extends JFrame implements ActionListener{
 
 	private JButton bHome;
-	private JButton bSedes, bCargarDatos;
+	private JButton bSedes, bCargarDatos, bBorrarDatos;
 	private JButton bAlumnos;
 	private JButton bAsignaturas;
 	private JButton bAulas;
@@ -152,12 +152,13 @@ public class VistaSedes extends JFrame implements ActionListener{
 		gbc_listDireccion.gridy = 2;
 		maingrid.add(listDireccion, gbc_listDireccion);
 		
-		JButton bBorrarDatos = new JButton("BorrarDatos");
+		bBorrarDatos = new JButton("BorrarDatos");
 		GridBagConstraints gbc_bBorrarDatos = new GridBagConstraints();
 		gbc_bBorrarDatos.anchor = GridBagConstraints.NORTH;
 		gbc_bBorrarDatos.insets = new Insets(0, 0, 5, 5);
 		gbc_bBorrarDatos.gridx = 1;
 		gbc_bBorrarDatos.gridy = 3;
+		bBorrarDatos.addActionListener(this);
 		maingrid.add(bBorrarDatos, gbc_bBorrarDatos);
 		
 		
@@ -253,7 +254,9 @@ public class VistaSedes extends JFrame implements ActionListener{
 				ex.printStackTrace();
 			}
 			System.out.println("llego al boton");
-		} 
+		} else if (e.getSource()==bBorrarDatos) {
+			controladorSede.borrarDatos();
+		}
 	}
 	
 	public void setControlador(Controlador controlador) {

@@ -22,5 +22,5 @@ public abstract class ConexionConBaseDeDatos {
     public abstract List<Responsable> listaResponsable();
     public abstract int insertarSede(Sede s);
     public abstract int actualizarSede(Sede s);
-    public abstract int borrarSede(Sede s);
+    public abstract int  borrarSede();
 }

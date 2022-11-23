@@ -43,6 +43,12 @@ public class ControladorSede {
             conexionBD.insertarSede(sede);
 			//conexionBaseDatosJDBC.insertarSede(sede);
         }
+        conexionBD.listaSedes();
         b.close();
     }
+	public void borrarDatos() {
+		System.out.println("paso 1");
+		conexionBD.borrarSede();
+		
+	}
 }

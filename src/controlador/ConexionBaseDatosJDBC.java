@@ -175,12 +175,13 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
         return res;
     }
 
-    public int borrarSede(Sede s) {
-        String deleteBody = "DELETE FROM " + "SEDE" + " WHERE (idSede = ?)";
+    public int borrarSede() {
+        String deleteBody = "TRUNCATE TABLE SEDE";
         int res = 0;
+
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(deleteBody);
-            preparedStatement.setInt(1, s.getIdSede());
+            System.out.println("paso 2");
             res = preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
