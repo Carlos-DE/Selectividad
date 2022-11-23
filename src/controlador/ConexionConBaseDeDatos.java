@@ -4,6 +4,7 @@ import java.util.List;
 
 import modelo.Alumno;
 import modelo.Materia;
+import modelo.Responsable;
 import modelo.Sede;
 
 public abstract class ConexionConBaseDeDatos {
@@ -18,4 +19,7 @@ public abstract class ConexionConBaseDeDatos {
     public abstract List<Materia> listaMaterias();
     public abstract List<Sede> listaSedes();
     public abstract List<Alumno> listaAlumnosDeUnCentro(String centro);
+    public abstract List<Responsable> listaResponsable();
+    public abstract int insertarSede(Sede s);
+    public abstract int actualizarSede(Sede s);
 }
