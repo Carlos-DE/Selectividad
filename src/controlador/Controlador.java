@@ -4,6 +4,7 @@ import vista.*;
 
 public class Controlador{
 
+	ConexionConBaseDeDatos conexionBD;
 	private VistaHome vistaHome;
 	private VistaSedes vistaSedes;
 	private VistaAsignaturas vistaAsignaturas;
