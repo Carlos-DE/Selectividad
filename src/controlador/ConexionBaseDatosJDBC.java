@@ -240,7 +240,7 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(insertBody,
                     PreparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, a.getDni());
+            preparedStatement.setString(1, a.getDni());
             preparedStatement.setString(2, a.getCentro());
             preparedStatement.setString(3, a.getNombre());
             preparedStatement.setString(4, a.getApellido1());
