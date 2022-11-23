@@ -5,13 +5,17 @@ public class Alumno {
     String nombre, apellido1, apellido2, centro;
     Integer dni;
 
-    public Alumno(Integer DNI, String centro, String nombre, String apellido1, String apellido2){
+    public Alumno(String nombre) {
+    	this.nombre = nombre;
+    }
+    
+    /*public Alumno(Integer DNI, String centro, String nombre, String apellido1, String apellido2){
         this.nombre= nombre;
         this.dni=DNI;
         this.centro = centro;
         this.apellido1=apellido1;
         this.apellido2=apellido2;
-    }
+    }*/
 
     public Integer getDni() {
         return dni;

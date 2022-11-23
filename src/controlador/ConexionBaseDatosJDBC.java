@@ -16,10 +16,19 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
     private static ConexionBaseDatosJDBC instanciaInterfaz = null;
 
     public ConexionBaseDatosJDBC() {
+    	
+    	try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (Exception e)
+        {
+            System.err.println("ERROR DE DRIVER");
+        }
+    	
         try {
             // create connection for database called DBB_SCHEMA in a server installed in
             // DB_URL, with a user USER with password PASS
-            conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+            //conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+        	conn = DriverManager.getConnection("jdbc:mysql://database-pevau.cobadwnzalab.eu-central-1.rds.amazonaws.com/grupo11DB", "grupo11", "xtDA3sPVFCE9BRhK");
         } catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
         } catch (Exception e) {
@@ -49,7 +58,8 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
                     String nombre = rs.getString(3);
                     String ap1 = rs.getString(4);
                     String ap2 = rs.getString(5);
-                    lAlumno.add(new Alumno(id, c, nombre, ap1, ap2));
+                    //lAlumno.add(new Alumno(id, c, nombre, ap1, ap2));
+
                 }
             }
 

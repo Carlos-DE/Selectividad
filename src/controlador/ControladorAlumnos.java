@@ -2,16 +2,15 @@ package controlador;
 
 import javax.swing.*;
 
+import modelo.Alumno;
 import modelo.Sede;
 
 import java.io.*;
 
-public class ControladorSede {
+public class ControladorAlumnos {
     public String ruta;
     public  ConexionBaseDatosJDBC conexionBaseDatosJDBC = new ConexionBaseDatosJDBC();
-	public ConexionConBaseDeDatos conexionBD;
-
-    public  ControladorSede(){
+    public  ControladorAlumnos(){
 
     }
     public void abrirArchivo() throws IOException {
@@ -35,10 +34,10 @@ public class ControladorSede {
         b.readLine();
         
         while((cadena = b.readLine())!=null) {
-        	cadena = cadena.substring(6);
+        	//cadena = cadena.substring(6);
             System.out.println(cadena);
-            var sede = new Sede(cadena);
-            conexionBD.insertarSede(sede);
+            var alumno = new Alumno(cadena);
+            
 			//conexionBaseDatosJDBC.insertarSede(sede);
         }
         b.close();

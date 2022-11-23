@@ -11,6 +11,8 @@ public class Main {
 	}
 	
 	private void iniciar() {
+		ConexionConBaseDeDatos accesoBD;
+        accesoBD = ConexionBaseDatosJDBC.getInstance();
 		Controlador controlador = new Controlador();
 		VistaHome vistaHome = new VistaHome();
 		VistaAlumnos vistaAlumnos = new VistaAlumnos();
