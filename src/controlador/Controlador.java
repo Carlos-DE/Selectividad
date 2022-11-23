@@ -25,10 +25,10 @@ public class Controlador{
 		vistaAlumnos.setVisible(false);
 		vistaAsignaturas.setVisible(false);
 		vistaSedes.setVisible(false);
-		vistaAulas.setVisible(false);
+		//vistaAulas.setVisible(false);
 		vistaResponsables.setVisible(false);
-		vistaInstitutos.setVisible(false);
-		vistaGenerar.setVisible(false);
+		//vistaInstitutos.setVisible(false);
+		//vistaGenerar.setVisible(false);
 	}
 	
 	public void mostrarAlumnos() {
@@ -36,10 +36,10 @@ public class Controlador{
 		vistaAlumnos.setVisible(true);
 		vistaAsignaturas.setVisible(false);
 		vistaSedes.setVisible(false);
-		vistaAulas.setVisible(false);
+		//vistaAulas.setVisible(false);
 		vistaResponsables.setVisible(false);
-		vistaInstitutos.setVisible(false);
-		vistaGenerar.setVisible(false);
+		//vistaInstitutos.setVisible(false);
+		//vistaGenerar.setVisible(false);
 	}
 	
 	public void mostrarAsignaturas() {
@@ -47,10 +47,10 @@ public class Controlador{
 		vistaAlumnos.setVisible(false);
 		vistaAsignaturas.setVisible(true);
 		vistaSedes.setVisible(false);
-		vistaAulas.setVisible(false);
+		//vistaAulas.setVisible(false);
 		vistaResponsables.setVisible(false);
-		vistaInstitutos.setVisible(false);
-		vistaGenerar.setVisible(false);
+		//vistaInstitutos.setVisible(false);
+		//vistaGenerar.setVisible(false);
 	}
 
 	public void mostrarSedes() {
@@ -58,10 +58,10 @@ public class Controlador{
 		vistaAlumnos.setVisible(false);
 		vistaAsignaturas.setVisible(false);
 		vistaSedes.setVisible(true);
-		vistaAulas.setVisible(false);
+		//vistaAulas.setVisible(false);
 		vistaResponsables.setVisible(false);
-		vistaInstitutos.setVisible(false);
-		vistaGenerar.setVisible(false);
+		//vistaInstitutos.setVisible(false);
+		//vistaGenerar.setVisible(false);
 	}
 	
 	public void mostrarAulas() {
@@ -69,10 +69,10 @@ public class Controlador{
 		vistaAlumnos.setVisible(false);
 		vistaAsignaturas.setVisible(false);
 		vistaSedes.setVisible(false);
-		vistaAulas.setVisible(true);
+		//vistaAulas.setVisible(true);
 		vistaResponsables.setVisible(false);
-		vistaInstitutos.setVisible(false);
-		vistaGenerar.setVisible(false);
+		//vistaInstitutos.setVisible(false);
+		//vistaGenerar.setVisible(false);
 	}
 	
 	public void mostrarResponsables() {
@@ -80,10 +80,10 @@ public class Controlador{
 		vistaAlumnos.setVisible(false);
 		vistaAsignaturas.setVisible(false);
 		vistaSedes.setVisible(false);
-		vistaAulas.setVisible(false);
+		//vistaAulas.setVisible(false);
 		vistaResponsables.setVisible(true);
-		vistaInstitutos.setVisible(false);
-		vistaGenerar.setVisible(false);
+		//vistaInstitutos.setVisible(false);
+		//vistaGenerar.setVisible(false);
 	}
 	
 	public void mostrarInstitutos() {
@@ -91,10 +91,10 @@ public class Controlador{
 		vistaAlumnos.setVisible(false);
 		vistaAsignaturas.setVisible(false);
 		vistaSedes.setVisible(false);
-		vistaAulas.setVisible(false);
+		//vistaAulas.setVisible(false);
 		vistaResponsables.setVisible(false);
-		vistaInstitutos.setVisible(true);
-		vistaGenerar.setVisible(false);
+		//vistaInstitutos.setVisible(true);
+		//vistaGenerar.setVisible(false);
 	}
 	
 	public void mostrarGenerar() {
@@ -102,9 +102,9 @@ public class Controlador{
 		vistaAlumnos.setVisible(false);
 		vistaAsignaturas.setVisible(false);
 		vistaSedes.setVisible(false);
-		vistaAulas.setVisible(false);
+		//vistaAulas.setVisible(false);
 		vistaResponsables.setVisible(false);
-		vistaInstitutos.setVisible(false);
-		vistaGenerar.setVisible(true);
+		//vistaInstitutos.setVisible(false);
+		//vistaGenerar.setVisible(true);
 	}
 }

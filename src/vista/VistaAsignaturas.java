@@ -26,7 +26,9 @@ import java.awt.TextArea;
 public class VistaAsignaturas  extends JFrame implements ActionListener {
 	
 	private JButton bHome;
+	private JButton bAlumnos;
 	private JButton bSedes;
+	private JButton bResponsables;
 	private JButton bAsignaturas;
 	private Controlador controlador;
 
@@ -79,11 +81,15 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 		
 		bSedes = new JButton("Sedes");
 		bSedes.addActionListener(this);
-		menu.add(bSedes);
+		
+		bAlumnos = new JButton("Alumnos");
+		bAlumnos.addActionListener(this);
 		
 		bAsignaturas = new JButton("Asignaturas");
 		bAsignaturas.addActionListener(this);
-		menu.add(bAsignaturas);
+		
+		bResponsables = new JButton("Responsables");
+		bResponsables.addActionListener(this);
 		
 	
 			
@@ -170,6 +176,10 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 			controlador.mostrarHome();
 		} else if (e.getSource()==bAsignaturas){
 			controlador.mostrarAsignaturas();
+		}else if (e.getSource()==bAlumnos){
+			controlador.mostrarAlumnos();
+		}else if (e.getSource()==bResponsables){
+			controlador.mostrarResponsables();
 		}
 	}
 	
