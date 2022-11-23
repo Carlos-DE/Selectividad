@@ -8,8 +8,8 @@ import java.io.*;
 
 public class ControladorSede {
     public String ruta;
-    public  ConexionBaseDatosJDBC conexionBaseDatosJDBC = new ConexionBaseDatosJDBC();
-	public ConexionConBaseDeDatos conexionBD;
+	public ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
+;
 
     public  ControladorSede(){
 
@@ -35,9 +35,11 @@ public class ControladorSede {
         b.readLine();
         
         while((cadena = b.readLine())!=null) {
-        	cadena = cadena.substring(6);
+        	String cadenaId = cadena.substring(3,5);
+        	String cadenaNombre = cadena.substring(6);
+        	int id = Integer.parseInt(cadenaId);
             System.out.println(cadena);
-            var sede = new Sede(cadena);
+            var sede = new Sede(id,cadenaNombre);
             conexionBD.insertarSede(sede);
 			//conexionBaseDatosJDBC.insertarSede(sede);
         }
