@@ -57,21 +57,21 @@ public class VistaHome extends JFrame implements ActionListener{
 		bSedes.addActionListener(this);
 		menu.add(bSedes);
 		
-		bAulas = new JButton("Aulas");
-		bAulas.addActionListener(this);
-		menu.add(bAulas);
+//		bAulas = new JButton("Aulas");
+//		bAulas.addActionListener(this);
+//		menu.add(bAulas);
 		
 		bResponsables = new JButton("Responsables");
 		bResponsables.addActionListener(this);
 		menu.add(bResponsables);
 		
-		bInstitutos = new JButton("Institutos");
-		bInstitutos.addActionListener(this);
-		menu.add(bInstitutos);
+//		bInstitutos = new JButton("Institutos");
+//		bInstitutos.addActionListener(this);
+//		menu.add(bInstitutos);
 		
-		bGenerar = new JButton("Generar");
-		bGenerar.addActionListener(this);
-		menu.add(bGenerar);
+//		bGenerar = new JButton("Generar");
+//		bGenerar.addActionListener(this);
+//		menu.add(bGenerar);
 		
 		
 		

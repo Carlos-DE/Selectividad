@@ -12,8 +12,14 @@ public class Main {
 	private void iniciar() {
 		Controlador controlador = new Controlador();
 		VistaHome vistaHome = new VistaHome();
-		VistaSedes vistaSedes = new VistaSedes();
+		VistaAlumnos vistaAlumnos = new VistaAlumnos();
 		VistaAsignaturas vistaAsignaturas = new VistaAsignaturas();
+		VistaSedes vistaSedes = new VistaSedes();
+//		VistaAulas vistaAulas = new VistaAulas();
+		VistaResponsables vistaResponsables = new VistaResponsables();
+//		VistaInstitutos vistaInstitutos = new VistaInstitutos();
+//		VistaGenerar vistaGenerar = new VistaGenerar();
+		
 		
 		
 		vistaHome.setControlador(controlador);
@@ -21,8 +27,14 @@ public class Main {
 		vistaAsignaturas.setControlador(controlador);
 		
 		controlador.setVistaHome(vistaHome);
-		controlador.setVistaSedes(vistaSedes);
+		controlador.setVistaAlumnos(vistaAlumnos);
 		controlador.setVistaAsignaturas(vistaAsignaturas);
+		controlador.setVistaSedes(vistaSedes);
+//		controlador.setVistaAulas(vistaAulas);
+		controlador.setVistaResponsables(vistaResponsables);
+//		controlador.setVistaInstitutos(vistaInstitutos);
+//		controlador.setVistaGenerar(vistaGenerar);
+		
 		
 		
 		
