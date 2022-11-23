@@ -4,18 +4,21 @@ package vista;
 import javax.swing.*;
 
 import controlador.Controlador;
+import controlador.ControladorResponsables;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class VistaResponsables extends JFrame implements ActionListener{
 	private JButton bHome;
 	private JButton bSedes;
-	private JButton bAlumnos;
+	private JButton bAlumnos,bCargarDatos, bBorrarDatos;
 	private JButton bAsignaturas;
 	private JButton bResponsables;
 	private Controlador controlador;
+	private ControladorResponsables controladorResponsables;
 
 	/**
 	 * Launch the application.
@@ -155,7 +158,7 @@ public class VistaResponsables extends JFrame implements ActionListener{
 		
 		
 		
-		JButton bCargarDatos = new JButton("CargarDatos");
+		bCargarDatos = new JButton("CargarDatos");
 		GridBagConstraints gbc_bCargarDatos = new GridBagConstraints();
 		gbc_bCargarDatos.insets = new Insets(0, 0, 5, 5);
 		gbc_bCargarDatos.gridx = 1;
@@ -199,6 +202,14 @@ public class VistaResponsables extends JFrame implements ActionListener{
 			controlador.mostrarAsignaturas();
 		}else if(e.getSource()==bResponsables){
 			controlador.mostrarResponsables();
+		} else if(e.getSource()==bCargarDatos) {
+			System.out.println("llego al boton");
+			try {
+				controladorResponsables.abrirArchivo();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			System.out.println("llego al boton");
 		}
 	}
 	
