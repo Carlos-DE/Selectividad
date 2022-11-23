@@ -3,17 +3,21 @@ package vista;
 import javax.swing.*;
 
 import controlador.Controlador;
+import controlador.ControladorSede;
+import modelo.Sede;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class VistaSedes extends JFrame implements ActionListener{
 
 	private JButton bHome;
-	private JButton bSedes;
+	private JButton bSedes, bCargarDatos;
 	private JTextField fieldDireccion;
 	private Controlador controlador;
+	private ControladorSede controladorSede = new ControladorSede();
 
 	/**
 	 * Launch the application.
@@ -90,11 +94,12 @@ public class VistaSedes extends JFrame implements ActionListener{
 		
 		
 		
-		JButton bCargarDatos = new JButton("CargarDatos");
+		bCargarDatos = new JButton("CargarDatos");
 		GridBagConstraints gbc_bCargarDatos = new GridBagConstraints();
 		gbc_bCargarDatos.insets = new Insets(0, 0, 5, 5);
 		gbc_bCargarDatos.gridx = 1;
 		gbc_bCargarDatos.gridy = 2;
+		bCargarDatos.addActionListener(this);
 		maingrid.add(bCargarDatos, gbc_bCargarDatos);
 		
 		List listNombre = new List();
@@ -196,7 +201,16 @@ public class VistaSedes extends JFrame implements ActionListener{
 			controlador.mostrarSedes();
 		} else if (e.getSource()==bHome) {
 			controlador.mostrarHome();
+		} else if(e.getSource()==bCargarDatos) {
+			System.out.println("llego al boton");
+			try {
+				controladorSede.abrirArchivo();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			System.out.println("llego al boton");
 		}
+		
 	}
 	
 	public void setControlador(Controlador controlador) {

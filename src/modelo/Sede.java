@@ -1,10 +1,18 @@
 package modelo;
 
+import java.io.*;
+
+import javax.swing.JFileChooser;
+
 public class Sede{
 
+	
+	String ruta;
     Integer idSede;
     String nombre;
 
+   
+    
     public Sede(Integer idSede, String nombre) {
         this.idSede = idSede;
         this.nombre = nombre;
@@ -25,4 +33,8 @@ public class Sede{
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    
+
+    
+    
 }

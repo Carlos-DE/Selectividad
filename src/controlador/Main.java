@@ -1,4 +1,5 @@
 package controlador;
+import modelo.Sede;
 import vista.*;
 
 public class Main {
@@ -14,6 +15,7 @@ public class Main {
 		VistaHome vistaHome = new VistaHome();
 		VistaSedes vistaSedes = new VistaSedes();
 		VistaAsignaturas vistaAsignaturas = new VistaAsignaturas();
+		
 		
 		
 		vistaHome.setControlador(controlador);
