@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controlador.Controlador;
+import controlador.ControladorAsignaturas;
 
 import javax.swing.JButton;
 
@@ -26,11 +28,12 @@ import java.awt.TextArea;
 public class VistaAsignaturas  extends JFrame implements ActionListener {
 	
 	private JButton bHome;
-	private JButton bAlumnos;
+	private JButton bAlumnos, bCargarDatos,bBorrarDatos;
 	private JButton bSedes;
 	private JButton bResponsables;
 	private JButton bAsignaturas;
 	private Controlador controlador;
+	private ControladorAsignaturas controladorAsignaturas= new ControladorAsignaturas();
 
 	/**
 	 * Launch the application.
@@ -116,11 +119,12 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 		
 		
 		
-		JButton bCargarDatos = new JButton("CargarDatos");
+		bCargarDatos = new JButton("CargarDatos");
 		GridBagConstraints gbc_bCargarDatos = new GridBagConstraints();
 		gbc_bCargarDatos.insets = new Insets(0, 0, 5, 5);
 		gbc_bCargarDatos.gridx = 1;
 		gbc_bCargarDatos.gridy = 2;
+		bCargarDatos.addActionListener(this);
 		maingrid.add(bCargarDatos, gbc_bCargarDatos);
 		
 		List listNombre = new List();
@@ -132,12 +136,13 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 		gbc_listNombre.gridy = 2;
 		maingrid.add(listNombre, gbc_listNombre);
 		
-		JButton bBorrarDatos = new JButton("BorrarDatos");
+		bBorrarDatos = new JButton("BorrarDatos");
 		GridBagConstraints gbc_bBorrarDatos = new GridBagConstraints();
 		gbc_bBorrarDatos.anchor = GridBagConstraints.NORTH;
 		gbc_bBorrarDatos.insets = new Insets(0, 0, 5, 5);
 		gbc_bBorrarDatos.gridx = 1;
 		gbc_bBorrarDatos.gridy = 3;
+		bBorrarDatos.addActionListener(this);
 		maingrid.add(bBorrarDatos, gbc_bBorrarDatos);
 		
 		
@@ -189,6 +194,16 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 			controlador.mostrarAlumnos();
 		}else if (e.getSource()==bResponsables){
 			controlador.mostrarResponsables();
+		} else if(e.getSource()==bCargarDatos) {
+			System.out.println("llego al boton");
+			try {
+				controladorAsignaturas.abrirArchivo();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			System.out.println("llego al boton");
+		} else if (e.getSource()==bBorrarDatos) {
+			controladorAsignaturas.borrarDatos();
 		}
 	}
 	

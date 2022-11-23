@@ -1,26 +1,31 @@
 package controlador;
 
-import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
+import javax.swing.JFileChooser;
+
+import modelo.Materia;
 import modelo.Sede;
 
-import java.io.*;
-
-public class ControladorSede {
-    public String ruta;
+public class ControladorAsignaturas {
+	public String ruta;
 	public ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
 
-    public  ControladorSede(){
+    public  ControladorAsignaturas(){
 
     }
     public void abrirArchivo() throws IOException {
-        System.out.println("llego 1");
+        //System.out.println("llego 1");
 
         JFileChooser jf = new JFileChooser();
-        System.out.println("llego 2");
+        //System.out.println("llego 2");
 
         jf.showOpenDialog(jf);
-        System.out.println("llego 3");
+        //System.out.println("llego 3");
         File archivo = jf.getSelectedFile();
         if(archivo !=null) {
             ruta = archivo.getAbsolutePath();
@@ -34,12 +39,10 @@ public class ControladorSede {
         b.readLine();
         
         while((cadena = b.readLine())!=null) {
-        	String cadenaId = cadena.substring(3,5);
-        	String cadenaNombre = cadena.substring(6);
-        	int id = Integer.parseInt(cadenaId);
+        	//int id = Integer.parseInt(cadena);
             System.out.println(cadena);
-            var sede = new Sede(id,cadenaNombre);
-            conexionBD.insertarSede(sede);
+            var asignatura = new Materia(cadena);
+            conexionBD.insertarAsignaturas(asignatura);
 			//conexionBaseDatosJDBC.insertarSede(sede);
         }
         conexionBD.listaSedes();
@@ -47,7 +50,8 @@ public class ControladorSede {
     }
 	public void borrarDatos() {
 		System.out.println("paso 1");
-		conexionBD.borrarSede();
+		conexionBD.borrarAsignaturas();
 		
 	}
+
 }

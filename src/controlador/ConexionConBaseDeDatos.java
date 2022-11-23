@@ -23,4 +23,7 @@ public abstract class ConexionConBaseDeDatos {
     public abstract int insertarSede(Sede s);
     public abstract int actualizarSede(Sede s);
     public abstract int  borrarSede();
+    public abstract int borrarAsignaturas();
+	public abstract int insertarAsignaturas(Materia asignatura);
+	//protected abstract void borrarAsignaturas();
 }

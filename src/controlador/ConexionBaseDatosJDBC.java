@@ -188,4 +188,39 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
         }
         return res;
     }
+    
+    
+    public int insertarAsignaturas(Materia m) {
+        int materiaId = 0;
+        String insertBody = "INSERT INTO " + "MATERIA" + "(IdMateria) VALUES (?)";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(insertBody,
+                    PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, m.getIdMateria());
+            int res = preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            while (rs.next()) {
+                materiaId = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return materiaId;
+    }
+    
+    
+    public int borrarAsignaturas() {
+        String deleteBody = "TRUNCATE TABLE MATERIA";
+        int res = 0;
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(deleteBody);
+            System.out.println("paso 2");
+            res = preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return res;
+    }
+    
 }

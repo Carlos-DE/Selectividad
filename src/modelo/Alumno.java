@@ -2,20 +2,17 @@ package modelo;
 
 public class Alumno {
 
-    String nombre, apellido1, apellido2, centro;
+    String nombre, apellido1, apellido2, centro, DetalleMateria;
     Integer dni;
-
-    public Alumno(String nombre) {
-    	this.nombre = nombre;
-    }
     
-    /*public Alumno(Integer DNI, String centro, String nombre, String apellido1, String apellido2){
+    public Alumno(Integer DNI, String centro, String nombre, String apellido1, String apellido2, String DetalleMateria){
         this.nombre= nombre;
         this.dni=DNI;
         this.centro = centro;
         this.apellido1=apellido1;
         this.apellido2=apellido2;
-    }*/
+        this.DetalleMateria = DetalleMateria;
+    }
 
     public Integer getDni() {
         return dni;
@@ -36,6 +33,10 @@ public class Alumno {
     public String getNombre() {
         return nombre;
     }
+    
+    public String getDetalleMateria() {
+        return DetalleMateria;
+    }
 
     public void setApellido1(String apellido1) {
         this.apellido1 = apellido1;
@@ -55,5 +56,9 @@ public class Alumno {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    
+    public void setDetalleMateria(String s){
+        this.DetalleMateria = s;
     }
 }

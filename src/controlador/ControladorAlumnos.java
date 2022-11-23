@@ -36,7 +36,7 @@ public class ControladorAlumnos {
         while((cadena = b.readLine())!=null) {
         	//cadena = cadena.substring(6);
             System.out.println(cadena);
-            var alumno = new Alumno(cadena);
+            //var alumno = new Alumno(cadena);
             
 			//conexionBaseDatosJDBC.insertarSede(sede);
         }
