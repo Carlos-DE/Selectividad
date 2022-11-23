@@ -6,10 +6,11 @@ import modelo.Alumno;
 import modelo.Sede;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class ControladorAlumnos {
-    public String ruta;
-    public  ConexionBaseDatosJDBC conexionBaseDatosJDBC = new ConexionBaseDatosJDBC();
+	public String ruta;
+	public ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();;
     public  ControladorAlumnos(){
 
     }
@@ -27,19 +28,19 @@ public class ControladorAlumnos {
             carga(ruta);
         }
     }
-    private void carga(String ruta) throws FileNotFoundException, IOException {
-        String cadena;
-        FileReader f = new FileReader(ruta);
-        BufferedReader b = new BufferedReader(f);
-        b.readLine();
-        
-        while((cadena = b.readLine())!=null) {
-        	//cadena = cadena.substring(6);
-            System.out.println(cadena);
-            //var alumno = new Alumno(cadena);
-            
-			//conexionBaseDatosJDBC.insertarSede(sede);
+    private void carga(String ruta) throws FileNotFoundException, IOException {     
+        Scanner sc = new Scanner(new File(ruta));
+        //parsing a CSV file into the constructor of Scanner class 
+        sc.useDelimiter(",");
+        //setting comma as delimiter pattern
+        while (sc.hasNext()) {
+          System.out.print(sc.next());
         }
-        b.close();
-    }
+        sc.close();
+}
+	public void borrarDatos() {
+		System.out.println("paso 1");
+		conexionBD.borrarAlumno();
+		
+	}
 }

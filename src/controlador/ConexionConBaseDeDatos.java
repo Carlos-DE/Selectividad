@@ -27,5 +27,8 @@ public abstract class ConexionConBaseDeDatos {
 	public abstract int insertarAsignaturas(Materia asignatura);
 	public abstract int insertarAlumno(Alumno a);
     public abstract int borrarAlumno();
+	public abstract int insertarResponsable(Responsable responsable);
+    public abstract int borrarResponsables();
+
 	
 }

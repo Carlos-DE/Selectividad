@@ -6,12 +6,16 @@ public class Responsable{
 
     String nombre, apellido1, apellido2;
 
-    public Responsable(Integer idResponsable, String nombre, String apellido1, String apellido2){
+    public Responsable(String nombre) {
+    	this.nombre=nombre;
+    }
+    
+   /* public Responsable(Integer idResponsable, String nombre, String apellido1, String apellido2){
         this.idResponsable = idResponsable;
         this.nombre = nombre;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
-    }
+    }*/
 
     public Integer getIdResponsable() {
         return idResponsable;

@@ -122,11 +122,8 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
             // position result to first
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    int id = rs.getInt(1);
-                    String nombre = rs.getString(2);
-                    String ap1 = rs.getString(3);
-                    String ap2 = rs.getString(4);
-                    lResponsables.add(new Responsable(id, nombre, ap1, ap2));
+                    String nombre = rs.getString(1);
+                    lResponsables.add(new Responsable(nombre));
                 }
             }
 
@@ -260,5 +257,40 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
         return sedeId;
     }
     
+    public int insertarResponsable(Responsable a) {
+        int responsableId = 0;
+        String insertBody = "INSERT INTO " + "RESPONSABLE" + "(Nombre) VALUES (?)";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(insertBody,
+                    PreparedStatement.RETURN_GENERATED_KEYS);
+            //preparedStatement.setInt(1, a.getIdResponsable());
+            preparedStatement.setString(1, a.getNombre());
+           // preparedStatement.setString(3, a.getApellido1());
+           // preparedStatement.setString(4, a.getApellido2());
+            int res = preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            while (rs.next()) {
+                responsableId = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return responsableId;
+    }
+    
+    
+    public int borrarResponsables() {
+        String deleteBody = "TRUNCATE TABLE RESPONSABLE";
+        int res = 0;
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(deleteBody);
+            System.out.println("paso 2");
+            res = preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return res;
+    }
     
 }

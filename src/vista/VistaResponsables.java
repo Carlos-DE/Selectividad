@@ -4,18 +4,23 @@ package vista;
 import javax.swing.*;
 
 import controlador.Controlador;
+import controlador.ControladorResponsables;
+import controlador.ControladorSede;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class VistaResponsables extends JFrame implements ActionListener{
 	private JButton bHome;
-	private JButton bSedes;
+	private JButton bSedes,bCargarDatos, bBorrarDatos;
 	private JButton bAlumnos;
 	private JButton bAsignaturas;
 	private JButton bResponsables;
 	private Controlador controlador;
+	private ControladorResponsables controladorResponsables = new ControladorResponsables();
+
 
 	/**
 	 * Launch the application.
@@ -42,9 +47,9 @@ public class VistaResponsables extends JFrame implements ActionListener{
 		getContentPane().add(maingrid, BorderLayout.CENTER);
 		GridBagLayout gbl_maingrid = new GridBagLayout();
 		gbl_maingrid.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_maingrid.rowHeights = new int[]{40, 30, 30, 110, 15, 120, 113, 81, 15, 0};
+		gbl_maingrid.rowHeights = new int[]{40, 30, 30, 110, 15, 120, 113, 0, 81, 15, 0};
 		gbl_maingrid.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_maingrid.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_maingrid.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		maingrid.setLayout(gbl_maingrid);
 		
 		
@@ -155,12 +160,22 @@ public class VistaResponsables extends JFrame implements ActionListener{
 		
 		
 		
-		JButton bCargarDatos = new JButton("CargarDatos");
+		bCargarDatos = new JButton("CargarDatos");
 		GridBagConstraints gbc_bCargarDatos = new GridBagConstraints();
 		gbc_bCargarDatos.insets = new Insets(0, 0, 5, 5);
 		gbc_bCargarDatos.gridx = 1;
 		gbc_bCargarDatos.gridy = 6;
+		bCargarDatos.addActionListener(this);
 		maingrid.add(bCargarDatos, gbc_bCargarDatos);
+		
+		bBorrarDatos = new JButton("BorrarDatos");
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton.gridx = 1;
+		gbc_btnNewButton.gridy = 7;
+		bBorrarDatos.addActionListener(this);
+
+		maingrid.add(bBorrarDatos, gbc_btnNewButton);
 		
 		
 		
@@ -171,7 +186,7 @@ public class VistaResponsables extends JFrame implements ActionListener{
 		gbc_bDescargarLog.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_bDescargarLog.insets = new Insets(0, 0, 5, 5);
 		gbc_bDescargarLog.gridx = 1;
-		gbc_bDescargarLog.gridy = 7;
+		gbc_bDescargarLog.gridy = 8;
 		maingrid.add(bDescargarLog, gbc_bDescargarLog);
 		
 		TextArea logText = new TextArea();
@@ -182,7 +197,7 @@ public class VistaResponsables extends JFrame implements ActionListener{
 		gbc_logText.gridwidth = 2;
 		gbc_logText.insets = new Insets(0, 0, 5, 5);
 		gbc_logText.gridx = 3;
-		gbc_logText.gridy = 7;
+		gbc_logText.gridy = 8;
 		maingrid.add(logText, gbc_logText);
 		logText.setEditable(false);
 	}
@@ -199,6 +214,16 @@ public class VistaResponsables extends JFrame implements ActionListener{
 			controlador.mostrarAsignaturas();
 		}else if(e.getSource()==bResponsables){
 			controlador.mostrarResponsables();
+		}else if(e.getSource()==bCargarDatos) {
+			System.out.println("llego al boton");
+			try {
+				controladorResponsables.abrirArchivo();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			System.out.println("llego al boton");
+		} else if (e.getSource()==bBorrarDatos) {
+			controladorResponsables.borrarDatos();
 		}
 	}
 	
