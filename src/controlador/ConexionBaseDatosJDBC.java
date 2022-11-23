@@ -237,7 +237,7 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
     }
     
     public int insertarAlumno(Alumno a) {
-        int sedeId = 0;
+        int alumnoId = 0;
         String insertBody = "INSERT INTO " + "ALUMNO" + "(DNI, Centro, Nombre, Apellido1, Apellido2,"
                 + "DetalleMateria) VALUES (?, ?, ?, ?, ?, ?)";
         try {
@@ -252,13 +252,48 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
             int res = preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             while (rs.next()) {
-                sedeId = rs.getInt(1);
+            	alumnoId = rs.getInt(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return sedeId;
+        return alumnoId;
     }
     
+    public int insertarResponsable(Responsable a) {
+        int responsableId = 0;
+        String insertBody = "INSERT INTO " + "RESPONSABLE" + "(IdResponsable, Nombre, Apellido1, Apellido2) VALUES (?, ?, ?, ?)";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(insertBody,
+                    PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt(1, a.getIdResponsable());
+            preparedStatement.setString(2, a.getNombre());
+            preparedStatement.setString(3, a.getApellido1());
+            preparedStatement.setString(4, a.getApellido2());
+            int res = preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            while (rs.next()) {
+                responsableId = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return responsableId;
+    }
+    
+    
+    public int borrarResponsables() {
+        String deleteBody = "TRUNCATE TABLE RESPONSABLE";
+        int res = 0;
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(deleteBody);
+            System.out.println("paso 2");
+            res = preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return res;
+    }
     
 }
