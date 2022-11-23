@@ -102,7 +102,7 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
         return lSedes;
     }
 
-    public List<Responsable> listaResponsables() {
+    public List<Responsable> listaResponsable() {
         ArrayList<Responsable> lResponsables = new ArrayList<>();
         String selectQueryBody = "SELECT * FROM RESPONSABLE";
         Statement querySt;
@@ -124,5 +124,57 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
             e.printStackTrace();
         }
         return lResponsables;
+    }
+
+    public int insertarSede(Sede s) {
+        int sedeId = 0;
+        String insertBody = "INSERT INTO " + "SEDE" + "(idSede, NombreSede) VALUES (?, ?)";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(insertBody,
+                    PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt(1, s.getIdSede());
+            preparedStatement.setString(2, s.getNombre());
+            int res = preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            while (rs.next()) {
+                sedeId = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sedeId;
+    }
+
+    public int actualizarSede(Sede s) {
+        PreparedStatement preparedStatement = null;
+        String updateBody = null;
+        int res = 0;
+        try {
+            updateBody = "UPDATE " + "SEDE" + " SET nombre = "+ s.getNombre() +" WHERE (idSede = "+ s.getIdSede() +")";
+            preparedStatement = conn.prepareStatement(updateBody);
+            if (s.getIdSede() == null) {
+                preparedStatement.setNull(1, java.sql.Types.INTEGER);
+            } else {
+                preparedStatement.setInt(1, s.getIdSede());
+            }
+            preparedStatement.setString(2, s.getNombre());
+            res = preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return res;
+    }
+
+    public int borrarSede(Sede s) {
+        String deleteBody = "DELETE FROM " + "SEDE" + " WHERE (idSede = ?)";
+        int res = 0;
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(deleteBody);
+            preparedStatement.setInt(1, s.getIdSede());
+            res = preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return res;
     }
 }

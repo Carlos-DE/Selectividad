@@ -15,6 +15,12 @@ public class VistaSedes extends JFrame implements ActionListener{
 
 	private JButton bHome;
 	private JButton bSedes, bCargarDatos;
+	private JButton bAlumnos;
+	private JButton bAsignaturas;
+	private JButton bAulas;
+	private JButton bResponsables;
+	private JButton bInstitutos;
+	private JButton bGenerar;
 	private JTextField fieldDireccion;
 	private Controlador controlador;
 	private ControladorSede controladorSede = new ControladorSede();
@@ -66,12 +72,32 @@ public class VistaSedes extends JFrame implements ActionListener{
 		bHome.addActionListener(this);
 		menu.add(bHome);
 		
+		bAsignaturas = new JButton("Asignaturas");
+		bAsignaturas.addActionListener(this);
+		menu.add(bAsignaturas);
+		
 		bSedes = new JButton("Sedes");
 		bSedes.addActionListener(this);
 		menu.add(bSedes);
 		
+//		bAulas = new JButton("Aulas");
+//		bAulas.addActionListener(this);
+//		menu.add(bAulas);
+		
+		bResponsables = new JButton("Responsables");
+		bResponsables.addActionListener(this);
+		menu.add(bResponsables);
+		
+//		bInstitutos = new JButton("Institutos");
+//		bInstitutos.addActionListener(this);
+//		menu.add(bInstitutos);
+		
+//		bGenerar = new JButton("Generar");
+//		bGenerar.addActionListener(this);
+//		menu.add(bGenerar);
+		
 	
-			
+		
 		
 		
 		JLabel lblNombreSede = new JLabel("Nombre Sede");
@@ -197,10 +223,22 @@ public class VistaSedes extends JFrame implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==bSedes) {
-			controlador.mostrarSedes();
-		} else if (e.getSource()==bHome) {
+		if(e.getSource()==bHome) {
 			controlador.mostrarHome();
+		} else if (e.getSource()==bAlumnos) {
+			controlador.mostrarAlumnos();
+		} else if (e.getSource()==bAsignaturas) {
+			controlador.mostrarAsignaturas();
+		} else if (e.getSource()==bSedes) {
+			controlador.mostrarSedes();
+		} else if (e.getSource()==bAulas) {
+			controlador.mostrarAulas();
+		} else if (e.getSource()==bResponsables) {
+			controlador.mostrarResponsables();
+		} else if (e.getSource()==bInstitutos) {
+			controlador.mostrarInstitutos();
+		} else if (e.getSource()==bGenerar) {
+			controlador.mostrarGenerar();
 		} else if(e.getSource()==bCargarDatos) {
 			System.out.println("llego al boton");
 			try {
@@ -209,8 +247,7 @@ public class VistaSedes extends JFrame implements ActionListener{
 				ex.printStackTrace();
 			}
 			System.out.println("llego al boton");
-		}
-		
+		} 
 	}
 	
 	public void setControlador(Controlador controlador) {
