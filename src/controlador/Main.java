@@ -27,6 +27,7 @@ public class Main {
 		
 		
 		vistaHome.setControlador(controlador);
+		vistaAlumnos.setControlador(controlador);
 		vistaSedes.setControlador(controlador);
 		vistaAsignaturas.setControlador(controlador);
 		vistaResponsables.setControlador(controlador);
