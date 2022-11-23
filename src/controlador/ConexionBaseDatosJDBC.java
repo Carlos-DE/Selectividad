@@ -1,7 +1,13 @@
-package main;
+package controlador;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import controlador.ConexionConBaseDeDatos;
+import modelo.Alumno;
+import modelo.Materia;
+import modelo.Responsable;
+import modelo.Sede;
 
 public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 

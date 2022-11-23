@@ -1,6 +1,10 @@
-package main;
+package controlador;
 
 import java.util.List;
+
+import modelo.Alumno;
+import modelo.Materia;
+import modelo.Sede;
 
 public abstract class ConexionConBaseDeDatos {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
