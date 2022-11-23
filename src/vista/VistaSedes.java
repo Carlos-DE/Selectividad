@@ -12,6 +12,7 @@ public class VistaSedes extends JFrame implements ActionListener{
 
 	private JButton bHome;
 	private JButton bSedes;
+	private JButton bAsignaturas;
 	private JTextField fieldDireccion;
 	private Controlador controlador;
 
@@ -66,6 +67,10 @@ public class VistaSedes extends JFrame implements ActionListener{
 		bSedes.addActionListener(this);
 		menu.add(bSedes);
 		
+		bAsignaturas = new JButton("Asignaturas");
+		bAsignaturas.addActionListener(this);
+		menu.add(bAsignaturas);
+		
 	
 			
 		
@@ -78,7 +83,7 @@ public class VistaSedes extends JFrame implements ActionListener{
 		gbc_lblNombreSede.gridy = 1;
 		maingrid.add(lblNombreSede, gbc_lblNombreSede);
 		
-		JLabel lblDireccion = new JLabel("Dirección");
+		JLabel lblDireccion = new JLabel("Direccion");
 		GridBagConstraints gbc_lblDireccion = new GridBagConstraints();
 		gbc_lblDireccion.fill = GridBagConstraints.BOTH;
 		gbc_lblDireccion.insets = new Insets(0, 0, 5, 5);
@@ -196,6 +201,8 @@ public class VistaSedes extends JFrame implements ActionListener{
 			controlador.mostrarSedes();
 		} else if (e.getSource()==bHome) {
 			controlador.mostrarHome();
+		} else if (e.getSource()==bAsignaturas){
+			controlador.mostrarAsignaturas();
 		}
 	}
 	
