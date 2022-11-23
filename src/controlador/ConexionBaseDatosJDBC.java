@@ -223,4 +223,42 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
         return res;
     }
     
+    public int borrarAlumno() {
+        String deleteBody = "TRUNCATE TABLE ALUMNO";
+        int res = 0;
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(deleteBody);
+            System.out.println("paso 2");
+            res = preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return res;
+    }
+    
+    public int insertarAlumno(Alumno a) {
+        int sedeId = 0;
+        String insertBody = "INSERT INTO " + "ALUMNO" + "(DNI, Centro, Nombre, Apellido1, Apellido2,"
+                + "DetalleMateria) VALUES (?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(insertBody,
+                    PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt(1, a.getDni());
+            preparedStatement.setString(2, a.getCentro());
+            preparedStatement.setString(3, a.getNombre());
+            preparedStatement.setString(4, a.getApellido1());
+            preparedStatement.setString(5, a.getApellido2());
+            preparedStatement.setString(6, a.getDetalleMateria());
+            int res = preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            while (rs.next()) {
+                sedeId = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sedeId;
+    }
+    
+    
 }
