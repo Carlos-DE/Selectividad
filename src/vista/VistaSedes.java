@@ -11,7 +11,13 @@ import java.awt.event.ActionListener;
 public class VistaSedes extends JFrame implements ActionListener{
 
 	private JButton bHome;
+	private JButton bAlumnos;
+	private JButton bAsignaturas;
 	private JButton bSedes;
+	private JButton bAulas;
+	private JButton bResponsables;
+	private JButton bInstitutos;
+	private JButton bGenerar;
 	private JTextField fieldDireccion;
 	private Controlador controlador;
 
@@ -67,7 +73,7 @@ public class VistaSedes extends JFrame implements ActionListener{
 		menu.add(bSedes);
 		
 	
-			
+		
 		
 		
 		JLabel lblNombreSede = new JLabel("Nombre Sede");
@@ -192,11 +198,23 @@ public class VistaSedes extends JFrame implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==bSedes) {
-			controlador.mostrarSedes();
-		} else if (e.getSource()==bHome) {
+		if(e.getSource()==bHome) {
 			controlador.mostrarHome();
-		}
+		} else if (e.getSource()==bAlumnos) {
+			controlador.mostrarAlumnos();
+		} else if (e.getSource()==bAsignaturas) {
+			controlador.mostrarAsignaturas();
+		} else if (e.getSource()==bSedes) {
+			controlador.mostrarSedes();
+		} else if (e.getSource()==bAulas) {
+			controlador.mostrarAulas();
+		} else if (e.getSource()==bResponsables) {
+			controlador.mostrarResponsables();
+		} else if (e.getSource()==bInstitutos) {
+			controlador.mostrarInstitutos();
+		} else if (e.getSource()==bGenerar) {
+			controlador.mostrarGenerar();
+		} 
 	}
 	
 	public void setControlador(Controlador controlador) {

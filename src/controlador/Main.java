@@ -30,3 +30,4 @@ public class Main {
 	}
 
 }
+//alumno,asignatura, sede,aula,resp,inst,generar
