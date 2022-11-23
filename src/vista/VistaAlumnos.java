@@ -86,19 +86,21 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 		bSedes.addActionListener(this);
 		menu.add(bSedes);
 		
-		bResponsables = new JButton("Responsables");
-		bResponsables.addActionListener(this);
-		menu.add(bResponsables);
-
 		bAsignaturas = new JButton("Asignaturas");
 		bAsignaturas.addActionListener(this);
 		menu.add(bAsignaturas);
+		
+		bResponsables = new JButton("Responsables");
+		bResponsables.addActionListener(this);
+		menu.add(bResponsables);
+		
+		
 		
 	
 			
 		
 		
-		JLabel lblNombreSede = new JLabel("Nombre Asignaturas");
+		JLabel lblNombreSede = new JLabel("Nombre Alumnos");
 		GridBagConstraints gbc_lblNombreSede = new GridBagConstraints();
 		gbc_lblNombreSede.fill = GridBagConstraints.BOTH;
 		gbc_lblNombreSede.insets = new Insets(0, 0, 5, 5);
@@ -173,15 +175,15 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==bSedes) {
-			controlador.mostrarSedes();
-		} else if (e.getSource()==bHome) {
+		if(e.getSource()==bHome) {
 			controlador.mostrarHome();
-		} else if (e.getSource()==bAsignaturas){
-			controlador.mostrarAsignaturas();
-		}else if (e.getSource()==bAlumnos){
+		} else if (e.getSource()==bAlumnos) {
 			controlador.mostrarAlumnos();
-		}else if (e.getSource()==bResponsables){
+		} else if (e.getSource()==bAsignaturas) {
+			controlador.mostrarAsignaturas();
+		} else if (e.getSource()==bSedes) {
+			controlador.mostrarSedes();
+		} else if (e.getSource()==bResponsables) {
 			controlador.mostrarResponsables();
 		}
 	}

@@ -87,13 +87,17 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 		bSedes.addActionListener(this);
 		menu.add(bSedes);
 		
+		
+		bAsignaturas = new JButton("Asignaturas");
+		bAsignaturas.addActionListener(this);
+		menu.add(bAsignaturas);
+		
+		
 		bResponsables = new JButton("Responsables");
 		bResponsables.addActionListener(this);
 		menu.add(bResponsables);
 
-		bAsignaturas = new JButton("Asignaturas");
-		bAsignaturas.addActionListener(this);
-		menu.add(bAsignaturas);
+		
 		
 				
 	

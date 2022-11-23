@@ -12,6 +12,9 @@ import java.awt.event.ActionListener;
 public class VistaResponsables extends JFrame implements ActionListener{
 	private JButton bHome;
 	private JButton bSedes;
+	private JButton bAlumnos;
+	private JButton bAsignaturas;
+	private JButton bResponsables;
 	private Controlador controlador;
 
 	/**
@@ -61,18 +64,23 @@ public class VistaResponsables extends JFrame implements ActionListener{
 		bHome.addActionListener(this);
 		menu.add(bHome);
 		
+		bAlumnos = new JButton("Alumnos");
+		bAlumnos.addActionListener(this);
+		menu.add(bAlumnos);
+		
 		bSedes = new JButton("Sedes");
 		bSedes.addActionListener(this);
 		menu.add(bSedes);
 		
-		JButton bAlumnos = new JButton("Alumnos");
-		menu.add(bAlumnos);
+		bAsignaturas = new JButton("Asignaturas");
+		bAsignaturas.addActionListener(this);
+		menu.add(bAsignaturas);
 		
-		JButton bResponsables = new JButton("Responsables");
+		bResponsables = new JButton("Responsables");
+		bResponsables.addActionListener(this);
 		menu.add(bResponsables);
 		
-		JButton bAsignaturas = new JButton("Asignaturas");
-		menu.add(bAsignaturas);
+		
 		
 		JLabel lblResponsables = new JLabel("Responsables por cargar");
 		lblResponsables.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -185,6 +193,12 @@ public class VistaResponsables extends JFrame implements ActionListener{
 			controlador.mostrarSedes();
 		} else if (e.getSource()==bHome) {
 			controlador.mostrarHome();
+		}else if (e.getSource()==bAlumnos){
+			controlador.mostrarAlumnos();
+		}else if (e.getSource()==bAsignaturas){
+			controlador.mostrarAsignaturas();
+		}else if(e.getSource()==bResponsables){
+			controlador.mostrarResponsables();
 		}
 	}
 	
