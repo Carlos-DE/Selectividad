@@ -17,6 +17,7 @@ public abstract class ConexionConBaseDeDatos {
     static final String PASS = "xtDA3sPVFCE9BRhK";
 
     public abstract List<Materia> listaMaterias();
+    public abstract List<Materia> verMaterias();
     public abstract List<Sede> listaSedes();
     public abstract List<Alumno> listaAlumnosDeUnCentro(String centro);
     public abstract List<Responsable> listaResponsable();

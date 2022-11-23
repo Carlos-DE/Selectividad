@@ -7,12 +7,19 @@ import java.io.IOException;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 
+import controlador.ConexionBaseDatosJDBC;
+import controlador.ConexionConBaseDeDatos;
 import controlador.Controlador;
 import controlador.ControladorAsignaturas;
+import modelo.Materia;
 
+import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 import java.awt.BorderLayout;
@@ -34,6 +41,10 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 	private JButton bAsignaturas;
 	private Controlador controlador;
 	private ControladorAsignaturas controladorAsignaturas= new ControladorAsignaturas();
+	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
+	private JList<String> listaMaterias;
+    private DefaultListModel listModel;
+
 
 	/**
 	 * Launch the application.
@@ -44,7 +55,14 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 	 * Create the application.
 	 */
 	public VistaAsignaturas() {
+	
+		java.util.List<Materia> lista = conexionBD.listaMaterias();
+		 listModel = new DefaultListModel();
+		 for(Materia m : lista) {
+	            listModel.addElement(m.getIdMateria());
+	        }
 		initialize();
+	
 	}
 
 	/**
@@ -127,14 +145,16 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 		bCargarDatos.addActionListener(this);
 		maingrid.add(bCargarDatos, gbc_bCargarDatos);
 		
-		List listNombre = new List();
+		//java.util.List<Materia> lista = conexionBD.listaMaterias();
+		//JList listNombre = new JList((ListModel) conexionBD.listaMaterias());
+		listaMaterias = new JList<String>(listModel);
 		GridBagConstraints gbc_listNombre = new GridBagConstraints();
 		gbc_listNombre.fill = GridBagConstraints.BOTH;
 		gbc_listNombre.gridheight = 2;
 		gbc_listNombre.insets = new Insets(0, 0, 5, 5);
 		gbc_listNombre.gridx = 3;
 		gbc_listNombre.gridy = 2;
-		maingrid.add(listNombre, gbc_listNombre);
+		maingrid.add(listaMaterias, gbc_listNombre);
 		
 		bBorrarDatos = new JButton("BorrarDatos");
 		GridBagConstraints gbc_bBorrarDatos = new GridBagConstraints();
@@ -209,5 +229,9 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 	
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
+	}
+	
+	public void addlista(String s) {
+		
 	}
 }

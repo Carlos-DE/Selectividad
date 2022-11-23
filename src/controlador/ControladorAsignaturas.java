@@ -47,6 +47,8 @@ public class ControladorAsignaturas {
         }
         conexionBD.listaSedes();
         b.close();
+        System.out.println("");
+        conexionBD.listaMaterias();
     }
 	public void borrarDatos() {
 		System.out.println("paso 1");

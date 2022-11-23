@@ -42,6 +42,7 @@ public class ControladorResponsables {
 	            System.out.println(cadena);
 	            var responsable = new Responsable(cadena);
 	            conexionBD.insertarResponsable(responsable);
+	            
 				//conexionBaseDatosJDBC.insertarSede(sede);
 	        }
 	        conexionBD.listaSedes();

@@ -4,6 +4,10 @@ public class Materia{
 
     String IdMateria;
 
+    public Materia() {
+    	
+    }
+    
     public Materia(String IdMateria){
         this.IdMateria= IdMateria;
     }

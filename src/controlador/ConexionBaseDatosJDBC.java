@@ -10,7 +10,9 @@ import modelo.Responsable;
 import modelo.Sede;
 
 public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
-
+	 PreparedStatement ps;
+	 ResultSet rs;
+	 ArrayList<Materia> lMaterias = new ArrayList<>();
     private Connection conn;
 
     private static ConexionBaseDatosJDBC instanciaInterfaz = null;
@@ -70,7 +72,7 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
     }
 
     public List<Materia> listaMaterias() {
-        ArrayList<Materia> lMaterias = new ArrayList<>();
+        
         String selectQueryBody = "SELECT * FROM MATERIA";
         Statement querySt;
         try {
@@ -81,15 +83,26 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
                 while (rs.next()) {
                     String id = rs.getString(1);
                     lMaterias.add(new Materia(id));
+                    
                 }
             }
+            
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return lMaterias;
+        return lMaterias;        
     }
-
+   
+    
+    
+    public List<String> getListaMaterias() {
+    	List<String> lista=null;
+    	for (Materia m: lMaterias) {
+          lista.add(m.getIdMateria());
+        }
+    	return lista;
+    }
     public List<Sede> listaSedes() {
         ArrayList<Sede> lSedes = new ArrayList<>();
         String selectQueryBody = "SELECT * FROM SEDE";
@@ -292,5 +305,11 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
         }
         return res;
     }
+
+	@Override
+	public List<Materia> verMaterias() {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }
