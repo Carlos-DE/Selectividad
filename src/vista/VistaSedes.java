@@ -2,8 +2,11 @@ package vista;
 
 import javax.swing.*;
 
+import controlador.ConexionBaseDatosJDBC;
+import controlador.ConexionConBaseDeDatos;
 import controlador.Controlador;
 import controlador.ControladorSede;
+import modelo.Materia;
 import modelo.Sede;
 
 import java.awt.*;
@@ -24,6 +27,9 @@ public class VistaSedes extends JFrame implements ActionListener{
 	private JTextField fieldDireccion;
 	private Controlador controlador;
 	private ControladorSede controladorSede = new ControladorSede();
+	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
+	private JList<String> listaSedes;
+    private DefaultListModel listModel;
 
 	/**
 	 * Launch the application.
@@ -34,6 +40,13 @@ public class VistaSedes extends JFrame implements ActionListener{
 	 * Create the application.
 	 */
 	public VistaSedes() {
+		
+		java.util.List<Sede> lista = conexionBD.listaSedes();
+		 listModel = new DefaultListModel();
+		 for(Sede s : lista) {
+	            listModel.addElement(s.getNombre());
+	        }
+		initialize();
 		initialize();
 	}
 
@@ -134,14 +147,15 @@ public class VistaSedes extends JFrame implements ActionListener{
 		bCargarDatos.addActionListener(this);
 		maingrid.add(bCargarDatos, gbc_bCargarDatos);
 		
-		List listNombre = new List();
+		//List listNombre = new List();
+		listaSedes = new JList<String>(listModel);
 		GridBagConstraints gbc_listNombre = new GridBagConstraints();
 		gbc_listNombre.fill = GridBagConstraints.BOTH;
 		gbc_listNombre.gridheight = 2;
 		gbc_listNombre.insets = new Insets(0, 0, 5, 5);
 		gbc_listNombre.gridx = 3;
 		gbc_listNombre.gridy = 2;
-		maingrid.add(listNombre, gbc_listNombre);
+		maingrid.add(listaSedes, gbc_listNombre);
 		
 		List listDireccion = new List();
 		GridBagConstraints gbc_listDireccion = new GridBagConstraints();

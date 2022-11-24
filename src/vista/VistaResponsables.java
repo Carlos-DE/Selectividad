@@ -3,9 +3,13 @@ package vista;
 
 import javax.swing.*;
 
+import controlador.ConexionBaseDatosJDBC;
+import controlador.ConexionConBaseDeDatos;
 import controlador.Controlador;
 import controlador.ControladorResponsables;
 import controlador.ControladorSede;
+import modelo.Responsable;
+import modelo.Sede;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,6 +24,9 @@ public class VistaResponsables extends JFrame implements ActionListener{
 	private JButton bResponsables;
 	private Controlador controlador;
 	private ControladorResponsables controladorResponsables = new ControladorResponsables();
+	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
+	private JList<String> listaResponsables;
+    private DefaultListModel listModel;
 
 
 	/**
@@ -31,6 +38,12 @@ public class VistaResponsables extends JFrame implements ActionListener{
 	 * Create the application.
 	 */
 	public VistaResponsables() {
+		java.util.List<Responsable> lista = conexionBD.listaResponsable();
+		 listModel = new DefaultListModel();
+		 for(Responsable r : lista) {
+	            listModel.addElement(r.getNombre());
+	        }
+		
 		initialize();
 	}
 
@@ -103,14 +116,15 @@ public class VistaResponsables extends JFrame implements ActionListener{
 		gbc_cbSedes.gridy = 1;
 		maingrid.add(cbSedes, gbc_cbSedes);
 		
-		List listNombre = new List();
+		//List listNombre = new List();
+		listaResponsables = new JList<String>(listModel);
 		GridBagConstraints gbc_listNombre = new GridBagConstraints();
 		gbc_listNombre.fill = GridBagConstraints.BOTH;
 		gbc_listNombre.gridheight = 4;
 		gbc_listNombre.insets = new Insets(0, 0, 5, 5);
 		gbc_listNombre.gridx = 1;
 		gbc_listNombre.gridy = 2;
-		maingrid.add(listNombre, gbc_listNombre);
+		maingrid.add(listaResponsables, gbc_listNombre);
 		
 		JComboBox cbCargos = new JComboBox();
 		cbCargos.setModel(new DefaultComboBoxModel(new String[] {"Vocal", "Vigilante"}));

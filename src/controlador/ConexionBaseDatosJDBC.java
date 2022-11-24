@@ -13,6 +13,10 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 	 PreparedStatement ps;
 	 ResultSet rs;
 	 ArrayList<Materia> lMaterias = new ArrayList<>();
+     ArrayList<Sede> lSedes = new ArrayList<>();
+     ArrayList<Responsable> lResponsables = new ArrayList<>();
+
+
     private Connection conn;
 
     private static ConexionBaseDatosJDBC instanciaInterfaz = null;
@@ -104,7 +108,6 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
     	return lista;
     }
     public List<Sede> listaSedes() {
-        ArrayList<Sede> lSedes = new ArrayList<>();
         String selectQueryBody = "SELECT * FROM SEDE";
         Statement querySt;
         try {
@@ -124,9 +127,16 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
         }
         return lSedes;
     }
+    public List<String> getListaSedes() {
+    	List<String> lista=null;
+    	for (Sede s: lSedes) {
+          lista.add(s.getNombre());
+        }
+    	return lista;
+    }
+    
 
     public List<Responsable> listaResponsable() {
-        ArrayList<Responsable> lResponsables = new ArrayList<>();
         String selectQueryBody = "SELECT * FROM RESPONSABLE";
         Statement querySt;
         try {
@@ -145,7 +155,13 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
         }
         return lResponsables;
     }
-
+    public List<String> getListaResponsables() {
+    	List<String> lista=null;
+    	for (Responsable r: lResponsables) {
+          lista.add(r.getNombre());
+        }
+    	return lista;
+    }
     public int insertarSede(Sede s) {
         int sedeId = 0;
         String insertBody = "INSERT INTO " + "SEDE" + "(idSede, NombreSede) VALUES (?, ?)";
