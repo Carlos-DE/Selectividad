@@ -30,6 +30,7 @@ public class VistaSedes extends JFrame implements ActionListener{
 	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
 	private JList<String> listaSedes;
     private DefaultListModel listModel;
+    private JTable table;
 
 	/**
 	 * Launch the application.
@@ -65,7 +66,7 @@ public class VistaSedes extends JFrame implements ActionListener{
 		gbl_maingrid.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gbl_maingrid.rowHeights = new int[]{40, 30, 30, 200, 15, 30, 45, 60, 15, 0};
 		gbl_maingrid.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_maingrid.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_maingrid.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		maingrid.setLayout(gbl_maingrid);
 		
 		
@@ -175,16 +176,26 @@ public class VistaSedes extends JFrame implements ActionListener{
 		bBorrarDatos.addActionListener(this);
 		maingrid.add(bBorrarDatos, gbc_bBorrarDatos);
 		
+		table = new JTable();
+		GridBagConstraints gbc_table = new GridBagConstraints();
+		gbc_table.insets = new Insets(0, 0, 5, 5);
+		gbc_table.fill = GridBagConstraints.BOTH;
+		gbc_table.gridx = 3;
+		gbc_table.gridy = 4;
+		maingrid.add(table, gbc_table);
+		
 		
 		
 		
 		
 		JFormattedTextField fieldNombre = new JFormattedTextField();
+		fieldNombre.setColumns(4);
 		GridBagConstraints gbc_fieldNombre = new GridBagConstraints();
-		gbc_fieldNombre.insets = new Insets(0, 0, 5, 5);
+		gbc_fieldNombre.insets = new Insets(1, 1, 5, 5);
 		gbc_fieldNombre.fill = GridBagConstraints.BOTH;
 		gbc_fieldNombre.gridx = 3;
 		gbc_fieldNombre.gridy = 5;
+		
 		maingrid.add(fieldNombre, gbc_fieldNombre);
 		
 		fieldDireccion = new JTextField();

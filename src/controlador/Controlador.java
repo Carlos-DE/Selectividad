@@ -120,5 +120,10 @@ public class Controlador{
 		//vistaGenerar.setVisible(true);
 	}
 
+	public void mostrarExamenes() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }
