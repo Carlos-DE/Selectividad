@@ -31,7 +31,8 @@ public class Main {
 		vistaSedes.setControlador(controlador);
 		vistaAsignaturas.setControlador(controlador);
 		vistaResponsables.setControlador(controlador);
-		
+
+
 		controlador.setVistaHome(vistaHome);
 		controlador.setVistaAlumnos(vistaAlumnos);
 		controlador.setVistaAsignaturas(vistaAsignaturas);
@@ -40,10 +41,6 @@ public class Main {
 		controlador.setVistaResponsables(vistaResponsables);
 //		controlador.setVistaInstitutos(vistaInstitutos);
 //		controlador.setVistaGenerar(vistaGenerar);
-		
-		
-		
-		
 		controlador.mostrarHome();
 	}
 

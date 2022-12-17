@@ -49,11 +49,12 @@ public class ControladorAsignaturas {
         b.close();
         System.out.println("");
         conexionBD.listaMaterias();
+
     }
 	public void borrarDatos() {
 		System.out.println("paso 1");
 		conexionBD.borrarAsignaturas();
-		
-	}
+		conexionBD.listaSedes().clear();
+    }
 
 }

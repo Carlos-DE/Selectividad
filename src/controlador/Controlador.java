@@ -10,11 +10,11 @@ public class Controlador{
 	private VistaAsignaturas vistaAsignaturas;
 	private VistaAlumnos vistaAlumnos;
 	private VistaResponsables vistaResponsables;
-	
+
 	public void setVistaHome(VistaHome vistaHome) {
 		this.vistaHome = vistaHome;
 	}
-	
+
 	public void setVistaSedes(VistaSedes vistaSedes) {
 		this.vistaSedes = vistaSedes;
 	}
@@ -22,16 +22,16 @@ public class Controlador{
 	public void setVistaAsignaturas(VistaAsignaturas vistaAsignaturas) {
 		this.vistaAsignaturas = vistaAsignaturas;
 	}
-	
+
 	public void setVistaAlumnos(VistaAlumnos vistaAlumnos){
 		this.vistaAlumnos = vistaAlumnos;
 	}
-	
+
 	public void setVistaResponsables(VistaResponsables vistaResponsables) {
 		this.vistaResponsables = vistaResponsables;
-		
+
 	}
-	
+
 	public void mostrarHome() {
 		vistaHome.setVisible(true);
 		vistaAlumnos.setVisible(false);
@@ -42,7 +42,7 @@ public class Controlador{
 		//vistaInstitutos.setVisible(false);
 		//vistaGenerar.setVisible(false);
 	}
-	
+
 	public void mostrarAlumnos() {
 		vistaHome.setVisible(false);
 		vistaAlumnos.setVisible(true);
@@ -53,8 +53,10 @@ public class Controlador{
 		//vistaInstitutos.setVisible(false);
 		//vistaGenerar.setVisible(false);
 	}
-	
+
 	public void mostrarAsignaturas() {
+
+
 		vistaHome.setVisible(false);
 		vistaAlumnos.setVisible(false);
 		vistaAsignaturas.setVisible(true);
@@ -63,6 +65,12 @@ public class Controlador{
 		vistaResponsables.setVisible(false);
 		//vistaInstitutos.setVisible(false);
 		//vistaGenerar.setVisible(false);
+		/*var vistaAsignaturaNueva = new VistaAsignaturas();
+		setVistaAsignaturas(vistaAsignaturaNueva);
+		vistaAsignaturas.setVisible(true);
+*/
+
+
 	}
 
 	public void mostrarSedes() {
@@ -75,7 +83,7 @@ public class Controlador{
 		//vistaInstitutos.setVisible(false);
 		//vistaGenerar.setVisible(false);
 	}
-	
+
 	public void mostrarAulas() {
 		vistaHome.setVisible(false);
 		vistaAlumnos.setVisible(false);
@@ -86,7 +94,7 @@ public class Controlador{
 		//vistaInstitutos.setVisible(false);
 		//vistaGenerar.setVisible(false);
 	}
-	
+
 	public void mostrarResponsables() {
 		vistaHome.setVisible(false);
 		vistaAlumnos.setVisible(false);
@@ -97,7 +105,7 @@ public class Controlador{
 		//vistaInstitutos.setVisible(false);
 		//vistaGenerar.setVisible(false);
 	}
-	
+
 	public void mostrarInstitutos() {
 		vistaHome.setVisible(false);
 		vistaAlumnos.setVisible(false);
@@ -108,7 +116,7 @@ public class Controlador{
 		//vistaInstitutos.setVisible(true);
 		//vistaGenerar.setVisible(false);
 	}
-	
+
 	public void mostrarGenerar() {
 		vistaHome.setVisible(false);
 		vistaAlumnos.setVisible(false);
@@ -122,8 +130,8 @@ public class Controlador{
 
 	public void mostrarExamenes() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
+
 }
