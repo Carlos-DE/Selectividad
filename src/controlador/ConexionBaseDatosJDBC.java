@@ -5,6 +5,7 @@ import java.util.List;
 
 import controlador.ConexionConBaseDeDatos;
 import modelo.Alumno;
+import modelo.Aula;
 import modelo.Materia;
 import modelo.Responsable;
 import modelo.ResponsableExamen;
@@ -332,7 +333,7 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 		return null;
 	}
 	
-	public int insertarResponsableExamen(ResponsableExamen r){
+	public int insertarResponsablesExamen(ResponsableExamen r){
 		int responsableId = 0;
         String insertBody = "INSERT INTO " + "RESPONSABLESEXAMEN" + "(idResponsablesExamen) VALUES (?)";
         try {
@@ -385,5 +386,66 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 	        }
 	        return lResponsables;
 	}
+
+	@Override
+	public int insertarAula(Aula a) {
+		int responsableId = 0;
+        String insertBody = "INSERT INTO " + "AULA" + "(idAula) VALUES (?)";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(insertBody,
+                    PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, a.getId());
+            int res = preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            while (rs.next()) {
+                responsableId = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return responsableId;
+	}
+
+	@Override
+	public int actualizarAula(Aula a, String idnuevo) {
+		 PreparedStatement preparedStatement = null;
+	        String updateBody = null;
+	        int res = 0;
+	        try {
+	            updateBody = "UPDATE " + "AULA" + " SET idAula = "+ idnuevo +" WHERE (idAula = "+ a.getId() +")";
+	            preparedStatement = conn.prepareStatement(updateBody);
+	            if (a.getId() == null) {
+	                preparedStatement.setNull(1, java.sql.Types.INTEGER);
+	            } else {
+	                preparedStatement.setString(1, a.getId());
+	            }
+	            res = preparedStatement.executeUpdate();
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }
+	        return res;
+	}
+
+	@Override
+	public int borrarAulaSeleccionada(Aula a) {
+		 PreparedStatement preparedStatement = null;
+	        String updateBody = null;
+	        int res = 0;
+	        try {
+	            updateBody = "DELETE " + "AULA" + " WHERE (idAula = "+ a.getId() +")";
+	            preparedStatement = conn.prepareStatement(updateBody);
+	            if (a.getId() == null) {
+	                preparedStatement.setNull(1, java.sql.Types.INTEGER);
+	            } else {
+	                preparedStatement.setString(1, a.getId());
+	            }
+	            res = preparedStatement.executeUpdate();
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }
+	        return res;
+	}
+	
+	
     
 }
