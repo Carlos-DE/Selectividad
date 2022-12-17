@@ -3,8 +3,10 @@ package controlador;
 import java.util.List;
 
 import modelo.Alumno;
+import modelo.Aula;
 import modelo.Materia;
 import modelo.Responsable;
+import modelo.ResponsableExamen;
 import modelo.Sede;
 
 public abstract class ConexionConBaseDeDatos {
@@ -30,8 +32,9 @@ public abstract class ConexionConBaseDeDatos {
     public abstract int borrarAlumno();
 	public abstract int insertarResponsable(Responsable responsable);
     public abstract int borrarResponsables();
-	public abstract List<Responsable> listaResponsablesExamen();
-	
-
-	
-}
+	public abstract List<ResponsableExamen> listaResponsablesExamen();
+	public abstract int insertarResponsablesExamen(ResponsableExamen responsable);
+	public abstract int insertarAula(Aula a);
+    public abstract int actualizarAula(Aula a, String idnuevo);
+    public abstract int  borrarAulaSeleccionada(Aula a);
+	}
