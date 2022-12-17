@@ -327,5 +327,13 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	public List<Responsable> listaResponsablesExamen(){
+		// TODO Auto-generated method stub
+
+		return null;
+	
+}
     
 }
