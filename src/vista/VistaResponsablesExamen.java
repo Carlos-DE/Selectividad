@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class VistaResponsables extends JFrame implements ActionListener{
+public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	private JButton bHome;
 	private JButton bSedes,bCargarDatos, bBorrarDatos;
 	private JButton bAlumnos;
@@ -37,8 +37,8 @@ public class VistaResponsables extends JFrame implements ActionListener{
 	/**
 	 * Create the application.
 	 */
-	public VistaResponsables() {
-		java.util.List<Responsable> lista = conexionBD.listaResponsable();
+	public VistaResponsablesExamen() {
+		java.util.List<Responsable> lista = conexionBD.listaResponsablesExamen();
 		 listModel = new DefaultListModel();
 		 for(Responsable r : lista) {
 	            listModel.addElement(r.getNombre());
@@ -47,9 +47,7 @@ public class VistaResponsables extends JFrame implements ActionListener{
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
 	private void initialize() {
 		setSize(960, 540);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,6 +109,22 @@ public class VistaResponsables extends JFrame implements ActionListener{
 		gbc_lblResponsables.gridy = 1;
 		maingrid.add(lblResponsables, gbc_lblResponsables);
 		
+		JLabel lblNewLabel = new JLabel("Sede X");
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 2;
+		gbc_lblNewLabel.gridy = 1;
+		maingrid.add(lblNewLabel, gbc_lblNewLabel);
+		
+		JComboBox cbSedes = new JComboBox();
+		cbSedes.setModel(new DefaultComboBoxModel(new String[] {"Matematicas", "Lengua", "Latin"}));
+		GridBagConstraints gbc_cbSedes = new GridBagConstraints();
+		gbc_cbSedes.insets = new Insets(0, 0, 5, 5);
+		gbc_cbSedes.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbSedes.gridx = 4;
+		gbc_cbSedes.gridy = 1;
+		maingrid.add(cbSedes, gbc_cbSedes);
+		
 		//List listNombre = new List();
 		listaResponsables = new JList<String>(listModel);
 		GridBagConstraints gbc_listNombre = new GridBagConstraints();
@@ -122,7 +136,7 @@ public class VistaResponsables extends JFrame implements ActionListener{
 		maingrid.add(listaResponsables, gbc_listNombre);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Sede1", "Sede2", "Sede3"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Aula X1", "Aula X2"}));
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 2;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -130,9 +144,18 @@ public class VistaResponsables extends JFrame implements ActionListener{
 		gbc_comboBox.gridy = 2;
 		maingrid.add(comboBox, gbc_comboBox);
 		
+		JComboBox cbCargos = new JComboBox();
+		cbCargos.setModel(new DefaultComboBoxModel(new String[] {"Vocal", "Vigilante"}));
+		GridBagConstraints gbc_cbCargos = new GridBagConstraints();
+		gbc_cbCargos.gridwidth = 2;
+		gbc_cbCargos.insets = new Insets(0, 0, 5, 5);
+		gbc_cbCargos.gridx = 2;
+		gbc_cbCargos.gridy = 3;
+		maingrid.add(cbCargos, gbc_cbCargos);
+		
 		JList listAulas = new JList();
 		listAulas.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Maria Ramirez,Sede1", "Isabel Canales,Sede2"};
+			String[] values = new String[] {"Pedro Ramirez,Vocal,Aula1", "Guillermo Canales,Vigilante,Aula2"};
 			public int getSize() {
 				return values.length;
 			}
@@ -210,7 +233,6 @@ public class VistaResponsables extends JFrame implements ActionListener{
 		maingrid.add(logText, gbc_logText);
 		logText.setEditable(false);
 	}
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==bSedes) {
@@ -240,3 +262,4 @@ public class VistaResponsables extends JFrame implements ActionListener{
 		this.controlador = controlador;
 	}
 }
+
