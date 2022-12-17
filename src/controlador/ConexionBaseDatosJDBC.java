@@ -7,6 +7,7 @@ import controlador.ConexionConBaseDeDatos;
 import modelo.Alumno;
 import modelo.Materia;
 import modelo.Responsable;
+import modelo.ResponsableExamen;
 import modelo.Sede;
 
 public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
@@ -49,6 +50,8 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
         }
         return instanciaInterfaz;
     }
+    
+    
     public List<Alumno> listaAlumnosDeUnCentro(String centro){
         ArrayList<Alumno> lAlumno = new ArrayList<>();
         String selectQueryBody = "SELECT * FROM ALUMNO WHERE Centro=?";
@@ -155,6 +158,7 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
         }
         return lResponsables;
     }
+    
     public List<String> getListaResponsables() {
     	List<String> lista=null;
     	for (Responsable r: lResponsables) {
@@ -328,12 +332,58 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 		return null;
 	}
 	
-	
-	public List<Responsable> listaResponsablesExamen(){
-		// TODO Auto-generated method stub
-
-		return null;
-	
+	public int insertarResponsableExamen(ResponsableExamen r){
+		int responsableId = 0;
+        String insertBody = "INSERT INTO " + "RESPONSABLESEXAMEN" + "(idResponsablesExamen) VALUES (?)";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(insertBody,
+                    PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, r.getNombre());
+            int res = preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            while (rs.next()) {
+                responsableId = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return responsableId;
 }
+	
+	public int borrarResponsablesExamen() {
+        String deleteBody = "TRUNCATE TABLE RESPONSABLESEXAMEN";
+        int res = 0;
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(deleteBody);
+            System.out.println("paso 2");
+            res = preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return res;
+    }
+
+	@Override
+	public List<ResponsableExamen> listaResponsablesExamen() {
+		List<ResponsableExamen> lResponsables = new ArrayList<>(); 
+		String selectQueryBody = "SELECT * FROM RESPONSABLESEXAMEN";
+	        Statement querySt;
+	        try {
+	            querySt = conn.createStatement();
+	            ResultSet rs = querySt.executeQuery(selectQueryBody);
+	            // position result to first
+	            if (rs.isBeforeFirst()) {
+	                while (rs.next()) {
+	                    String nombre = rs.getString(1);
+	                    lResponsables.add(new ResponsableExamen(nombre));
+	                }
+	            }
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return lResponsables;
+	}
     
 }
