@@ -9,6 +9,7 @@ import controlador.Controlador;
 import controlador.ControladorResponsables;
 import controlador.ControladorSede;
 import modelo.Responsable;
+import modelo.ResponsableExamen;
 import modelo.Sede;
 
 import java.awt.*;
@@ -38,9 +39,9 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	 * Create the application.
 	 */
 	public VistaResponsablesExamen() {
-		java.util.List<Responsable> lista = conexionBD.listaResponsablesExamen();
+		java.util.List<ResponsableExamen> lista = conexionBD.listaResponsablesExamen();
 		 listModel = new DefaultListModel();
-		 for(Responsable r : lista) {
+		 for(ResponsableExamen r : lista) {
 	            listModel.addElement(r.getNombre());
 	        }
 		
