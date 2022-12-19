@@ -418,11 +418,12 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 	@Override
 	public int insertarAula(Aula a) {
 		int responsableId = 0;
-        String insertBody = "INSERT INTO " + "AULA" + "(idAula) VALUES (?)";
+        String insertBody = "INSERT INTO " + "AULA" + "(idAula, aforo) VALUES (?, ?)";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(insertBody,
                     PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, a.getId());
+            preparedStatement.setInt(2, a.getAforo());
             int res = preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             while (rs.next()) {
@@ -435,17 +436,18 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 	}
 
 	@Override
-	public int actualizarAula(Aula a, String idnuevo) {
+	public int actualizarAula(Aula a, String idnuevo, int aforonuevo) {
 		 PreparedStatement preparedStatement = null;
 	        String updateBody = null;
 	        int res = 0;
 	        try {
-	            updateBody = "UPDATE " + "AULA" + " SET idAula = "+ idnuevo +" WHERE (idAula = "+ a.getId() +")";
+	            updateBody = "UPDATE " + "AULA" + " SET idAula = "+ idnuevo +", aforo ="+ aforonuevo + "WHERE (idAula = "+ a.getId() +")";
 	            preparedStatement = conn.prepareStatement(updateBody);
 	            if (a.getId() == null) {
 	                preparedStatement.setNull(1, java.sql.Types.INTEGER);
 	            } else {
 	                preparedStatement.setString(1, a.getId());
+	                preparedStatement.setInt(2, a.getAforo());
 	            }
 	            res = preparedStatement.executeUpdate();
 	        } catch (SQLException ex) {

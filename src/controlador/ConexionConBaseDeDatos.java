@@ -36,7 +36,7 @@ public abstract class ConexionConBaseDeDatos {
 	public abstract List<ResponsableExamen> listaResponsablesExamen();
 	public abstract int insertarResponsablesExamen(ResponsableExamen responsable);
 	public abstract int insertarAula(Aula a);
-    public abstract int actualizarAula(Aula a, String idnuevo);
+    public abstract int actualizarAula(Aula a, String idnuevo, int aforonuevo);
     public abstract int  borrarAulaSeleccionada(Aula a);
 
 	}
