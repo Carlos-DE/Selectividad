@@ -51,7 +51,7 @@ public class ControladorAsignaturas {
         b.close();
         System.out.println("");
         conexionBD.listaMaterias();
-        refresh();
+     
 
     }
 	public void borrarDatos() {
@@ -60,10 +60,7 @@ public class ControladorAsignaturas {
 		conexionBD.listaSedes().clear();
     }
 
-    public static void refresh(){
-        VistaAsignaturas v = new VistaAsignaturas();
-        v.refresh();
-    }
+    
 
     
 

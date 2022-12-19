@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.border.TitledBorder;
@@ -56,6 +57,7 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 	private JButton bInstitutos;
 	private JButton bExamenes;
 	private JPanel panel_3;
+	private JScrollPane scrollPane;
 
 
 	/**
@@ -66,24 +68,32 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 	/**
 	 * Create the application.
 	 */
+
+	 
 	public VistaAsignaturas() {
-	
 		refresh();
 		initialize();
 	
 	}
 
+	public void refresh(){
+		java.util.List<Materia> lista;
+		lista = conexionBD.listaMaterias();
+		listModel = new DefaultListModel();
+		for(Materia a : lista) {
+	        listModel.addElement(a.getIdMateria());
+	    }
+		
+	}
+	
+		
+	
+
 	private void cargaLista(){
 		refresh();
 	}
 
-	public void refresh() {
-        java.util.List<Materia> lista = conexionBD.listaMaterias();
-		listModel = new DefaultListModel();
-		for(Materia m : lista) {
-			listModel.addElement(m.getIdMateria());
-		}
-	}
+	
 
 
 	/**
@@ -234,7 +244,7 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 		
 		panel_3 = new JPanel();
 		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
-		gbc_panel_3.fill = GridBagConstraints.VERTICAL;
+		gbc_panel_3.fill = GridBagConstraints.BOTH;
 		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_3.gridx = 1;
 		gbc_panel_3.gridy = 3;
@@ -249,14 +259,15 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 		//java.util.List<Materia> lista = conexionBD.listaMaterias();
 		//JList listNombre = new JList((ListModel) conexionBD.listaMaterias());
 		listaMaterias = new JList<String>(listModel);
+		scrollPane = new JScrollPane( listaMaterias );
 		GridBagConstraints gbc_listaMaterias = new GridBagConstraints();
-		gbc_listaMaterias.fill = GridBagConstraints.VERTICAL;
+		gbc_listaMaterias.fill = GridBagConstraints.BOTH;
 		gbc_listaMaterias.gridheight = 2;
 		gbc_listaMaterias.insets = new Insets(0, 0, 5, 0);
 		gbc_listaMaterias.gridx = 0;
 		gbc_listaMaterias.gridy = 0;
-		panel_3.add(listaMaterias, gbc_listaMaterias);
-		listaMaterias.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		panel_3.add(scrollPane, gbc_listaMaterias);
+		//listaMaterias.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		
 		
 		
@@ -303,6 +314,8 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 				ex.printStackTrace();
 			}
 			System.out.println("llego al boton");
+			refresh();
+			
 		} else if (e.getSource()==bBorrarDatos) {
 			listModel.clear();
 			controladorAsignaturas.borrarDatos();

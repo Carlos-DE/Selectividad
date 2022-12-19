@@ -64,13 +64,19 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 	/**
 	 * Create the application.
 	 */
+
+	java.util.List<Alumno> lista;
 	public VistaAlumnos() {
-		java.util.List<Alumno> lista = conexionBD.listaAlumnos();
+		refresh();
+		initialize();
+	}
+
+	private void refresh() {
+		lista = conexionBD.listaAlumnos();
 		listModel = new DefaultListModel();
 		for(Alumno a : lista) {
 	        listModel.addElement(a.getDni() + " " + a.getNombre() +" "+ a.getApellido1() +" "+ a.getApellido2());
 	    }
-		initialize();
 	}
 
 	/**
