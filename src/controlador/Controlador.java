@@ -32,6 +32,12 @@ public class Controlador{
 		this.vistaResponsables = vistaResponsables;
 
 	}
+	public void setVistaResponsablesExamen(VistaResponsablesExamen vistaResponsablesExamen) {
+		this.vistaResponsablesExamen = vistaResponsablesExamen;
+
+	}
+	
+
 
 	public void mostrarHome() {
 		setVisibleFalse();
