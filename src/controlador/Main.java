@@ -19,10 +19,11 @@ public class Main {
 		VistaAsignaturas vistaAsignaturas = new VistaAsignaturas();
 		VistaSedes vistaSedes = new VistaSedes();
 //		VistaAulas vistaAulas = new VistaAulas();
-		VistaResponsables vistaResponsables = new VistaResponsables();
+		VistaResponsablesSede vistaResponsables = new VistaResponsablesSede();
 //		VistaInstitutos vistaInstitutos = new VistaInstitutos();
 //		VistaGenerar vistaGenerar = new VistaGenerar();
 		VistaResponsablesExamen vistaResponsablesExamen = new VistaResponsablesExamen();
+		VistaExamen vistaExamen = new VistaExamen();
 		
 		
 		
@@ -33,6 +34,7 @@ public class Main {
 		vistaAsignaturas.setControlador(controlador);
 		vistaResponsables.setControlador(controlador);
 		vistaResponsablesExamen.setControlador(controlador);
+		vistaExamen.setControlador(controlador);
 
 
 		controlador.setVistaHome(vistaHome);
@@ -44,6 +46,7 @@ public class Main {
 //		controlador.setVistaInstitutos(vistaInstitutos);
 //		controlador.setVistaGenerar(vistaGenerar);
 		controlador.setVistaResponsablesExamen(vistaResponsablesExamen);
+		controlador.setVistaExamen(vistaExamen);
 
 
 

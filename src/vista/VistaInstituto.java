@@ -1,5 +1,6 @@
 package vista;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -31,12 +32,12 @@ import modelo.Alumno;
 import java.awt.FlowLayout;
 import javax.swing.border.TitledBorder;
 import javax.swing.JList;
+import javax.swing.JComboBox;
 
-public class VistaAlumnos extends JFrame implements ActionListener {
+public class VistaInstituto extends JFrame implements ActionListener {
 	
 	
 	private JButton bHome;
-	private JButton bCargarDatos,bBorrarDatos;
 	private Controlador controlador;
 	private ControladorAlumnos controladorAlumnos = new ControladorAlumnos();
 	private JButton bVicerrector;
@@ -51,8 +52,6 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 	private JButton bInstitutos;
 	private JButton bExamenes;
 	private DefaultListModel listModel;
-	private JList<String> listNombre;
-	private JScrollPane scrollPane;
 
 	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
 
@@ -66,13 +65,22 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 	 */
 
 	java.util.List<Alumno> lista;
-	public VistaAlumnos() {
-		//refresh();
-		lista = conexionBD.listaAlumnos();
-		listModel = new DefaultListModel();
-		for(Alumno a : lista) {
-	    	listModel.addElement(a.getDni() + " " + a.getNombre() +" "+ a.getApellido1() +" "+ a.getApellido2());
-	    }
+	private JPanel panel_3;
+	private JLabel lblNewLabel;
+	private JPanel panel;
+	private JList list;
+	private JComboBox comboBox;
+	private JPanel panel_4;
+	private JList list_1;
+	private JButton btnNewButton;
+	private JButton btnNewButton_1;
+	private JTextField textField;
+	private JPanel panel_5;
+	private JLabel lblInstitutosAsignadosA;
+	private JButton btnNewButton_2;
+	private JButton btnNewButton_3;
+	public VistaInstituto() {
+		refresh();
 		initialize();
 	}
 
@@ -80,7 +88,7 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 		lista = conexionBD.listaAlumnos();
 		listModel = new DefaultListModel();
 		for(Alumno a : lista) {
-			listModel.addElement(a.getDni() + " " + a.getNombre() +" "+ a.getApellido1() +" "+ a.getApellido2());
+	        listModel.addElement(a.getDni() + " " + a.getNombre() +" "+ a.getApellido1() +" "+ a.getApellido2());
 	    }
 	}
 
@@ -101,17 +109,17 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 		JPanel maingrid = new JPanel();
 		getContentPane().add(maingrid, BorderLayout.CENTER);
 		GridBagLayout gbl_maingrid = new GridBagLayout();
-		gbl_maingrid.columnWidths = new int[]{0, 0, 0};
-		gbl_maingrid.rowHeights = new int[]{40, 30, 30, 200, 45, 60, 0};
-		gbl_maingrid.columnWeights = new double[]{1.0, 1.0, 1.0};
-		gbl_maingrid.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_maingrid.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_maingrid.rowHeights = new int[]{40, 30, 0, 30, 0, 45, 60, 0};
+		gbl_maingrid.columnWeights = new double[]{1.0, 1.0, 0.0, 1.0};
+		gbl_maingrid.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		maingrid.setLayout(gbl_maingrid);
 		
 		panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridwidth = 3;
-		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_1.gridwidth = 4;
+		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_1.gridx = 0;
 		gbc_panel_1.gridy = 0;
 		maingrid.add(panel_1, gbc_panel_1);
@@ -141,11 +149,9 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 		
 		bVicerrector = new JButton("VICERRECTOR");
 		menu.add(bVicerrector);
-		bVicerrector.addActionListener(this);
 		
 		bGestorSede = new JButton("GESTOR SEDE");
 		menu.add(bGestorSede);
-		bGestorSede.addActionListener(this);
 		
 		panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "VICERRECTOR", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -194,34 +200,6 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 		
 		bSedes = new JButton("Sedes");
 		menu_1.add(bSedes);
-		
-		
-		////////////////////////////////////////////////////////
-	
-		///////////////CONTENIDO/////////////////////////////////////////
-	
-		
-		
-		JLabel lblNombreSede = new JLabel("Nombre Alumnos");
-		GridBagConstraints gbc_lblNombreSede = new GridBagConstraints();
-		gbc_lblNombreSede.fill = GridBagConstraints.BOTH;
-		gbc_lblNombreSede.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNombreSede.gridx = 1;
-		gbc_lblNombreSede.gridy = 1;
-		maingrid.add(lblNombreSede, gbc_lblNombreSede);
-		
-		
-		
-		
-		
-		bCargarDatos = new JButton("CargarDatos");
-		GridBagConstraints gbc_bCargarDatos = new GridBagConstraints();
-		gbc_bCargarDatos.insets = new Insets(0, 0, 5, 5);
-		gbc_bCargarDatos.gridx = 0;
-		gbc_bCargarDatos.gridy = 2;
-		bCargarDatos.addActionListener(this);
-
-		maingrid.add(bCargarDatos, gbc_bCargarDatos);
 		GridBagConstraints gbc_scrollpane = new GridBagConstraints();
 		gbc_scrollpane.fill=GridBagConstraints.HORIZONTAL;
 		gbc_scrollpane.fill = GridBagConstraints.VERTICAL;
@@ -230,39 +208,100 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 		gbc_scrollpane.gridx = 1;
 		gbc_scrollpane.gridy = 2;
 		
-		bBorrarDatos = new JButton("BorrarDatos");
-		GridBagConstraints gbc_bBorrarDatos = new GridBagConstraints();
-		gbc_bBorrarDatos.anchor = GridBagConstraints.NORTH;
-		gbc_bBorrarDatos.insets = new Insets(0, 0, 5, 5);
-		gbc_bBorrarDatos.gridx = 0;
-		gbc_bBorrarDatos.gridy = 3;
-		bBorrarDatos.addActionListener(this);
+		panel_3 = new JPanel();
+		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
+		gbc_panel_3.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_3.fill = GridBagConstraints.BOTH;
+		gbc_panel_3.gridx = 0;
+		gbc_panel_3.gridy = 1;
+		maingrid.add(panel_3, gbc_panel_3);
 		
-		listNombre = new JList<String>(listModel);
-		scrollPane = new JScrollPane( listNombre );
-		//JList listNombre = new JList();
-		//gbc_scrollpane.(JList.VERTICAL);
-		GridBagConstraints gbc_listNombre = new GridBagConstraints();
-		gbc_listNombre.fill = GridBagConstraints.BOTH;
-		gbc_listNombre.gridheight = 2;
-		gbc_listNombre.insets = new Insets(0, 0, 5, 5);
-		gbc_listNombre.gridx = 1;
-		gbc_listNombre.gridy = 2;
-		maingrid.add(scrollPane, gbc_listNombre);
-		maingrid.add(bBorrarDatos, gbc_bBorrarDatos);
+		lblNewLabel = new JLabel("Institutos por asignar");
+		panel_3.add(lblNewLabel);
 		
+		comboBox = new JComboBox();
+		GridBagConstraints gbc_comboBox = new GridBagConstraints();
+		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox.gridx = 1;
+		gbc_comboBox.gridy = 1;
+		maingrid.add(comboBox, gbc_comboBox);
 		
+		panel_5 = new JPanel();
+		GridBagConstraints gbc_panel_5 = new GridBagConstraints();
+		gbc_panel_5.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_5.fill = GridBagConstraints.BOTH;
+		gbc_panel_5.gridx = 3;
+		gbc_panel_5.gridy = 1;
+		maingrid.add(panel_5, gbc_panel_5);
 		
+		lblInstitutosAsignadosA = new JLabel("Institutos asignados a esa sede");
+		panel_5.add(lblInstitutosAsignadosA);
 		
+		panel = new JPanel();
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.gridheight = 3;
+		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 0;
+		gbc_panel.gridy = 2;
+		maingrid.add(panel, gbc_panel);
 		
-		JPanel panelCRUD = new JPanel();
-		GridBagConstraints gbc_panelCRUD = new GridBagConstraints();
-		gbc_panelCRUD.anchor = GridBagConstraints.EAST;
-		gbc_panelCRUD.gridwidth = 2;
-		gbc_panelCRUD.insets = new Insets(0, 0, 5, 5);
-		gbc_panelCRUD.gridx = 1;
-		gbc_panelCRUD.gridy = 4;
-		maingrid.add(panelCRUD, gbc_panelCRUD);
+		list = new JList();
+		panel.add(list);
+		
+		textField = new JTextField();
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 1;
+		gbc_textField.gridy = 2;
+		maingrid.add(textField, gbc_textField);
+		textField.setColumns(10);
+		
+		panel_4 = new JPanel();
+		GridBagConstraints gbc_panel_4 = new GridBagConstraints();
+		gbc_panel_4.gridheight = 2;
+		gbc_panel_4.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_4.fill = GridBagConstraints.BOTH;
+		gbc_panel_4.gridx = 3;
+		gbc_panel_4.gridy = 2;
+		maingrid.add(panel_4, gbc_panel_4);
+		
+		list_1 = new JList();
+		panel_4.add(list_1);
+		
+		btnNewButton = new JButton("Añadir");
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton.gridx = 1;
+		gbc_btnNewButton.gridy = 3;
+		maingrid.add(btnNewButton, gbc_btnNewButton);
+		
+		btnNewButton_1 = new JButton("Quitar");
+		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
+		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_1.gridx = 1;
+		gbc_btnNewButton_1.gridy = 4;
+		maingrid.add(btnNewButton_1, gbc_btnNewButton_1);
+		
+		btnNewButton_2 = new JButton("Cargar datos");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
+		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_2.gridx = 0;
+		gbc_btnNewButton_2.gridy = 5;
+		maingrid.add(btnNewButton_2, gbc_btnNewButton_2);
+		
+		btnNewButton_3 = new JButton("Borrar datos");
+		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
+		gbc_btnNewButton_3.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_3.gridx = 1;
+		gbc_btnNewButton_3.gridy = 5;
+		maingrid.add(btnNewButton_3, gbc_btnNewButton_3);
 		
 		
 		
@@ -273,17 +312,16 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 		gbc_bDescargarLog.anchor = GridBagConstraints.NORTH;
 		gbc_bDescargarLog.insets = new Insets(0, 0, 0, 5);
 		gbc_bDescargarLog.gridx = 0;
-		gbc_bDescargarLog.gridy = 5;
+		gbc_bDescargarLog.gridy = 6;
 		maingrid.add(bDescargarLog, gbc_bDescargarLog);
 		
 		TextArea logText = new TextArea();
 		GridBagConstraints gbc_logText = new GridBagConstraints();
-		gbc_logText.insets = new Insets(0, 0, 0, 5);
 		gbc_logText.anchor = GridBagConstraints.NORTH;
 		gbc_logText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_logText.gridwidth = 2;
+		gbc_logText.gridwidth = 3;
 		gbc_logText.gridx = 1;
-		gbc_logText.gridy = 5;
+		gbc_logText.gridy = 6;
 		maingrid.add(logText, gbc_logText);
 		logText.setEditable(false);
 		
@@ -295,36 +333,24 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==bHome){
+		if(e.getSource()==bHome) {
 			controlador.mostrarHome();
-		}else if(e.getSource()==bVicerrector){
+        } else if (e.getSource()==bVicerrector) {
+            controlador.mostrarAlumnos();
+        } else if (e.getSource()==bGestorSede) {
+            controlador.mostrarAulas();
+		} else if (e.getSource()==bAlumnos) {
 			controlador.mostrarAlumnos();
-		}else if(e.getSource()==bGestorSede){
-			//controlador.mostrarAulas();
-		}else if (e.getSource()==bAlumnos){
-			controlador.mostrarAlumnos();
-		}else if (e.getSource()==bAsignaturas){
+		} else if (e.getSource()==bAsignaturas) {
 			controlador.mostrarAsignaturas();
-		}else if (e.getSource()==bExamenes){
-			//controlador.mostrarExamenes();
-		}else if (e.getSource()==bInstitutos){
+		} else if (e.getSource()==bExamenes) {
+			controlador.mostrarExamenes();
+		} else if (e.getSource()==bInstitutos) {
 			controlador.mostrarInstitutos();
-		}else if (e.getSource()==bResponsablesSedes){
+		}else if (e.getSource()==bResponsablesSedes) {
 			controlador.mostrarResponsables();
-		}else if (e.getSource()==bSedes){
+		} else if (e.getSource()==bSedes) {
 			controlador.mostrarSedes();
-		}else if(e.getSource()==bCargarDatos) {
-			System.out.println("llego al boton");
-			try {
-				controladorAlumnos.abrirArchivo();
-				controladorAlumnos.refresh();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			System.out.println("llego al boton x");
-		} else if (e.getSource()==bBorrarDatos) {
-			controladorAlumnos.borrarDatos();
-			listModel.clear();
 		}
 	}
 	

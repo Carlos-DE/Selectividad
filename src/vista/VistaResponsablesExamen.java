@@ -26,6 +26,27 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
 	private JList<String> listaResponsables;
     private DefaultListModel listModel;
+	//private Controlador controlador;
+	private JButton bAulas;
+	private JButton bInstitutos;
+	private JButton bGenerar;
+	private JPanel panel;
+	private Panel menu;
+	//private JButton bAlumnos;
+	private JButton bResponsablesExamen;
+	private JPanel panel_1;
+	private Panel menu_2;
+	private JButton bHome;
+	private JButton bVicerrector;
+	private JButton bGestorSede;
+	private JPanel panel_2;
+	private Panel menu_1;
+	//private JButton bAlumnos;
+	private JButton bAsignaturas;
+	private JButton bExamenes;
+	//private JButton bInstitutos;
+	private JButton bResponsablesSedes;
+	private JButton bSedes;
 
 
 	/**
@@ -73,18 +94,17 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_menu.gridy = 0;
 		maingrid.add(menu, gbc_menu);
 		
-		JButton bHome = new JButton("Home");
+		bHome = new JButton("Home");
 		menu.add(bHome);
+		bHome.addActionListener(this) ;
 		
-		JButton bVicerrector = new JButton("VICERRECTOR");
-		bVicerrector.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		bVicerrector = new JButton("VICERRECTOR");
+		bVicerrector.addActionListener(this) ;
 		menu.add(bVicerrector);
 		
-		JButton bGestorSede = new JButton("GESTOR SEDE");
+		bGestorSede = new JButton("GESTOR SEDE");
 		menu.add(bGestorSede);
+		bGestorSede.addActionListener(this) ;
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "GESTOR SEDE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -117,8 +137,8 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		menu_1.add(bAlumnos);
 		bAlumnos.addActionListener(this);
 		
-		JButton btnNewButton = new JButton("Responsables Examen");
-		menu_1.add(btnNewButton);
+		bResponsablesExamen = new JButton("Responsables Examen");
+		menu_1.add(bResponsablesExamen);
 		
 		
 		
@@ -256,6 +276,25 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==bHome) {
+			controlador.mostrarHome();
+        } else if (e.getSource()==bVicerrector) {
+            controlador.mostrarAlumnos();
+        } else if (e.getSource()==bGestorSede) {
+            controlador.mostrarAulas();
+		} else if (e.getSource()==bAlumnos) {
+			controlador.mostrarAlumnos();
+		} else if (e.getSource()==bAsignaturas) {
+			controlador.mostrarAsignaturas();
+		} else if (e.getSource()==bExamenes) {
+			controlador.mostrarExamenes();
+		} else if (e.getSource()==bInstitutos) {
+			controlador.mostrarInstitutos();
+		}else if (e.getSource()==bResponsablesSedes) {
+			controlador.mostrarResponsables();
+		} else if (e.getSource()==bSedes) {
+			controlador.mostrarSedes();
+		}
 	}
 	
 	public void setControlador(Controlador controlador) {

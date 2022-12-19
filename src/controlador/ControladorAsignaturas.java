@@ -2,9 +2,13 @@ package controlador;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
@@ -36,8 +40,10 @@ public class ControladorAsignaturas {
     }
     private void carga(String ruta) throws FileNotFoundException, IOException {
         String cadena;
-        FileReader f = new FileReader(ruta);
-        BufferedReader b = new BufferedReader(f);
+        //FileReader f = new FileReader(ruta);
+        InputStream f = new FileInputStream(ruta);
+        InputStreamReader i = new InputStreamReader(f, StandardCharsets.UTF_8);
+        BufferedReader b = new BufferedReader(i);
         b.readLine();
         
         while((cadena = b.readLine())!=null) {

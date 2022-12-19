@@ -9,8 +9,9 @@ public class Controlador{
 	private VistaSedes vistaSedes;
 	private VistaAsignaturas vistaAsignaturas;
 	private VistaAlumnos vistaAlumnos;
-	private VistaResponsables vistaResponsables;
+	private VistaResponsablesSede vistaResponsables;
 	private VistaResponsablesExamen vistaResponsablesExamen;
+	private VistaExamen vistaExamen;
 
 	public void setVistaHome(VistaHome vistaHome) {
 		this.vistaHome = vistaHome;
@@ -28,12 +29,16 @@ public class Controlador{
 		this.vistaAlumnos = vistaAlumnos;
 	}
 
-	public void setVistaResponsables(VistaResponsables vistaResponsables) {
+	public void setVistaResponsables(VistaResponsablesSede vistaResponsables) {
 		this.vistaResponsables = vistaResponsables;
 
 	}
 	public void setVistaResponsablesExamen(VistaResponsablesExamen vistaResponsablesExamen) {
 		this.vistaResponsablesExamen = vistaResponsablesExamen;
+
+	}
+	public void setVistaExamen(VistaExamen vistaExamen) {
+		this.vistaExamen = vistaExamen;
 
 	}
 	
@@ -42,6 +47,12 @@ public class Controlador{
 	public void mostrarHome() {
 		setVisibleFalse();
 		vistaHome.setVisible(true);
+
+	}
+
+	public void mostrarExamenes() {
+		setVisibleFalse();
+		vistaExamen.setVisible(true);
 
 	}
 
@@ -101,6 +112,8 @@ public class Controlador{
 		//vistaAulas.setVisible(false);
 		vistaResponsablesExamen.setVisible(false);
 
+
+	
 	}
 
 
