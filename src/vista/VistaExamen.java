@@ -310,10 +310,6 @@ public class VistaExamen extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==bHome) {
 			controlador.mostrarHome();
-        } else if (e.getSource()==bVicerrector) {
-            controlador.mostrarAlumnos();
-        } else if (e.getSource()==bGestorSede) {
-            controlador.mostrarAulas();
 		} else if (e.getSource()==bAlumnos) {
 			controlador.mostrarAlumnos();
 		} else if (e.getSource()==bAsignaturas) {
