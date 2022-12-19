@@ -10,6 +10,7 @@ public class Controlador{
 	private VistaAsignaturas vistaAsignaturas;
 	private VistaAlumnos vistaAlumnos;
 	private VistaResponsables vistaResponsables;
+	private VistaResponsablesExamen vistaResponsablesExamen;
 
 	public void setVistaHome(VistaHome vistaHome) {
 		this.vistaHome = vistaHome;
@@ -33,103 +34,66 @@ public class Controlador{
 	}
 
 	public void mostrarHome() {
+		setVisibleFalse();
 		vistaHome.setVisible(true);
-		vistaAlumnos.setVisible(false);
-		vistaAsignaturas.setVisible(false);
-		vistaSedes.setVisible(false);
-		//vistaAulas.setVisible(false);
-		vistaResponsables.setVisible(false);
-		//vistaInstitutos.setVisible(false);
-		//vistaGenerar.setVisible(false);
+
 	}
 
 	public void mostrarAlumnos() {
-		vistaHome.setVisible(false);
+		setVisibleFalse();
 		vistaAlumnos.setVisible(true);
-		vistaAsignaturas.setVisible(false);
-		vistaSedes.setVisible(false);
-		//vistaAulas.setVisible(false);
-		vistaResponsables.setVisible(false);
-		//vistaInstitutos.setVisible(false);
-		//vistaGenerar.setVisible(false);
+
 	}
 
 	public void mostrarAsignaturas() {
-
-
-		vistaHome.setVisible(false);
-		vistaAlumnos.setVisible(false);
+		setVisibleFalse();
 		vistaAsignaturas.setVisible(true);
-		vistaSedes.setVisible(false);
-		//vistaAulas.setVisible(false);
-		vistaResponsables.setVisible(false);
-		//vistaInstitutos.setVisible(false);
-		//vistaGenerar.setVisible(false);
-		/*var vistaAsignaturaNueva = new VistaAsignaturas();
-		setVistaAsignaturas(vistaAsignaturaNueva);
-		vistaAsignaturas.setVisible(true);
-*/
-
-
 	}
 
 	public void mostrarSedes() {
-		vistaHome.setVisible(false);
-		vistaAlumnos.setVisible(false);
-		vistaAsignaturas.setVisible(false);
+		setVisibleFalse();
 		vistaSedes.setVisible(true);
-		//vistaAulas.setVisible(false);
-		vistaResponsables.setVisible(false);
-		//vistaInstitutos.setVisible(false);
-		//vistaGenerar.setVisible(false);
 	}
 
 	public void mostrarAulas() {
-		vistaHome.setVisible(false);
-		vistaAlumnos.setVisible(false);
-		vistaAsignaturas.setVisible(false);
-		vistaSedes.setVisible(false);
+		setVisibleFalse();
 		//vistaAulas.setVisible(true);
-		vistaResponsables.setVisible(false);
-		//vistaInstitutos.setVisible(false);
-		//vistaGenerar.setVisible(false);
 	}
 
 	public void mostrarResponsables() {
-		vistaHome.setVisible(false);
-		vistaAlumnos.setVisible(false);
-		vistaAsignaturas.setVisible(false);
-		vistaSedes.setVisible(false);
-		//vistaAulas.setVisible(false);
+		setVisibleFalse();
 		vistaResponsables.setVisible(true);
-		//vistaInstitutos.setVisible(false);
-		//vistaGenerar.setVisible(false);
 	}
 
 	public void mostrarInstitutos() {
-		vistaHome.setVisible(false);
-		vistaAlumnos.setVisible(false);
-		vistaAsignaturas.setVisible(false);
-		vistaSedes.setVisible(false);
-		//vistaAulas.setVisible(false);
-		vistaResponsables.setVisible(false);
+		setVisibleFalse();
 		//vistaInstitutos.setVisible(true);
-		//vistaGenerar.setVisible(false);
 	}
 
 	public void mostrarGenerar() {
-		vistaHome.setVisible(false);
-		vistaAlumnos.setVisible(false);
-		vistaAsignaturas.setVisible(false);
-		vistaSedes.setVisible(false);
-		//vistaAulas.setVisible(false);
-		vistaResponsables.setVisible(false);
-		//vistaInstitutos.setVisible(false);
+		setVisibleFalse();
 		//vistaGenerar.setVisible(true);
 	}
 
-	public void mostrarExamenes() {
-		// TODO Auto-generated method stub
+	public void mostrarResponsablesExamenes() {
+		setVisibleFalse();
+		vistaResponsablesExamen.setVisible(true);
+
+	}
+
+	public void setVisibleFalse(){
+		vistaHome.setVisible(false);
+		
+		vistaAlumnos.setVisible(false);
+		vistaAsignaturas.setVisible(false);
+		vistaSedes.setVisible(false);
+		
+		vistaResponsables.setVisible(false);
+		//vistaInstitutos.setVisible(false);
+		//vistaGenerar.setVisible(false);
+
+		//vistaAulas.setVisible(false);
+		vistaResponsablesExamen.setVisible(false);
 
 	}
 

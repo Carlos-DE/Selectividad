@@ -32,7 +32,7 @@ public class ControladorAlumnos {
         String x;
         Alumno a = new Alumno();;
         String[] partes = new String[5];
-    	Scanner sc = new Scanner(new File(ruta),"UTF-8");
+    	  Scanner sc = new Scanner(new File(ruta),"UTF-8");
         //parsing a CSV file into the constructor of Scanner class 
         sc.useDelimiter("\\r?\\n|\\r");
         sc.nextLine();
