@@ -14,6 +14,7 @@ import modelo.Sede;
 public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 	 PreparedStatement ps;
 	 ResultSet rs;
+     ArrayList<Alumno> lAlumnos = new ArrayList<>();
 	 ArrayList<Materia> lMaterias = new ArrayList<>();
      ArrayList<Sede> lSedes = new ArrayList<>();
      ArrayList<Responsable> lResponsables = new ArrayList<>();
@@ -52,7 +53,34 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
         return instanciaInterfaz;
     }
     
-    
+    public List<Alumno> listaAlumnos() {
+        
+        String selectQueryBody = "SELECT * FROM ALUMNO";
+        Statement querySt;
+        try {
+            querySt = conn.createStatement();
+            ResultSet rs = querySt.executeQuery(selectQueryBody);
+            // position result to first
+            if (rs.isBeforeFirst()) {
+                while (rs.next()) {
+                    String id = rs.getString(1);
+                    String c = rs.getString(2);
+                    String nombre = rs.getString(3);
+                    String ap1 = rs.getString(4);
+                    String ap2 = rs.getString(5);
+                    String det = rs.getString(6);
+                    lAlumnos.add(new Alumno(id,c,nombre,ap1,ap2,det));
+                    
+                }
+            }
+            
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lAlumnos;        
+    }
+
     public List<Alumno> listaAlumnosDeUnCentro(String centro){
         ArrayList<Alumno> lAlumno = new ArrayList<>();
         String selectQueryBody = "SELECT * FROM ALUMNO WHERE Centro=?";

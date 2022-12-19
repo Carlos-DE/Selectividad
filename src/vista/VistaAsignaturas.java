@@ -43,7 +43,7 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 	private JButton bAsignaturas;
 	private Controlador controlador;
 	private ControladorAsignaturas controladorAsignaturas= new ControladorAsignaturas();
-	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
+	private static ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
 	private JList<String> listaMaterias;
     private DefaultListModel listModel;
 	private JButton bVicerrector;
@@ -68,17 +68,17 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 	 */
 	public VistaAsignaturas() {
 	
-		java.util.List<Materia> lista = conexionBD.listaMaterias();
-		 listModel = new DefaultListModel();
-		 for(Materia m : lista) {
-	            listModel.addElement(m.getIdMateria());
-	        }
+		refresh();
 		initialize();
 	
 	}
 
 	private void cargaLista(){
-		java.util.List<Materia> lista = conexionBD.listaMaterias();
+		refresh();
+	}
+
+	public void refresh() {
+        java.util.List<Materia> lista = conexionBD.listaMaterias();
 		listModel = new DefaultListModel();
 		for(Materia m : lista) {
 			listModel.addElement(m.getIdMateria());

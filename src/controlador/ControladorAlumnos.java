@@ -32,26 +32,43 @@ public class ControladorAlumnos {
         String x;
         Alumno a = new Alumno();;
         String[] partes = new String[5];
-    	Scanner sc = new Scanner(new File(ruta));
+    	Scanner sc = new Scanner(new File(ruta),"UTF-8");
         //parsing a CSV file into the constructor of Scanner class 
         sc.useDelimiter("\\r?\\n|\\r");
         sc.nextLine();
         //setting comma as delimiter pattern
         while (sc.hasNext()) {
+        int cont=0;
           x = sc.next();
           partes = x.split(";");
-          a.setCentro(partes[0]);
-          a.setNombre(partes[1]);
-          a.setApellido1(partes[2]);
-          a.setApellido2(partes[3]);
-          a.setDni(partes[4]); 
-          a.setDetalleMateria(partes[5]);
-          conexionBD.insertarAlumno(a);
+          
+          try {
+            a.setCentro(partes[0]);
+            a.setNombre(partes[1]);
+            a.setApellido1(partes[2]);
+            a.setApellido2(partes[3]);
+            a.setDni(partes[4]); 
+            a.setDetalleMateria(partes[5]);
+            conexionBD.insertarAlumno(a);
+            
+            System.out.println(a);
+            System.out.println("Linea" + cont + " leida");
+
+          } catch (Exception e) {
+            System.out.println("error al leer linea " + cont +" del csv");
+            e.printStackTrace();
+          }
+          cont=cont+1;
+          
         }
         sc.close();
+        
 }
 	public void borrarDatos() {
 		System.out.println("paso 1");
 		conexionBD.borrarAlumno();
+	}
+	public void refresh() {
+        
 	}
 }

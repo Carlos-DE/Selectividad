@@ -21,6 +21,7 @@ public abstract class ConexionConBaseDeDatos {
     public abstract List<Materia> listaMaterias();
     public abstract List<Materia> verMaterias();
     public abstract List<Sede> listaSedes();
+    public abstract List<Alumno> listaAlumnos();
     public abstract List<Alumno> listaAlumnosDeUnCentro(String centro);
     public abstract List<Responsable> listaResponsable();
     public abstract int insertarSede(Sede s);
@@ -37,4 +38,5 @@ public abstract class ConexionConBaseDeDatos {
 	public abstract int insertarAula(Aula a);
     public abstract int actualizarAula(Aula a, String idnuevo);
     public abstract int  borrarAulaSeleccionada(Aula a);
+
 	}

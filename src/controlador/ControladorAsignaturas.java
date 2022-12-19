@@ -6,10 +6,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 
 import modelo.Materia;
 import modelo.Sede;
+import vista.VistaAsignaturas;
 
 public class ControladorAsignaturas {
 	public String ruta;
@@ -49,6 +51,7 @@ public class ControladorAsignaturas {
         b.close();
         System.out.println("");
         conexionBD.listaMaterias();
+        refresh();
 
     }
 	public void borrarDatos() {
@@ -56,5 +59,12 @@ public class ControladorAsignaturas {
 		conexionBD.borrarAsignaturas();
 		conexionBD.listaSedes().clear();
     }
+
+    public static void refresh(){
+        VistaAsignaturas v = new VistaAsignaturas();
+        v.refresh();
+    }
+
+    
 
 }

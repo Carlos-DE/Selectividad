@@ -13,15 +13,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import controlador.ConexionBaseDatosJDBC;
+import controlador.ConexionConBaseDeDatos;
 import controlador.Controlador;
 import controlador.ControladorAlumnos;
+import modelo.Alumno;
+
 import java.awt.FlowLayout;
 import javax.swing.border.TitledBorder;
 import javax.swing.JList;
@@ -44,6 +50,11 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 	private JPanel panel_2;
 	private JButton bInstitutos;
 	private JButton bExamenes;
+	private DefaultListModel listModel;
+	private JList<String> listNombre;
+	private JScrollPane scrollPane;
+
+	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
 
 	/**
 	 * Launch the application.
@@ -54,6 +65,11 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 	 * Create the application.
 	 */
 	public VistaAlumnos() {
+		java.util.List<Alumno> lista = conexionBD.listaAlumnos();
+		listModel = new DefaultListModel();
+		for(Alumno a : lista) {
+	        listModel.addElement(a.getDni() + " " + a.getNombre() +" "+ a.getApellido1() +" "+ a.getApellido2());
+	    }
 		initialize();
 	}
 
@@ -84,7 +100,7 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridwidth = 3;
-		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_panel_1.gridx = 0;
 		gbc_panel_1.gridy = 0;
 		maingrid.add(panel_1, gbc_panel_1);
@@ -193,16 +209,13 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 		bCargarDatos.addActionListener(this);
 
 		maingrid.add(bCargarDatos, gbc_bCargarDatos);
-		
-		JList listNombre = new JList();
-		listNombre.setLayoutOrientation(JList.VERTICAL_WRAP);
-		GridBagConstraints gbc_listNombre = new GridBagConstraints();
-		gbc_listNombre.fill = GridBagConstraints.BOTH;
-		gbc_listNombre.gridheight = 2;
-		gbc_listNombre.insets = new Insets(0, 0, 5, 5);
-		gbc_listNombre.gridx = 1;
-		gbc_listNombre.gridy = 2;
-		maingrid.add(listNombre, gbc_listNombre);
+		GridBagConstraints gbc_scrollpane = new GridBagConstraints();
+		gbc_scrollpane.fill=GridBagConstraints.HORIZONTAL;
+		gbc_scrollpane.fill = GridBagConstraints.VERTICAL;
+		gbc_scrollpane.gridheight = 2;
+		gbc_scrollpane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollpane.gridx = 1;
+		gbc_scrollpane.gridy = 2;
 		
 		bBorrarDatos = new JButton("BorrarDatos");
 		GridBagConstraints gbc_bBorrarDatos = new GridBagConstraints();
@@ -211,6 +224,18 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 		gbc_bBorrarDatos.gridx = 0;
 		gbc_bBorrarDatos.gridy = 3;
 		bBorrarDatos.addActionListener(this);
+		
+		listNombre = new JList<String>(listModel);
+		scrollPane = new JScrollPane( listNombre );
+		//JList listNombre = new JList();
+		//gbc_scrollpane.(JList.VERTICAL);
+		GridBagConstraints gbc_listNombre = new GridBagConstraints();
+		gbc_listNombre.fill = GridBagConstraints.BOTH;
+		gbc_listNombre.gridheight = 2;
+		gbc_listNombre.insets = new Insets(0, 0, 5, 5);
+		gbc_listNombre.gridx = 1;
+		gbc_listNombre.gridy = 2;
+		maingrid.add(scrollPane, gbc_listNombre);
 		maingrid.add(bBorrarDatos, gbc_bBorrarDatos);
 		
 		
@@ -221,7 +246,7 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 		GridBagConstraints gbc_panelCRUD = new GridBagConstraints();
 		gbc_panelCRUD.anchor = GridBagConstraints.EAST;
 		gbc_panelCRUD.gridwidth = 2;
-		gbc_panelCRUD.insets = new Insets(0, 0, 5, 0);
+		gbc_panelCRUD.insets = new Insets(0, 0, 5, 5);
 		gbc_panelCRUD.gridx = 1;
 		gbc_panelCRUD.gridy = 4;
 		maingrid.add(panelCRUD, gbc_panelCRUD);
@@ -240,6 +265,7 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 		
 		TextArea logText = new TextArea();
 		GridBagConstraints gbc_logText = new GridBagConstraints();
+		gbc_logText.insets = new Insets(0, 0, 0, 5);
 		gbc_logText.anchor = GridBagConstraints.NORTH;
 		gbc_logText.fill = GridBagConstraints.HORIZONTAL;
 		gbc_logText.gridwidth = 2;
@@ -274,12 +300,14 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 			System.out.println("llego al boton");
 			try {
 				controladorAlumnos.abrirArchivo();
+				controladorAlumnos.refresh();
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
-			System.out.println("llego al boton");
+			System.out.println("llego al boton x");
 		} else if (e.getSource()==bBorrarDatos) {
 			controladorAlumnos.borrarDatos();
+			listModel.clear();
 		}
 	}
 	
