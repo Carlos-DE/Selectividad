@@ -7,6 +7,7 @@ import controlador.ConexionBaseDatosJDBC;
 import controlador.ConexionConBaseDeDatos;
 import controlador.Controlador;
 import controlador.ControladorResponsables;
+import controlador.ControladorResponsablesExamen;
 import controlador.ControladorSede;
 import modelo.Responsable;
 import modelo.ResponsableExamen;
@@ -22,7 +23,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	private JButton bCargarDatos, bBorrarDatos;
 	private JButton bAlumnos;
 	private Controlador controlador;
-	private ControladorResponsables controladorResponsables = new ControladorResponsables();
+	private ControladorResponsablesExamen controladorResponsables = new ControladorResponsablesExamen();
 	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
 	private JList<String> listaResponsables;
     private DefaultListModel listModel;
@@ -294,6 +295,13 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 			controlador.mostrarResponsables();
 		} else if (e.getSource()==bSedes) {
 			controlador.mostrarSedes();
+		}else if(e.getSource()==bCargarDatos) {
+			System.out.println("llego al boton");
+			try {
+				controladorResponsables.abrirArchivo();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
 		}
 	}
 	

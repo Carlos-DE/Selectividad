@@ -285,6 +285,13 @@ public class VistaResponsablesSede extends JFrame implements ActionListener{
 			controlador.mostrarResponsables();
 		}else if(e.getSource()==bSedes){
 			controlador.mostrarSedes();
+		}else if(e.getSource()==bCargarDatos) {
+			System.out.println("llego al boton");
+			try {
+				controladorResponsables.abrirArchivo();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
 		}
 	}
 	
