@@ -16,13 +16,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import javax.swing.border.TitledBorder;
 
 public class VistaResponsablesExamen extends JFrame implements ActionListener{
-	private JButton bHome;
-	private JButton bSedes,bCargarDatos, bBorrarDatos;
+	private JButton bCargarDatos, bBorrarDatos;
 	private JButton bAlumnos;
-	private JButton bAsignaturas;
-	private JButton bResponsables;
 	private Controlador controlador;
 	private ControladorResponsables controladorResponsables = new ControladorResponsables();
 	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
@@ -59,46 +57,68 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		getContentPane().add(maingrid, BorderLayout.CENTER);
 		GridBagLayout gbl_maingrid = new GridBagLayout();
 		gbl_maingrid.columnWidths = new int[]{0, 0, 164, -21, 0, 0, 0};
-		gbl_maingrid.rowHeights = new int[]{40, 30, 30, 110, 40, 120, 113, 0, 81, 15, 0};
-		gbl_maingrid.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_maingrid.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_maingrid.rowHeights = new int[]{40, 0, 30, 30, 110, 40, 120, 113, 0, 81, 15, 0};
+		gbl_maingrid.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_maingrid.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		maingrid.setLayout(gbl_maingrid);
 		
-		
-		
 		Panel menu = new Panel();
+		menu.setFont(new Font("Dialog", Font.PLAIN, 14));
+		menu.setBackground(new Color(0, 64, 128));
 		GridBagConstraints gbc_menu = new GridBagConstraints();
 		gbc_menu.fill = GridBagConstraints.BOTH;
 		gbc_menu.gridwidth = 6;
-		gbc_menu.insets = new Insets(0, 0, 5, 0);
+		gbc_menu.insets = new Insets(0, 0, 5, 5);
 		gbc_menu.gridx = 0;
 		gbc_menu.gridy = 0;
 		maingrid.add(menu, gbc_menu);
-		menu.setFont(new Font("Dialog", Font.PLAIN, 14));
-		menu.setBackground(new Color(0, 64, 128));
 		
-		bHome = new JButton("Home");
-		bHome.addActionListener(this);
+		JButton bHome = new JButton("Home");
 		menu.add(bHome);
 		
+		JButton bVicerrector = new JButton("VICERRECTOR");
+		bVicerrector.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		menu.add(bVicerrector);
+		
+		JButton bGestorSede = new JButton("GESTOR SEDE");
+		menu.add(bGestorSede);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder(null, "GESTOR SEDE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+		gbc_panel_2.gridwidth = 6;
+		gbc_panel_2.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_2.fill = GridBagConstraints.BOTH;
+		gbc_panel_2.gridx = 0;
+		gbc_panel_2.gridy = 1;
+		maingrid.add(panel_2, gbc_panel_2);
+		GridBagLayout gbl_panel_2 = new GridBagLayout();
+		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0, 0};
+		gbl_panel_2.rowHeights = new int[]{0, 0};
+		gbl_panel_2.columnWeights = new double[]{1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel_2.setLayout(gbl_panel_2);
+		
+		Panel menu_1 = new Panel();
+		menu_1.setFont(new Font("Dialog", Font.PLAIN, 14));
+		menu_1.setBackground(new Color(0, 64, 128));
+		GridBagConstraints gbc_menu_1 = new GridBagConstraints();
+		gbc_menu_1.insets = new Insets(0, 0, 0, 5);
+		gbc_menu_1.fill = GridBagConstraints.BOTH;
+		gbc_menu_1.gridwidth = 4;
+		gbc_menu_1.gridx = 0;
+		gbc_menu_1.gridy = 0;
+		panel_2.add(menu_1, gbc_menu_1);
+		
 		bAlumnos = new JButton("Alumnos");
+		menu_1.add(bAlumnos);
 		bAlumnos.addActionListener(this);
-		menu.add(bAlumnos);
-		
-		bSedes = new JButton("Sedes");
-		bSedes.addActionListener(this);
-		menu.add(bSedes);
-		
-		bAsignaturas = new JButton("Asignaturas");
-		bAsignaturas.addActionListener(this);
-		menu.add(bAsignaturas);
-		
-		bResponsables = new JButton("Responsables Sede");
-		bResponsables.addActionListener(this);
-		menu.add(bResponsables);
 		
 		JButton btnNewButton = new JButton("Responsables Examen");
-		menu.add(btnNewButton);
+		menu_1.add(btnNewButton);
 		
 		
 		
@@ -107,14 +127,14 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		GridBagConstraints gbc_lblResponsables = new GridBagConstraints();
 		gbc_lblResponsables.insets = new Insets(0, 0, 5, 5);
 		gbc_lblResponsables.gridx = 1;
-		gbc_lblResponsables.gridy = 1;
+		gbc_lblResponsables.gridy = 2;
 		maingrid.add(lblResponsables, gbc_lblResponsables);
 		
 		JLabel lblNewLabel = new JLabel("Sede X");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 2;
-		gbc_lblNewLabel.gridy = 1;
+		gbc_lblNewLabel.gridy = 2;
 		maingrid.add(lblNewLabel, gbc_lblNewLabel);
 		
 		JComboBox cbSedes = new JComboBox();
@@ -123,7 +143,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_cbSedes.insets = new Insets(0, 0, 5, 5);
 		gbc_cbSedes.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbSedes.gridx = 4;
-		gbc_cbSedes.gridy = 1;
+		gbc_cbSedes.gridy = 2;
 		maingrid.add(cbSedes, gbc_cbSedes);
 		
 		//List listNombre = new List();
@@ -133,7 +153,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_listNombre.gridheight = 4;
 		gbc_listNombre.insets = new Insets(0, 0, 5, 5);
 		gbc_listNombre.gridx = 1;
-		gbc_listNombre.gridy = 2;
+		gbc_listNombre.gridy = 3;
 		maingrid.add(listaResponsables, gbc_listNombre);
 		
 		JComboBox comboBox = new JComboBox();
@@ -142,7 +162,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_comboBox.gridwidth = 2;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.gridx = 2;
-		gbc_comboBox.gridy = 2;
+		gbc_comboBox.gridy = 3;
 		maingrid.add(comboBox, gbc_comboBox);
 		
 		JComboBox cbCargos = new JComboBox();
@@ -151,7 +171,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_cbCargos.gridwidth = 2;
 		gbc_cbCargos.insets = new Insets(0, 0, 5, 5);
 		gbc_cbCargos.gridx = 2;
-		gbc_cbCargos.gridy = 3;
+		gbc_cbCargos.gridy = 4;
 		maingrid.add(cbCargos, gbc_cbCargos);
 		
 		JList listAulas = new JList();
@@ -170,7 +190,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_listAulas.insets = new Insets(0, 0, 5, 5);
 		gbc_listAulas.fill = GridBagConstraints.BOTH;
 		gbc_listAulas.gridx = 4;
-		gbc_listAulas.gridy = 2;
+		gbc_listAulas.gridy = 3;
 		maingrid.add(listAulas, gbc_listAulas);
 		
 		JButton bAnadir = new JButton("Anadir");
@@ -178,7 +198,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_bAnadir.gridwidth = 2;
 		gbc_bAnadir.insets = new Insets(0, 0, 5, 5);
 		gbc_bAnadir.gridx = 2;
-		gbc_bAnadir.gridy = 4;
+		gbc_bAnadir.gridy = 5;
 		maingrid.add(bAnadir, gbc_bAnadir);
 		
 		JButton bQuitar = new JButton("Quitar");
@@ -186,7 +206,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_bQuitar.gridwidth = 2;
 		gbc_bQuitar.insets = new Insets(0, 0, 5, 5);
 		gbc_bQuitar.gridx = 2;
-		gbc_bQuitar.gridy = 5;
+		gbc_bQuitar.gridy = 6;
 		maingrid.add(bQuitar, gbc_bQuitar);
 		
 		
@@ -197,7 +217,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		GridBagConstraints gbc_bCargarDatos = new GridBagConstraints();
 		gbc_bCargarDatos.insets = new Insets(0, 0, 5, 5);
 		gbc_bCargarDatos.gridx = 1;
-		gbc_bCargarDatos.gridy = 6;
+		gbc_bCargarDatos.gridy = 7;
 		bCargarDatos.addActionListener(this);
 		maingrid.add(bCargarDatos, gbc_bCargarDatos);
 		
@@ -205,7 +225,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton.gridx = 1;
-		gbc_btnNewButton.gridy = 7;
+		gbc_btnNewButton.gridy = 8;
 		bBorrarDatos.addActionListener(this);
 
 		maingrid.add(bBorrarDatos, gbc_btnNewButton);
@@ -219,7 +239,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_bDescargarLog.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_bDescargarLog.insets = new Insets(0, 0, 5, 5);
 		gbc_bDescargarLog.gridx = 1;
-		gbc_bDescargarLog.gridy = 8;
+		gbc_bDescargarLog.gridy = 9;
 		maingrid.add(bDescargarLog, gbc_bDescargarLog);
 		
 		TextArea logText = new TextArea();
@@ -230,33 +250,12 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_logText.gridwidth = 2;
 		gbc_logText.insets = new Insets(0, 0, 5, 5);
 		gbc_logText.gridx = 3;
-		gbc_logText.gridy = 8;
+		gbc_logText.gridy = 9;
 		maingrid.add(logText, gbc_logText);
 		logText.setEditable(false);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==bSedes) {
-			controlador.mostrarSedes();
-		} else if (e.getSource()==bHome) {
-			controlador.mostrarHome();
-		}else if (e.getSource()==bAlumnos){
-			controlador.mostrarAlumnos();
-		}else if (e.getSource()==bAsignaturas){
-			controlador.mostrarAsignaturas();
-		}else if(e.getSource()==bResponsables){
-			controlador.mostrarResponsables();
-		}else if(e.getSource()==bCargarDatos) {
-			System.out.println("llego al boton");
-			try {
-				controladorResponsables.abrirArchivo();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			System.out.println("llego al boton");
-		} else if (e.getSource()==bBorrarDatos) {
-			controladorResponsables.borrarDatos();
-		}
 	}
 	
 	public void setControlador(Controlador controlador) {
