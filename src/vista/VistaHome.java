@@ -76,9 +76,11 @@ public class VistaHome extends JFrame implements ActionListener{
 		
 		bVicerrector = new JButton("VICERRECTOR");
 		menu_2.add(bVicerrector);
+		bVicerrector.addActionListener(this);
 		
 		bGestorSede = new JButton("GESTOR SEDE");
 		menu_2.add(bGestorSede);
+		bGestorSede.addActionListener(this);
 		
 		panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "VICERRECTOR", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -126,6 +128,7 @@ public class VistaHome extends JFrame implements ActionListener{
 		bResponsablesSedes = new JButton("Responsables Sedes");
 		menu_1.add(bResponsablesSedes);
 		bResponsablesSedes.addActionListener(this);
+		
 		bSedes = new JButton("Sedes");
 		menu_1.add(bSedes);
 		bSedes.addActionListener(this);
@@ -182,9 +185,9 @@ public class VistaHome extends JFrame implements ActionListener{
 		if(e.getSource()==bHome){
 			controlador.mostrarHome();
 		}else if(e.getSource()==bVicerrector){
-			controlador.mostrarAulas();
-		}else if(e.getSource()==bGestorSede){
 			controlador.mostrarAlumnos();
+		}else if(e.getSource()==bGestorSede){
+			controlador.mostrarAulas();
 		}else if (e.getSource()==bAlumnos){
 			controlador.mostrarAlumnos();
 		}else if (e.getSource()==bAsignaturas){

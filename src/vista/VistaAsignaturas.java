@@ -300,7 +300,7 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 		}else if(e.getSource()==bVicerrector){
 			controlador.mostrarAlumnos();
 		}else if(e.getSource()==bGestorSede){
-			//controlador.mostrarAulas();
+			controlador.mostrarAulas();
 		}else if (e.getSource()==bAlumnos){
 			controlador.mostrarAlumnos();
 		}else if (e.getSource()==bAsignaturas){

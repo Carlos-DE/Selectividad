@@ -21,7 +21,12 @@ import java.io.IOException;
 import javax.swing.border.TitledBorder;
 
 public class VistaAula extends JFrame implements ActionListener{
-	private JButton bAlumnos;
+	private JButton bAulas;
+	private JButton bVicerrector;
+	private JButton bGestorSede;
+	private JButton bHome;
+	private JButton bResponsablesSedes;
+	private JButton bSedes;
 	private Controlador controlador;
 	private ControladorResponsables controladorResponsables = new ControladorResponsables();
 	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
@@ -75,19 +80,19 @@ public class VistaAula extends JFrame implements ActionListener{
 		gbc_menu.gridy = 0;
 		maingrid.add(menu, gbc_menu);
 		
-		JButton bHome = new JButton("Home");
+		bHome = new JButton("Home");
 		menu.add(bHome);
+		bHome.addActionListener(this);
 		
-		JButton bVicerrector = new JButton("VICERRECTOR");
-		bVicerrector.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		
+		bVicerrector = new JButton("VICERRECTOR");
+		bVicerrector.addActionListener(this);
 		menu.add(bVicerrector);
 		
-		JButton bGestorSede = new JButton("GESTOR SEDE");
+		bGestorSede = new JButton("GESTOR SEDE");
 		menu.add(bGestorSede);
-		
+		bGestorSede.addActionListener(this);
+
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "GESTOR SEDE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
@@ -115,12 +120,13 @@ public class VistaAula extends JFrame implements ActionListener{
 		gbc_menu_1.gridy = 0;
 		panel_2.add(menu_1, gbc_menu_1);
 		
-		bAlumnos = new JButton("Alumnos");
-		menu_1.add(bAlumnos);
-		bAlumnos.addActionListener(this);
+		bAulas = new JButton("Aulas");
+		menu_1.add(bAulas);
+		bAulas.addActionListener(this);
 		
-		JButton btnNewButton = new JButton("Responsables Examen");
-		menu_1.add(btnNewButton);
+		bResponsablesSedes = new JButton("Responsables Examen");
+		menu_1.add(bResponsablesSedes);
+		bResponsablesSedes.addActionListener(this);
 		
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -311,6 +317,17 @@ public class VistaAula extends JFrame implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==bHome){
+			controlador.mostrarHome();
+		}else if(e.getSource()==bVicerrector){
+			controlador.mostrarAlumnos();
+		}else if(e.getSource()==bGestorSede){
+			controlador.mostrarAulas();
+		}else if (e.getSource()==bAulas){
+			controlador.mostrarAulas();
+		}else if (e.getSource()==bResponsablesSedes){
+			controlador.mostrarResponsablesExamenes();
+		}
 	}
 	
 	public void setControlador(Controlador controlador) {
