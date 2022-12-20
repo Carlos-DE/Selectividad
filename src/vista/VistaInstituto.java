@@ -27,19 +27,23 @@ import controlador.ConexionBaseDatosJDBC;
 import controlador.ConexionConBaseDeDatos;
 import controlador.Controlador;
 import controlador.ControladorAlumnos;
+import controlador.ControladorInstituto;
 import modelo.Alumno;
+import modelo.Sede;
 
 import java.awt.FlowLayout;
 import javax.swing.border.TitledBorder;
 import javax.swing.JList;
 import javax.swing.JComboBox;
+import javax.swing.JTextPane;
+import javax.swing.DefaultComboBoxModel;
 
 public class VistaInstituto extends JFrame implements ActionListener {
 	
 	
 	private JButton bHome;
 	private Controlador controlador;
-	private ControladorAlumnos controladorAlumnos = new ControladorAlumnos();
+	private ControladorInstituto controladorInstituto = new ControladorInstituto();
 	private JButton bVicerrector;
 	private JButton bGestorSede;
 	private Panel menu_1;
@@ -64,23 +68,40 @@ public class VistaInstituto extends JFrame implements ActionListener {
 	 * Create the application.
 	 */
 
-	java.util.List<Alumno> lista;
 	private JPanel panel_3;
 	private JLabel lblNewLabel;
-	private JPanel panel;
-	private JList list;
-	private JComboBox comboBox;
-	private JPanel panel_4;
-	private JList list_1;
+	private JComboBox comboBoxSedes;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
-	private JTextField textField;
 	private JPanel panel_5;
 	private JLabel lblInstitutosAsignadosA;
-	private JButton btnNewButton_2;
-	private JButton btnNewButton_3;
+	private JButton bCargarDatos;
+//	private JButton bBorrarDatos;
+	private JTextPane textPane;
+	private JScrollPane scrollPane;
+	private JList listInstitutos;
+	
+	java.util.List<Alumno> lista;
+	java.util.List<Sede> listaSedes;
+
 	public VistaInstituto() {
 		refresh();
+		lista = conexionBD.listaAlumnos();
+		listModel = new DefaultListModel();
+		for(Alumno a : lista) {
+			if(!listModel.contains(a.getCentro())) {
+				listModel.addElement(a.getCentro());
+			}
+	    	
+	    }
+		
+		listaSedes = conexionBD.listaSedes();
+		comboBoxSedes = new JComboBox();
+		for(Sede s : listaSedes) {
+			if(((DefaultComboBoxModel)comboBoxSedes.getModel()).getIndexOf(s.getNombre())==-1) {
+				comboBoxSedes.addItem(s.getNombre());
+			}
+		}	
 		initialize();
 	}
 
@@ -88,7 +109,9 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		lista = conexionBD.listaAlumnos();
 		listModel = new DefaultListModel();
 		for(Alumno a : lista) {
-	        listModel.addElement(a.getDni() + " " + a.getNombre() +" "+ a.getApellido1() +" "+ a.getApellido2());
+			if(!listModel.contains(a.getCentro())) {
+				listModel.addElement(a.getCentro());
+			}
 	    }
 	}
 
@@ -110,9 +133,9 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		getContentPane().add(maingrid, BorderLayout.CENTER);
 		GridBagLayout gbl_maingrid = new GridBagLayout();
 		gbl_maingrid.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_maingrid.rowHeights = new int[]{40, 30, 0, 30, 0, 45, 60, 0};
+		gbl_maingrid.rowHeights = new int[]{40, 30, 0, 30, 0, 45, 96, 0};
 		gbl_maingrid.columnWeights = new double[]{1.0, 1.0, 0.0, 1.0};
-		gbl_maingrid.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_maingrid.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		maingrid.setLayout(gbl_maingrid);
 		
 		panel_1 = new JPanel();
@@ -223,13 +246,14 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		lblNewLabel = new JLabel("Institutos por asignar");
 		panel_3.add(lblNewLabel);
 		
-		comboBox = new JComboBox();
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 1;
-		gbc_comboBox.gridy = 1;
-		maingrid.add(comboBox, gbc_comboBox);
+//		comboBoxSedes = new JComboBox();
+//		comboBoxSedes.setModel(new DefaultComboBoxModel(new String[] {"Sedes"}));
+		GridBagConstraints gbc_comboBoxSedes = new GridBagConstraints();
+		gbc_comboBoxSedes.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxSedes.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxSedes.gridx = 1;
+		gbc_comboBoxSedes.gridy = 1;
+		maingrid.add(comboBoxSedes, gbc_comboBoxSedes);
 		
 		panel_5 = new JPanel();
 		GridBagConstraints gbc_panel_5 = new GridBagConstraints();
@@ -242,40 +266,39 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		lblInstitutosAsignadosA = new JLabel("Institutos asignados a esa sede");
 		panel_5.add(lblInstitutosAsignadosA);
 		
-		panel = new JPanel();
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridheight = 3;
-		gbc_panel.insets = new Insets(0, 0, 5, 5);
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 2;
-		maingrid.add(panel, gbc_panel);
+		listInstitutos = new JList<String>(listModel);
+		scrollPane = new JScrollPane(listInstitutos);
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 3;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 2;
+		maingrid.add(scrollPane, gbc_scrollPane);
 		
-		list = new JList();
-		panel.add(list);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 2;
-		maingrid.add(textField, gbc_textField);
-		textField.setColumns(10);
+	//	scrollPane.setViewportView(list);
 		
-		panel_4 = new JPanel();
-		GridBagConstraints gbc_panel_4 = new GridBagConstraints();
-		gbc_panel_4.gridheight = 2;
-		gbc_panel_4.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_4.fill = GridBagConstraints.BOTH;
-		gbc_panel_4.gridx = 3;
-		gbc_panel_4.gridy = 2;
-		maingrid.add(panel_4, gbc_panel_4);
+//		JTextField txtAforo = new JTextField();
+//		txtAforo.setText("Aforo: 100");
+//		GridBagConstraints gbc_txtAforo = new GridBagConstraints();
+//		gbc_txtAforo.insets = new Insets(0, 0, 5, 5);
+//		gbc_txtAforo.fill = GridBagConstraints.HORIZONTAL;
+//		gbc_txtAforo.gridx = 1;
+//		gbc_txtAforo.gridy = 2;
+//		maingrid.add(txtAforo, gbc_txtAforo);
+//		txtAforo.setColumns(10);
 		
-		list_1 = new JList();
-		panel_4.add(list_1);
+		textPane = new JTextPane();
+		GridBagConstraints gbc_textPane = new GridBagConstraints();
+		gbc_textPane.gridheight = 2;
+		gbc_textPane.insets = new Insets(0, 0, 5, 0);
+		gbc_textPane.fill = GridBagConstraints.BOTH;
+		gbc_textPane.gridx = 3;
+		gbc_textPane.gridy = 2;
+		maingrid.add(textPane, gbc_textPane);
 		
-		btnNewButton = new JButton("Añadir");
+		btnNewButton = new JButton("Asignar");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton.gridx = 1;
@@ -289,8 +312,8 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		gbc_btnNewButton_1.gridy = 4;
 		maingrid.add(btnNewButton_1, gbc_btnNewButton_1);
 		
-		btnNewButton_2 = new JButton("Cargar datos");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		bCargarDatos= new JButton("Actualizar Lista");
+		bCargarDatos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
@@ -298,22 +321,25 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_2.gridx = 0;
 		gbc_btnNewButton_2.gridy = 5;
-		maingrid.add(btnNewButton_2, gbc_btnNewButton_2);
+		maingrid.add(bCargarDatos, gbc_btnNewButton_2);
 		
-		btnNewButton_3 = new JButton("Borrar datos");
-		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
-		gbc_btnNewButton_3.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_3.gridx = 1;
-		gbc_btnNewButton_3.gridy = 5;
-		maingrid.add(btnNewButton_3, gbc_btnNewButton_3);
-		
+//		bBorrarDatos = new JButton("Borrar datos");
+//		GridBagConstraints gbc_bBorrarDatos = new GridBagConstraints();
+//		gbc_bBorrarDatos.insets = new Insets(0, 0, 5, 5);
+//		gbc_bBorrarDatos.gridx = 1;
+//		gbc_bBorrarDatos.gridy = 5;
+//		maingrid.add(bBorrarDatos, gbc_bBorrarDatos);
+//		bBorrarDatos.addActionListener(this);
 		
 		
 		
 		
 		JButton bDescargarLog = new JButton("DescargarLog");
+		bDescargarLog.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		GridBagConstraints gbc_bDescargarLog = new GridBagConstraints();
-		gbc_bDescargarLog.anchor = GridBagConstraints.NORTH;
 		gbc_bDescargarLog.insets = new Insets(0, 0, 0, 5);
 		gbc_bDescargarLog.gridx = 0;
 		gbc_bDescargarLog.gridy = 6;
@@ -321,8 +347,7 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		
 		TextArea logText = new TextArea();
 		GridBagConstraints gbc_logText = new GridBagConstraints();
-		gbc_logText.anchor = GridBagConstraints.NORTH;
-		gbc_logText.fill = GridBagConstraints.HORIZONTAL;
+		gbc_logText.fill = GridBagConstraints.BOTH;
 		gbc_logText.gridwidth = 3;
 		gbc_logText.gridx = 1;
 		gbc_logText.gridy = 6;
@@ -356,6 +381,14 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		} else if (e.getSource()==bSedes) {
 			controlador.mostrarSedes();
 		}
+		else if (e.getSource()==bCargarDatos) {
+			refresh();
+			
+		} 
+//		else if (e.getSource()==bBorrarDatos) {
+//			controladorInstituto.borrarDatos();
+//			listModel.clear();
+//		}
 	}
 	
 	public void setControlador(Controlador controlador) {

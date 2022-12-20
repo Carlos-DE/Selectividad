@@ -5,6 +5,7 @@ import javax.swing.*;
 import modelo.Sede;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class ControladorSede {
     public String ruta;
@@ -29,7 +30,7 @@ public class ControladorSede {
     }
     private void carga(String ruta) throws FileNotFoundException, IOException {
         String cadena;
-        FileReader f = new FileReader(ruta);
+        FileReader f = new FileReader(ruta,StandardCharsets.UTF_8);
         BufferedReader b = new BufferedReader(f);
         b.readLine();
         
