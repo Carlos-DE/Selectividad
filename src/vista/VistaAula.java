@@ -442,13 +442,18 @@ public class VistaAula extends JFrame implements ActionListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			System.out.print(index);
+			//System.out.println(index);
+			
 			listModel.removeElement(aula.getId() + " ; " + aula.getAforo());
+			
+			listAulas.setSelectedIndex(0);
+			
 			listModel.addElement(aula.getId()+ " ; " + aula.getAforo());
+			scrollPane.repaint();
 			
 			
 			//refresh();
-			System.out.print("jaj2a");
+			System.out.println("jaj2a");
 
 			}
 			
