@@ -46,7 +46,7 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 	private ControladorAsignaturas controladorAsignaturas= new ControladorAsignaturas();
 	private static ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
 	private JList<String> listaMaterias;
-    private DefaultListModel listModel;
+    private DefaultListModel listModel= new DefaultListModel();;
 	private JButton bVicerrector;
 	private JButton bGestorSede;
 	private JPanel panel;
@@ -58,6 +58,7 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 	private JButton bExamenes;
 	private JPanel panel_3;
 	private JScrollPane scrollPane;
+	java.util.List<Materia> lista;
 
 
 	/**
@@ -77,9 +78,8 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 	}
 
 	public void refresh(){
-		java.util.List<Materia> lista;
 		lista = conexionBD.listaMaterias();
-		listModel = new DefaultListModel();
+		//listModel = new DefaultListModel();
 		for(Materia a : lista) {
 	        listModel.addElement(a.getIdMateria());
 	    }
@@ -324,6 +324,7 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
+
 			System.out.println("llego al boton");
 			refresh();
 			
