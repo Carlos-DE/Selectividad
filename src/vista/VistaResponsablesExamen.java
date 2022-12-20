@@ -140,6 +140,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		
 		bResponsablesExamen = new JButton("Responsables Examen");
 		menu_1.add(bResponsablesExamen);
+		bResponsablesExamen.addActionListener(this);
 		
 		
 		
@@ -285,16 +286,8 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
             controlador.mostrarAulas();
 		} else if (e.getSource()==bAulas) {
 			controlador.mostrarAulas();
-		} else if (e.getSource()==bAsignaturas) {
-			controlador.mostrarAsignaturas();
-		} else if (e.getSource()==bExamenes) {
-			controlador.mostrarExamenes();
-		} else if (e.getSource()==bInstitutos) {
-			controlador.mostrarInstitutos();
-		}else if (e.getSource()==bResponsablesSedes) {
-			controlador.mostrarResponsables();
-		} else if (e.getSource()==bSedes) {
-			controlador.mostrarSedes();
+		}else if (e.getSource()==bResponsablesExamen) {
+			controlador.mostrarResponsablesExamenes();
 		}else if(e.getSource()==bCargarDatos) {
 			System.out.println("llego al boton");
 			try {
