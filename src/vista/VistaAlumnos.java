@@ -50,7 +50,7 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 	private JPanel panel_2;
 	private JButton bInstitutos;
 	private JButton bExamenes;
-	private DefaultListModel listModel;
+	private DefaultListModel listModel = new DefaultListModel();
 	private JList<String> listNombre;
 	private JScrollPane scrollPane;
 
@@ -78,7 +78,7 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 
 	private void refresh() {
 		lista = conexionBD.listaAlumnos();
-		listModel = new DefaultListModel();
+		//listModel = new DefaultListModel();
 		for(Alumno a : lista) {
 			listModel.addElement(a.getDni() + " " + a.getNombre() +" "+ a.getApellido1() +" "+ a.getApellido2());
 	    }
@@ -322,6 +322,7 @@ public class VistaAlumnos extends JFrame implements ActionListener {
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
+			refresh();
 			System.out.println("llego al boton x");
 		} else if (e.getSource()==bBorrarDatos) {
 			controladorAlumnos.borrarDatos();
