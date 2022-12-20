@@ -29,6 +29,7 @@ import controlador.Controlador;
 import controlador.ControladorAlumnos;
 import controlador.ControladorInstituto;
 import modelo.Alumno;
+import modelo.Centro;
 import modelo.Sede;
 
 import java.awt.FlowLayout;
@@ -83,17 +84,10 @@ public class VistaInstituto extends JFrame implements ActionListener {
 	
 	java.util.List<Alumno> lista;
 	java.util.List<Sede> listaSedes;
-
+	java.util.List<String> listaNombreCentros;
+	
 	public VistaInstituto() {
 		refresh();
-		lista = conexionBD.listaAlumnos();
-		listModel = new DefaultListModel();
-		for(Alumno a : lista) {
-			if(!listModel.contains(a.getCentro())) {
-				listModel.addElement(a.getCentro());
-			}
-	    	
-	    }
 		
 		listaSedes = conexionBD.listaSedes();
 		comboBoxSedes = new JComboBox();
@@ -102,6 +96,22 @@ public class VistaInstituto extends JFrame implements ActionListener {
 				comboBoxSedes.addItem(s.getNombre());
 			}
 		}	
+		
+		lista = conexionBD.listaAlumnos();
+		listModel = new DefaultListModel();
+		for(Alumno a : lista) {
+			if(!listModel.contains(a.getCentro())) {
+				listModel.addElement(a.getCentro());
+				((DefaultListModel) listaNombreCentros).addElement(a.getCentro());
+			}
+	    	
+	    }
+	
+		for(String c : listaNombreCentros) {
+			int n = conexionBD.listaAlumnosDeUnCentro(c).size();
+			Centro centro = new Centro(c,n);
+		}
+		
 		initialize();
 	}
 
