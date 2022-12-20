@@ -13,6 +13,7 @@ import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -84,8 +85,8 @@ public class VistaInstituto extends JFrame implements ActionListener {
 	
 	java.util.List<Alumno> lista;
 	java.util.List<Sede> listaSedes;
-	java.util.List<String> listaNombreCentros;
-	
+	java.util.List<String> listaNombreCentros = new ArrayList<String>(); 
+	java.util.List<Centro> listaCentros;
 	public VistaInstituto() {
 		refresh();
 		
@@ -102,7 +103,7 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		for(Alumno a : lista) {
 			if(!listModel.contains(a.getCentro())) {
 				listModel.addElement(a.getCentro());
-				((DefaultListModel) listaNombreCentros).addElement(a.getCentro());
+				listaNombreCentros.add(getName());
 			}
 	    	
 	    }
@@ -110,6 +111,7 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		for(String c : listaNombreCentros) {
 			int n = conexionBD.listaAlumnosDeUnCentro(c).size();
 			Centro centro = new Centro(c,n);
+			//listaCentros.add(centro);
 		}
 		
 		initialize();

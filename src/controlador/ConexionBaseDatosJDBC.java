@@ -12,13 +12,13 @@ import modelo.ResponsableExamen;
 import modelo.Sede;
 
 public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
-	 PreparedStatement ps;
-	 ResultSet rs;
-     ArrayList<Alumno> lAlumnos = new ArrayList<>();
-	 ArrayList<Materia> lMaterias = new ArrayList<>();
-     ArrayList<Sede> lSedes = new ArrayList<>();
-     ArrayList<Responsable> lResponsables = new ArrayList<>();
-     ArrayList<Aula> lAulas = new ArrayList<>();
+	PreparedStatement ps;
+	ResultSet rs;
+    ArrayList<Alumno> lAlumnos = new ArrayList<>();
+	ArrayList<Materia> lMaterias = new ArrayList<>();
+    ArrayList<Sede> lSedes = new ArrayList<>();
+    ArrayList<Responsable> lResponsables = new ArrayList<>();
+    ArrayList<Aula> lAulas = new ArrayList<>();
 
 
     private Connection conn;
@@ -488,7 +488,8 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
                     String idAula = rs.getString(1);
-                    String aforo = rs.getString(2);                    
+                    String aforo = rs.getString(2);     
+                    lAulas.add(new Aula(idAula, Integer.parseInt(aforo)));               
                 }
             }
         } catch (SQLException e) {

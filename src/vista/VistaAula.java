@@ -37,11 +37,12 @@ public class VistaAula extends JFrame implements ActionListener{
 	private JButton bAnadirAula , bBorrarAula, bActualizarAula;
 	private ControladorAula controladorAula = new ControladorAula();
 	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
-    private DefaultListModel listModel;
     private JTextField tCodigoAula;
     private JTextField tAforoAula;
-	private JList<String> listaAulasa;
-	private List<Aula> lista = conexionBD.listaAulas();
+	JScrollPane scrollPane = new JScrollPane();
+	private DefaultListModel listModel;
+	private JList<String> listAulas;
+	java.util.List<Aula> lista;
 
 
 
@@ -61,10 +62,11 @@ public class VistaAula extends JFrame implements ActionListener{
 
 
 	private void refresh() {
+		lista = conexionBD.listaAulas();
 		listModel = new DefaultListModel();
 		for(Aula a : lista) {
-	        listModel.addElement(a.getId()+ " " + a.getAforo());
-	    }
+			listModel.addElement(a.getId()+ " " + a.getAforo());
+		}
 	}
 	
 	private void initialize() {
@@ -77,9 +79,9 @@ public class VistaAula extends JFrame implements ActionListener{
 		getContentPane().add(maingrid, BorderLayout.CENTER);
 		GridBagLayout gbl_maingrid = new GridBagLayout();
 		gbl_maingrid.columnWidths = new int[]{210, 92, 178, 409, -21, 0};
-		gbl_maingrid.rowHeights = new int[]{40, 0, 30, 66, 0, 0, 0, 0, 0, 0, 81, 0};
+		gbl_maingrid.rowHeights = new int[]{40, 0, 30, 0, 66, 0, 0, 0, 0, 0, 0, 81, 0};
 		gbl_maingrid.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_maingrid.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_maingrid.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		maingrid.setLayout(gbl_maingrid);
 		
 		Panel menu = new Panel();
@@ -158,7 +160,7 @@ public class VistaAula extends JFrame implements ActionListener{
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_panel_1.gridx = 0;
-		gbc_panel_1.gridy = 3;
+		gbc_panel_1.gridy = 4;
 		maingrid.add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[]{0, 0};
@@ -188,7 +190,7 @@ public class VistaAula extends JFrame implements ActionListener{
 		gbc_panel_3.fill = GridBagConstraints.BOTH;
 		gbc_panel_3.insets = new Insets(0, 0, 5, 5);
 		gbc_panel_3.gridx = 2;
-		gbc_panel_3.gridy = 3;
+		gbc_panel_3.gridy = 4;
 		maingrid.add(panel_3, gbc_panel_3);
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
 		gbl_panel_3.columnWidths = new int[]{0, 0};
@@ -214,118 +216,122 @@ public class VistaAula extends JFrame implements ActionListener{
 		
 		JPanel panel_4 = new JPanel();
 		GridBagConstraints gbc_panel_4 = new GridBagConstraints();
+		gbc_panel_4.gridheight = 7;
 		gbc_panel_4.gridwidth = 2;
 		gbc_panel_4.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_4.fill = GridBagConstraints.BOTH;
 		gbc_panel_4.gridx = 3;
-		gbc_panel_4.gridy = 3;
+		gbc_panel_4.gridy = 2;
 		maingrid.add(panel_4, gbc_panel_4);
 		
 		
 		
 		
-		listaAulasa = new JList<String>(listModel);
-		//scrollPane.setViewportView(listaAulasa);
-		JScrollPane scrollPane = new JScrollPane(listaAulasa);
+		listAulas = new JList<String>(listModel);
+		listAulas.setVisibleRowCount(16);
+		scrollPane.setViewportView(listAulas);
 		panel_4.add(scrollPane);
+		
+		JLabel lblNewLabel_6 = new JLabel("CodigoAula; Aforo");
+		scrollPane.setColumnHeaderView(lblNewLabel_6);
 
 		
 		JLabel lblNewLabel_3 = new JLabel("Dia 1");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_3.gridx = 0;
-		gbc_lblNewLabel_3.gridy = 4;
+		gbc_lblNewLabel_3.gridy = 5;
 		maingrid.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("Dia 2");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
 		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_4.gridx = 1;
-		gbc_lblNewLabel_4.gridy = 4;
+		gbc_lblNewLabel_4.gridy = 5;
 		maingrid.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Dia 3");
 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
 		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_5.gridx = 2;
-		gbc_lblNewLabel_5.gridy = 4;
+		gbc_lblNewLabel_5.gridy = 5;
 		maingrid.add(lblNewLabel_5, gbc_lblNewLabel_5);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("Tramo 1");
 		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
 		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 5);
 		gbc_chckbxNewCheckBox.gridx = 0;
-		gbc_chckbxNewCheckBox.gridy = 5;
+		gbc_chckbxNewCheckBox.gridy = 6;
 		maingrid.add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
 		
 		JCheckBox chckbxNewCheckBox_3 = new JCheckBox("Tramo 1");
 		GridBagConstraints gbc_chckbxNewCheckBox_3 = new GridBagConstraints();
 		gbc_chckbxNewCheckBox_3.insets = new Insets(0, 0, 5, 5);
 		gbc_chckbxNewCheckBox_3.gridx = 1;
-		gbc_chckbxNewCheckBox_3.gridy = 5;
+		gbc_chckbxNewCheckBox_3.gridy = 6;
 		maingrid.add(chckbxNewCheckBox_3, gbc_chckbxNewCheckBox_3);
 		
 		JCheckBox chckbxNewCheckBox_6 = new JCheckBox("Tramo 1");
 		GridBagConstraints gbc_chckbxNewCheckBox_6 = new GridBagConstraints();
 		gbc_chckbxNewCheckBox_6.insets = new Insets(0, 0, 5, 5);
 		gbc_chckbxNewCheckBox_6.gridx = 2;
-		gbc_chckbxNewCheckBox_6.gridy = 5;
+		gbc_chckbxNewCheckBox_6.gridy = 6;
 		maingrid.add(chckbxNewCheckBox_6, gbc_chckbxNewCheckBox_6);
 		
 		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Tramo 2");
 		GridBagConstraints gbc_chckbxNewCheckBox_1 = new GridBagConstraints();
 		gbc_chckbxNewCheckBox_1.insets = new Insets(0, 0, 5, 5);
 		gbc_chckbxNewCheckBox_1.gridx = 0;
-		gbc_chckbxNewCheckBox_1.gridy = 6;
+		gbc_chckbxNewCheckBox_1.gridy = 7;
 		maingrid.add(chckbxNewCheckBox_1, gbc_chckbxNewCheckBox_1);
 		
 		JCheckBox chckbxNewCheckBox_4 = new JCheckBox("Tramo 2");
 		GridBagConstraints gbc_chckbxNewCheckBox_4 = new GridBagConstraints();
 		gbc_chckbxNewCheckBox_4.insets = new Insets(0, 0, 5, 5);
 		gbc_chckbxNewCheckBox_4.gridx = 1;
-		gbc_chckbxNewCheckBox_4.gridy = 6;
+		gbc_chckbxNewCheckBox_4.gridy = 7;
 		maingrid.add(chckbxNewCheckBox_4, gbc_chckbxNewCheckBox_4);
 		
 		JCheckBox chckbxNewCheckBox_7 = new JCheckBox("Tramo 2");
 		GridBagConstraints gbc_chckbxNewCheckBox_7 = new GridBagConstraints();
 		gbc_chckbxNewCheckBox_7.insets = new Insets(0, 0, 5, 5);
 		gbc_chckbxNewCheckBox_7.gridx = 2;
-		gbc_chckbxNewCheckBox_7.gridy = 6;
+		gbc_chckbxNewCheckBox_7.gridy = 7;
 		maingrid.add(chckbxNewCheckBox_7, gbc_chckbxNewCheckBox_7);
 		
 		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Tramo 3");
 		GridBagConstraints gbc_chckbxNewCheckBox_2 = new GridBagConstraints();
 		gbc_chckbxNewCheckBox_2.insets = new Insets(0, 0, 5, 5);
 		gbc_chckbxNewCheckBox_2.gridx = 0;
-		gbc_chckbxNewCheckBox_2.gridy = 7;
+		gbc_chckbxNewCheckBox_2.gridy = 8;
 		maingrid.add(chckbxNewCheckBox_2, gbc_chckbxNewCheckBox_2);
 		
 		JCheckBox chckbxNewCheckBox_5 = new JCheckBox("Tramo 3");
 		GridBagConstraints gbc_chckbxNewCheckBox_5 = new GridBagConstraints();
 		gbc_chckbxNewCheckBox_5.insets = new Insets(0, 0, 5, 5);
 		gbc_chckbxNewCheckBox_5.gridx = 1;
-		gbc_chckbxNewCheckBox_5.gridy = 7;
+		gbc_chckbxNewCheckBox_5.gridy = 8;
 		maingrid.add(chckbxNewCheckBox_5, gbc_chckbxNewCheckBox_5);
 		
 		JCheckBox chckbxTramo = new JCheckBox("Tramo 3");
 		GridBagConstraints gbc_chckbxTramo = new GridBagConstraints();
 		gbc_chckbxTramo.insets = new Insets(0, 0, 5, 5);
 		gbc_chckbxTramo.gridx = 2;
-		gbc_chckbxTramo.gridy = 7;
+		gbc_chckbxTramo.gridy = 8;
 		maingrid.add(chckbxTramo, gbc_chckbxTramo);
 		
 		JCheckBox chckbxTramo_1 = new JCheckBox("Tramo 4");
 		GridBagConstraints gbc_chckbxTramo_1 = new GridBagConstraints();
 		gbc_chckbxTramo_1.insets = new Insets(0, 0, 5, 5);
 		gbc_chckbxTramo_1.gridx = 2;
-		gbc_chckbxTramo_1.gridy = 8;
+		gbc_chckbxTramo_1.gridy = 9;
 		maingrid.add(chckbxTramo_1, gbc_chckbxTramo_1);
 		
 		JCheckBox chckbxTramo_2 = new JCheckBox("Tramo 5");
 		GridBagConstraints gbc_chckbxTramo_2 = new GridBagConstraints();
 		gbc_chckbxTramo_2.insets = new Insets(0, 0, 5, 5);
 		gbc_chckbxTramo_2.gridx = 2;
-		gbc_chckbxTramo_2.gridy = 9;
+		gbc_chckbxTramo_2.gridy = 10;
 		maingrid.add(chckbxTramo_2, gbc_chckbxTramo_2);
 		
 		bAnadirAula = new JButton("Añadir aula");
@@ -333,7 +339,7 @@ public class VistaAula extends JFrame implements ActionListener{
 		GridBagConstraints gbc_bAnadirAula = new GridBagConstraints();
 		gbc_bAnadirAula.insets = new Insets(0, 0, 0, 5);
 		gbc_bAnadirAula.gridx = 0;
-		gbc_bAnadirAula.gridy = 10;
+		gbc_bAnadirAula.gridy = 11;
 		maingrid.add(bAnadirAula, gbc_bAnadirAula);
 		
 		bActualizarAula = new JButton("Actualizar aula");
@@ -341,7 +347,7 @@ public class VistaAula extends JFrame implements ActionListener{
 		GridBagConstraints gbc_bActualizarAula = new GridBagConstraints();
 		gbc_bActualizarAula.insets = new Insets(0, 0, 0, 5);
 		gbc_bActualizarAula.gridx = 1;
-		gbc_bActualizarAula.gridy = 10;
+		gbc_bActualizarAula.gridy = 11;
 		maingrid.add(bActualizarAula, gbc_bActualizarAula);
 		
 		bBorrarAula = new JButton("Borrar aula");
@@ -349,7 +355,7 @@ public class VistaAula extends JFrame implements ActionListener{
 		GridBagConstraints gbc_bBorrarAula = new GridBagConstraints();
 		gbc_bBorrarAula.insets = new Insets(0, 0, 0, 5);
 		gbc_bBorrarAula.gridx = 2;
-		gbc_bBorrarAula.gridy = 10;
+		gbc_bBorrarAula.gridy = 11;
 		maingrid.add(bBorrarAula, gbc_bBorrarAula);
 	}
 	@Override
