@@ -298,6 +298,17 @@ public class VistaSedes extends JFrame implements ActionListener{
 		}else if (e.getSource()==bSedes){
 			controlador.mostrarSedes();
 		}
+		else if(e.getSource()==bCargarDatos) {
+			try {
+				controladorSede.abrirArchivo();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		else if(e.getSource()==bBorrarDatos) {
+			controladorSede.borrarDatos();
+		}
 	}
 	
 	public void setControlador(Controlador controlador) {
