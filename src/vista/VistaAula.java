@@ -2,6 +2,8 @@ package vista;
 
 
 
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.*;
@@ -43,7 +45,7 @@ public class VistaAula extends JFrame implements ActionListener{
     private JTextField tCodigoAula;
     private JTextField tAforoAula;
 	JScrollPane scrollPane = new JScrollPane();
-	private DefaultListModel listModel;
+	private DefaultListModel listModel = new DefaultListModel<>();
 	private JList<String> listAulas;
 	java.util.List<Aula> lista;
 
@@ -68,10 +70,14 @@ public class VistaAula extends JFrame implements ActionListener{
 
 	private void refresh() {
 		lista = conexionBD.listaAulas();
-		listModel = new DefaultListModel();
+		//listModel = new DefaultListModel();
+		listModel.clear();
 		for(Aula a : lista) {
 			listModel.addElement(a.getId()+ " ; " + a.getAforo());
 		}
+		listAulas = new JList<String>(listModel);
+		System.out.print("hola");
+		//initialize();
 	}
 	
 	private void initialize() {
@@ -242,6 +248,8 @@ public class VistaAula extends JFrame implements ActionListener{
 					System.out.println(aula[0]);
 					tAforoAula.setText(aula[1]);
 					System.out.println("  " +  aula[1]);
+					index = listAulas.getSelectedIndex();
+					System.out.println(index);
 				}
 			}
 		});
@@ -416,11 +424,31 @@ public class VistaAula extends JFrame implements ActionListener{
 			System.out.println("Añadir aula");
 			var aula = controladorAula.crearAula(tCodigoAula.getText(),tAforoAula.getText());
 			controladorAula.anadirAula(aula);
-			refresh();
 			vaciarCampos();
+			//
+			listModel.addElement(aula.getId()+ " ; " + aula.getAforo());
+			System.out.print("jaja");
+
+
 		}else if(e.getSource()==bActualizarAula){
 			System.out.println("Actualizar aula");
 			controladorAula.actualizarAula(tCodigoAula.getText(),tAforoAula.getText());
+			System.out.println("jaja");
+			var aula = controladorAula.crearAula(tCodigoAula.getText(),tAforoAula.getText());
+			//listModel.remove(index);
+			try {
+				listModel.removeElementAt(index);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			System.out.print(index);
+			listModel.removeElement(aula.getId() + " ; " + aula.getAforo());
+			listModel.addElement(aula.getId()+ " ; " + aula.getAforo());
+			
+			
+			//refresh();
+			System.out.print("jaj2a");
 
 			}
 			

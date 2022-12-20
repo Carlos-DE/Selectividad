@@ -5,12 +5,13 @@ import vista.*;
 public class Main {
 
 	public static void main(String[] args) {
+		VistaAula vistaAula = new VistaAula();
 
-		new Main().iniciar();
+		new Main().iniciar(vistaAula);
 
 	}
 	
-	private void iniciar() {
+	private void iniciar(VistaAula vistaAula) {
 		ConexionConBaseDeDatos accesoBD;
         accesoBD = ConexionBaseDatosJDBC.getInstance();
 		Controlador controlador = new Controlador();
@@ -24,7 +25,6 @@ public class Main {
 //		VistaGenerar vistaGenerar = new VistaGenerar();
 		VistaResponsablesExamen vistaResponsablesExamen = new VistaResponsablesExamen();
 		VistaExamen vistaExamen = new VistaExamen();
-		VistaAula vistaAula = new VistaAula();
 		
 		
 		
