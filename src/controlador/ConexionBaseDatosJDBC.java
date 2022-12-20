@@ -18,6 +18,7 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 	 ArrayList<Materia> lMaterias = new ArrayList<>();
      ArrayList<Sede> lSedes = new ArrayList<>();
      ArrayList<Responsable> lResponsables = new ArrayList<>();
+     ArrayList<Aula> lAulas = new ArrayList<>();
 
 
     private Connection conn;
@@ -189,11 +190,11 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
     }
     
     public List<String> getListaResponsables() {
-    	List<String> lista=null;
-    	for (Responsable r: lResponsables) {
-          lista.add(r.getNombre());
+        List<String> lista=null;
+        for (Responsable r: lResponsables) {
+            lista.add(r.getNombre());
         }
-    	return lista;
+        return lista;
     }
     public int insertarSede(Sede s) {
         int sedeId = 0;
@@ -429,6 +430,7 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
             while (rs.next()) {
                 responsableId = rs.getInt(1);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -475,7 +477,25 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 	        }
 	        return res;
 	}
-	
+	public List<Aula> listaAulas() {
+        
+        String selectQueryBody = "SELECT * FROM AULA";
+        Statement querySt;
+        try {
+            querySt = conn.createStatement();
+            ResultSet rs = querySt.executeQuery(selectQueryBody);
+            // position result to first
+            if (rs.isBeforeFirst()) {
+                while (rs.next()) {
+                    String idAula = rs.getString(1);
+                    String aforo = rs.getString(2);                    
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lAulas;        
+    }
 	
     
 }
