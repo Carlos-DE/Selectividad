@@ -35,4 +35,9 @@ public class ControladorAula {
         conexionBD.actualizarAula(aula, Integer.parseInt(aforo));
     }
 
+    public void borrarAula(Aula aula) {
+        assert aula != null;
+        conexionBD.borrarAula(aula);
+    }
+
 }

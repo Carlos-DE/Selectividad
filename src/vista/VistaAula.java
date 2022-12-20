@@ -442,10 +442,7 @@ public class VistaAula extends JFrame implements ActionListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			//System.out.println(index);
-			
-			listModel.removeElement(aula.getId() + " ; " + aula.getAforo());
-			
+						
 			listAulas.setSelectedIndex(0);
 			
 			listModel.addElement(aula.getId()+ " ; " + aula.getAforo());
@@ -455,7 +452,21 @@ public class VistaAula extends JFrame implements ActionListener{
 			//refresh();
 			System.out.println("jaj2a");
 
+		}else if(e.getSource()==bBorrarAula){
+			System.out.println("Borrar aula");
+			var aula = new Aula(tCodigoAula.getText(), Integer.parseInt(tAforoAula.getText()));
+			controladorAula.borrarAula(aula);			
+
+			try {
+				listModel.removeElementAt(index);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
+
+			scrollPane.repaint();
+			vaciarCampos();
+		}
 			
 	}
 	

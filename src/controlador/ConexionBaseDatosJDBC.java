@@ -460,12 +460,15 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 	}
 
 	@Override
-	public int borrarAulaSeleccionada(Aula a) {
-		 PreparedStatement preparedStatement = null;
+	public int borrarAula(Aula a) {
+		PreparedStatement preparedStatement = null;
 	        String updateBody = null;
 	        int res = 0;
 	        try {
-	            updateBody = "DELETE " + "AULA" + " WHERE (idAula = "+ a.getId() +")";
+	        	
+	        	
+                
+	            updateBody = "DELETE FROM AULA WHERE idAula = ?";
 	            preparedStatement = conn.prepareStatement(updateBody);
 	            if (a.getId() == null) {
 	                preparedStatement.setNull(1, java.sql.Types.INTEGER);

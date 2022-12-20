@@ -37,8 +37,9 @@ public abstract class ConexionConBaseDeDatos {
 	public abstract int insertarResponsablesExamen(ResponsableExamen responsable);
 	public abstract int insertarAula(Aula a);
     public abstract int actualizarAula(Aula a, int aforonuevo);
-    public abstract int  borrarAulaSeleccionada(Aula a);
+    public abstract int  borrarAula(Aula a);
     //public abstract List<Aula> listaAulas();
     public  abstract List<Aula> listaAulas();
+
 
 	}
