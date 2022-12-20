@@ -438,18 +438,19 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 	}
 
 	@Override
-	public int actualizarAula(Aula a, String idnuevo, int aforonuevo) {
-		 PreparedStatement preparedStatement = null;
+	public int actualizarAula(Aula a, int aforonuevo) {
+		PreparedStatement preparedStatement = null;
 	        String updateBody = null;
 	        int res = 0;
 	        try {
-	            updateBody = "UPDATE " + "AULA" + " SET idAula = "+ idnuevo +", aforo ="+ aforonuevo + "WHERE (idAula = "+ a.getId() +")";
+	            updateBody = "UPDATE " + "AULA" + " SET aforo = ? WHERE (idAula = ? )";
 	            preparedStatement = conn.prepareStatement(updateBody);
 	            if (a.getId() == null) {
 	                preparedStatement.setNull(1, java.sql.Types.INTEGER);
 	            } else {
-	                preparedStatement.setString(1, a.getId());
-	                preparedStatement.setInt(2, a.getAforo());
+	                
+	                preparedStatement.setInt(1, a.getAforo());
+	                preparedStatement.setString(2, a.getId());
 	            }
 	            res = preparedStatement.executeUpdate();
 	        } catch (SQLException ex) {

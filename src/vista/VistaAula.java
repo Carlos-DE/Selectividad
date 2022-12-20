@@ -2,8 +2,10 @@ package vista;
 
 
 
-
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.*;
+import javax.swing.JOptionPane;
 
 import controlador.ConexionBaseDatosJDBC;
 import controlador.ConexionConBaseDeDatos;
@@ -24,6 +26,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
 
 public class VistaAula extends JFrame implements ActionListener{
 	private JButton bAulas;
@@ -44,6 +47,8 @@ public class VistaAula extends JFrame implements ActionListener{
 	private JList<String> listAulas;
 	java.util.List<Aula> lista;
 
+	static String seleccionado = "";
+	int index = -1;
 
 
 	/**
@@ -65,7 +70,7 @@ public class VistaAula extends JFrame implements ActionListener{
 		lista = conexionBD.listaAulas();
 		listModel = new DefaultListModel();
 		for(Aula a : lista) {
-			listModel.addElement(a.getId()+ " " + a.getAforo());
+			listModel.addElement(a.getId()+ " ; " + a.getAforo());
 		}
 	}
 	
@@ -228,8 +233,25 @@ public class VistaAula extends JFrame implements ActionListener{
 		
 		
 		listAulas = new JList<String>(listModel);
+		listAulas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listAulas.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				if (!e.getValueIsAdjusting()) {
+					String[] aula = listAulas.getSelectedValue().split(" ; ");
+					tCodigoAula.setText(aula[0]);
+					System.out.println(aula[0]);
+					tAforoAula.setText(aula[1]);
+					System.out.println("  " +  aula[1]);
+				}
+			}
+		});
+		
+		
 		listAulas.setVisibleRowCount(16);
+
+		
 		scrollPane.setViewportView(listAulas);
+		
 		panel_4.add(scrollPane);
 		
 		JLabel lblNewLabel_6 = new JLabel("CodigoAula; Aforo");
@@ -358,6 +380,26 @@ public class VistaAula extends JFrame implements ActionListener{
 		gbc_bBorrarAula.gridy = 11;
 		maingrid.add(bBorrarAula, gbc_bBorrarAula);
 	}
+
+	public void valueChanged(ListSelectionEvent e) {
+        if (e.getValueIsAdjusting() == false) {
+
+            if (listAulas.getSelectedIndex() == -1) {
+                //No selection, disable fire button.
+
+            } else {
+                //Selection, enable the fire button.
+                seleccionado = listAulas.getSelectedValue();
+                index = listAulas.getSelectedIndex();
+
+            }
+        }
+    }
+
+
+
+
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==bHome){
@@ -376,10 +418,15 @@ public class VistaAula extends JFrame implements ActionListener{
 			controladorAula.anadirAula(aula);
 			refresh();
 			vaciarCampos();
+		}else if(e.getSource()==bActualizarAula){
+			System.out.println("Actualizar aula");
+			controladorAula.actualizarAula(tCodigoAula.getText(),tAforoAula.getText());
 
-		}
+			}
+			
 	}
 	
+
 
 	public void vaciarCampos(){
 		tCodigoAula.setText("");

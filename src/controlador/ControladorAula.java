@@ -25,4 +25,14 @@ public class ControladorAula {
         return new Aula(codigo, Integer.parseInt(aforo));
     }
 
+
+    public void actualizarAula(String codigo , String aforo) {
+        assert codigo != null;
+        assert aforo != null;
+
+        var aula = new Aula(codigo, Integer.parseInt(aforo));
+
+        conexionBD.actualizarAula(aula, Integer.parseInt(aforo));
+    }
+
 }
