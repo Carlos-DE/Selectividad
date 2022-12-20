@@ -92,12 +92,12 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
             // position result to first
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    int id = rs.getInt(1);
+                    String id = rs.getString(1);
                     String c = rs.getString(2);
                     String nombre = rs.getString(3);
                     String ap1 = rs.getString(4);
                     String ap2 = rs.getString(5);
-                    //lAlumno.add(new Alumno(id, c, nombre, ap1, ap2));
+                    lAlumno.add(new Alumno(id, c, nombre, ap1, ap2, " "));
 
                 }
             }

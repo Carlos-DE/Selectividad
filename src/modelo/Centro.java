@@ -21,8 +21,17 @@ public class Centro {
 		return nAlumnos;
 	}
 
+	public String getnAlumnosString() {
+		return Integer.toString(nAlumnos);
+	}
+
 	public void setnAlumnos(int nAlumnos) {
 		this.nAlumnos = nAlumnos;
 	}
 	
+	@Override
+	public String toString() {
+		return nombre + " - " + nAlumnos;
+	}
+
 }

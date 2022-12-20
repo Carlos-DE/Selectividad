@@ -86,7 +86,7 @@ public class VistaInstituto extends JFrame implements ActionListener {
 	java.util.List<Alumno> lista;
 	java.util.List<Sede> listaSedes;
 	java.util.List<String> listaNombreCentros = new ArrayList<String>(); 
-	java.util.List<Centro> listaCentros;
+	java.util.List<Centro> listaCentros = new ArrayList<Centro>();
 	public VistaInstituto() {
 		refresh();
 		
@@ -103,19 +103,28 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		for(Alumno a : lista) {
 			if(!listModel.contains(a.getCentro())) {
 				listModel.addElement(a.getCentro());
-				listaNombreCentros.add(getName());
+				listaNombreCentros.add(a.getCentro());
+				
 			}
 	    	
 	    }
-	
 		for(String c : listaNombreCentros) {
+			
 			int n = conexionBD.listaAlumnosDeUnCentro(c).size();
 			Centro centro = new Centro(c,n);
-			//listaCentros.add(centro);
+			listaCentros.add(centro);
+		}
+
+		listModel.clear();
+
+		for(Centro c : listaCentros){
+			listModel.addElement(c.getNombre() + " - " + c.getnAlumnosString());
 		}
 		
 		initialize();
 	}
+
+
 
 	private void refresh() {
 		lista = conexionBD.listaAlumnos();
