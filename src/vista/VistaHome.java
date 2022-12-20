@@ -193,7 +193,7 @@ public class VistaHome extends JFrame implements ActionListener{
 		}else if (e.getSource()==bAsignaturas){
 			controlador.mostrarAsignaturas();
 		}else if (e.getSource()==bExamenes){
-			//controlador.mostrarExamenes();
+			controlador.mostrarExamenes();
 		}else if (e.getSource()==bInstitutos){
 			controlador.mostrarInstitutos();
 		}else if (e.getSource()==bResponsablesSedes){

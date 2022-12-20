@@ -144,9 +144,11 @@ public class VistaExamen extends JFrame implements ActionListener {
 		
 		bVicerrector = new JButton("VICERRECTOR");
 		menu.add(bVicerrector);
+		bVicerrector.addActionListener(this);
 		
 		bGestorSede = new JButton("GESTOR SEDE");
 		menu.add(bGestorSede);
+		bGestorSede.addActionListener(this);
 		
 		panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "VICERRECTOR", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -195,6 +197,8 @@ public class VistaExamen extends JFrame implements ActionListener {
 		
 		bSedes = new JButton("Sedes");
 		menu_1.add(bSedes);
+		bSedes.addActionListener(this);
+		
 		GridBagConstraints gbc_scrollpane = new GridBagConstraints();
 		gbc_scrollpane.fill=GridBagConstraints.HORIZONTAL;
 		gbc_scrollpane.fill = GridBagConstraints.VERTICAL;
@@ -310,12 +314,16 @@ public class VistaExamen extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==bHome) {
 			controlador.mostrarHome();
+		}else if(e.getSource()==bVicerrector){
+				controlador.mostrarAlumnos();
+		}else if(e.getSource()==bGestorSede){
+				controlador.mostrarAulas();
 		} else if (e.getSource()==bAlumnos) {
 			controlador.mostrarAlumnos();
 		} else if (e.getSource()==bAsignaturas) {
 			controlador.mostrarAsignaturas();
 		} else if (e.getSource()==bExamenes) {
-		//	controlador.mostrarExamenes();
+			controlador.mostrarExamenes();
 		} else if (e.getSource()==bInstitutos) {
 			controlador.mostrarInstitutos();
 		}else if (e.getSource()==bResponsablesSedes) {

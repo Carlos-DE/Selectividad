@@ -272,13 +272,13 @@ public class VistaResponsablesSede extends JFrame implements ActionListener{
 		}else if(e.getSource()==bVicerrector){
 			controlador.mostrarAlumnos();
 		}else if(e.getSource()==bGestorSede){
-			//controlador.mostrarAulas();
+			controlador.mostrarAulas();
 		}else if (e.getSource()==bAlumnos){
 			controlador.mostrarAlumnos();
 		}else if (e.getSource()==bAsignaturas){
 			controlador.mostrarAsignaturas();
 		}else if (e.getSource()==bExamenes){
-			//controlador.mostrarExamenes();
+			controlador.mostrarExamenes();
 		}else if (e.getSource()==bInstitutos){
 			controlador.mostrarInstitutos();
 		}else if (e.getSource()==bResponsablesSedes){

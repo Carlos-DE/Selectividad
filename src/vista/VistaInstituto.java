@@ -149,9 +149,11 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		
 		bVicerrector = new JButton("VICERRECTOR");
 		menu.add(bVicerrector);
+		bVicerrector.addActionListener(this);
 		
 		bGestorSede = new JButton("GESTOR SEDE");
 		menu.add(bGestorSede);
+		bGestorSede.addActionListener(this);
 		
 		panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "VICERRECTOR", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -200,6 +202,8 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		
 		bSedes = new JButton("Sedes");
 		menu_1.add(bSedes);
+		bSedes.addActionListener(this);
+		
 		GridBagConstraints gbc_scrollpane = new GridBagConstraints();
 		gbc_scrollpane.fill=GridBagConstraints.HORIZONTAL;
 		gbc_scrollpane.fill = GridBagConstraints.VERTICAL;
