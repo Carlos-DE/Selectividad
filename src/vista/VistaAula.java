@@ -40,7 +40,7 @@ public class VistaAula extends JFrame implements ActionListener{
     private DefaultListModel listModel;
     private JTextField tCodigoAula;
     private JTextField tAforoAula;
-	private JList<Aula> listaAulasa;
+	private JList<String> listaAulasa;
 	private List<Aula> lista = conexionBD.listaAulas();
 
 
@@ -221,8 +221,14 @@ public class VistaAula extends JFrame implements ActionListener{
 		gbc_panel_4.gridy = 3;
 		maingrid.add(panel_4, gbc_panel_4);
 		
-		list = new JList();
-		panel_4.add(list);
+		
+		
+		
+		listaAulasa = new JList<String>(listModel);
+		//scrollPane.setViewportView(listaAulasa);
+		JScrollPane scrollPane = new JScrollPane(listaAulasa);
+		panel_4.add(scrollPane);
+
 		
 		JLabel lblNewLabel_3 = new JLabel("Dia 1");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
@@ -360,8 +366,9 @@ public class VistaAula extends JFrame implements ActionListener{
 			controlador.mostrarResponsablesExamenes();
 		}else if(e.getSource()==bAnadirAula){
 			System.out.println("Añadir aula");
-			var aula =controladorAula.crearAula(tCodigoAula.getText(),tAforoAula.getText());
+			var aula = controladorAula.crearAula(tCodigoAula.getText(),tAforoAula.getText());
 			controladorAula.anadirAula(aula);
+			refresh();
 			vaciarCampos();
 
 		}

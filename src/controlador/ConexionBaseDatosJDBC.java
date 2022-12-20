@@ -497,5 +497,13 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
         return lAulas;        
     }
 	
+
+    public List<String> getListaAula() {
+    	List<String> lista=null;
+    	for (Aula a: lAulas) {
+            //lista.add();
+        }
+    	return lista;
+    }
     
 }
