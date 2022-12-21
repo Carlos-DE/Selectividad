@@ -164,9 +164,9 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		getContentPane().add(maingrid, BorderLayout.CENTER);
 		GridBagLayout gbl_maingrid = new GridBagLayout();
 		gbl_maingrid.columnWidths = new int[]{0, 0, 164, -21, 0, 0};
-		gbl_maingrid.rowHeights = new int[]{40, 0, 30, 30, 110, 40, 120, 113, 0, 81, 0};
+		gbl_maingrid.rowHeights = new int[]{49, 0, 30, 30, 110, 40, 120, 31, 0, 97, 0};
 		gbl_maingrid.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_maingrid.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_maingrid.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		maingrid.setLayout(gbl_maingrid);
 		
 		Panel menu = new Panel();
@@ -400,7 +400,6 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		
 		JButton bDescargarLog = new JButton("DescargarLog");
 		GridBagConstraints gbc_bDescargarLog = new GridBagConstraints();
-		gbc_bDescargarLog.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_bDescargarLog.insets = new Insets(0, 0, 0, 5);
 		gbc_bDescargarLog.gridx = 1;
 		gbc_bDescargarLog.gridy = 9;
@@ -410,7 +409,6 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		logText.setText("Log indicando fallos");
 		GridBagConstraints gbc_logText = new GridBagConstraints();
 		gbc_logText.anchor = GridBagConstraints.NORTH;
-		gbc_logText.fill = GridBagConstraints.HORIZONTAL;
 		gbc_logText.gridwidth = 2;
 		gbc_logText.gridx = 3;
 		gbc_logText.gridy = 9;
