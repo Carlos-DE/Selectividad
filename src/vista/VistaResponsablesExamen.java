@@ -32,16 +32,22 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	private Controlador controlador;
 	private ControladorResponsablesExamen controladorResponsablesExamen = new ControladorResponsablesExamen();
 	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
-	private JList<String> listaResponsables;
+	private JList<String> listaResponsables = new JList<String>();
+	private JList<String> listaResponsables2 = new JList<String>();
+
     private DefaultListModel listModel = new DefaultListModel();
+	private DefaultListModel listModel2 = new DefaultListModel();
+
 	//private Controlador controlador;
+
 	private JButton bAulas;
 	private JButton bInstitutos;
 	private JButton bGenerar;
 	private JPanel panel;
 	private Panel menu;
 	//private JButton bAlumnos;
-	private JScrollPane scrollPane;
+	private JScrollPane scrollPane = new JScrollPane();
+	private JScrollPane scrollPane_1 = new JScrollPane();
 	private JButton bResponsablesExamen;
 	private JPanel panel_1;
 	private Panel menu_2;
@@ -57,17 +63,22 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	//private JButton bInstitutos;
 	private JButton bResponsablesSedes;
 	private JButton bSedes;
-	private JComboBox comboBoxAsignaturas;
+	private JComboBox comboBoxAsignaturas = new JComboBox<>();
 	private JComboBox comboBoxAulas = new JComboBox<>();
 	private int index=-1;
-	java.util.List<String> lista;
+	private int index2=-1;
+	java.util.List<String> lista = new ArrayList<String>();
+	java.util.List<String> lista2 = new ArrayList<String>();;	
 	java.util.List<Aula> listaAulas = new ArrayList<Aula>();
 	java.util.List<Materia> listaMaterias = new ArrayList<Materia>();
 	private JList<String> listaResponsablesExamenPorAnadir;
+	private JList<String> listaResponsablesExamenAnadidos;
 
-	String cargo="";
-	String nombreResponsableExamen="";
-	String nombreExamen="";
+
+	String cargo=null;
+	String nombreResponsableExamen=null;
+	String nombreExamen=null;
+	String nombreAsingnado=null;
 
 
 	/**
@@ -80,23 +91,25 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	 */
 	public VistaResponsablesExamen() {
 		refresh();
+		refresh2();
 		comboBoxAulas.setSelectedIndex(-1);
 		
 		listaMaterias = conexionBD.listaMaterias();
-		comboBoxAsignaturas = new JComboBox();
 		comboBoxAsignaturas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				listModel2.clear();
 				nombreExamen = (String) comboBoxAsignaturas.getSelectedItem();
 				System.out.println(nombreExamen);
 				refresh();
-				//refresh2();
+				refresh2();
+				scrollPane_1.repaint();
 			}
 		});
 		comboBoxAsignaturas.addItem("");
 		for(Materia m : listaMaterias) {
 			if(((DefaultComboBoxModel)comboBoxAsignaturas.getModel()).getIndexOf(m.getIdMateria())==-1) {
 				comboBoxAsignaturas.addItem(m.getIdMateria());
-				refresh();
+				refresh2();
 				
 			}
 		}
@@ -108,7 +121,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	}
 
 	private void refresh() {
-		
+		lista.clear();
 		lista = conexionBD.listaResponsablesExamenPorAnadir();
 		listModel.clear();
 		//listModel = new DefaultListModel();
@@ -116,6 +129,26 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 			listModel.addElement(r);
 	    }		
 		listaResponsablesExamenPorAnadir = new JList<String>(listModel);
+
+		
+	}
+	private void refresh2() {
+		if(!lista2.isEmpty() ) {
+			lista2.clear();
+		}
+
+		lista2 = conexionBD.listaResponsablesExamenAnadidosAExamen(nombreExamen);
+		listModel2.clear();
+		//listModel = new DefaultListModel();
+
+		System.out.println("listaResponsablesExamenAnadidosAExamen");
+
+		for(String r : lista2) {
+			listModel2.addElement(r);
+			System.out.println(r);
+	    }		
+		listaResponsablesExamenAnadidos = new JList<String>(listModel2);
+		//scrollPane_1.repaint();
 
 		
 	}
@@ -129,10 +162,10 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		JPanel maingrid = new JPanel();
 		getContentPane().add(maingrid, BorderLayout.CENTER);
 		GridBagLayout gbl_maingrid = new GridBagLayout();
-		gbl_maingrid.columnWidths = new int[]{0, 0, 164, -21, 0, 0, 0};
-		gbl_maingrid.rowHeights = new int[]{40, 0, 30, 30, 110, 40, 120, 113, 0, 81, 15, 0};
-		gbl_maingrid.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_maingrid.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_maingrid.columnWidths = new int[]{0, 0, 164, -21, 0, 0};
+		gbl_maingrid.rowHeights = new int[]{40, 0, 30, 30, 110, 40, 120, 113, 0, 81, 0};
+		gbl_maingrid.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_maingrid.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		maingrid.setLayout(gbl_maingrid);
 		
 		Panel menu = new Panel();
@@ -140,7 +173,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		menu.setBackground(new Color(0, 64, 128));
 		GridBagConstraints gbc_menu = new GridBagConstraints();
 		gbc_menu.fill = GridBagConstraints.BOTH;
-		gbc_menu.gridwidth = 6;
+		gbc_menu.gridwidth = 5;
 		gbc_menu.insets = new Insets(0, 0, 5, 0);
 		gbc_menu.gridx = 0;
 		gbc_menu.gridy = 0;
@@ -161,7 +194,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "GESTOR SEDE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-		gbc_panel_2.gridwidth = 6;
+		gbc_panel_2.gridwidth = 5;
 		gbc_panel_2.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_2.fill = GridBagConstraints.BOTH;
 		gbc_panel_2.gridx = 0;
@@ -213,13 +246,13 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		//JComboBox comboBoxAsignaturas = new JComboBox();
 		//comboBoxAsignaturas.setModel(new DefaultComboBoxModel());
 		GridBagConstraints gbc_comboBoxAsignaturas = new GridBagConstraints();
-		gbc_comboBoxAsignaturas.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxAsignaturas.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxAsignaturas.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxAsignaturas.gridx = 4;
 		gbc_comboBoxAsignaturas.gridy = 2;
 		maingrid.add(comboBoxAsignaturas, gbc_comboBoxAsignaturas);
 		
-		scrollPane = new JScrollPane();
+		//scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 4;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
@@ -229,14 +262,47 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		maingrid.add(scrollPane, gbc_scrollPane);
 		
 		//List listNombre = new List();
+		listaResponsables2 = new JList<String>(listModel2);
+		listaResponsables2.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				if (!e.getValueIsAdjusting()) {
+					try {
+						String[] cadena;
+						try {
+							cadena = ((String) listaResponsables2.getSelectedValue()).split(" -");
+							nombreAsingnado = cadena[0];
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							System.err.println("Error");
+							e1.printStackTrace();
+						}
+						
+						System.out.println(nombreAsingnado);
+						index2 = listaResponsables.getSelectedIndex();
+						System.out.println(index2);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+					
+				}
+			}
+		});
 		listaResponsables = new JList<String>(listModel);
 		scrollPane.setViewportView(listaResponsables);
 		listaResponsables.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
 					try {
-						String[] cadena = ((String) listaResponsables.getSelectedValue()).split(" -");
-						nombreResponsableExamen = cadena[0];
+						String[] cadena;
+						try {
+							cadena = ((String) listaResponsables.getSelectedValue()).split(" -");
+							nombreResponsableExamen = cadena[0];
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							System.err.println("Error");
+							e1.printStackTrace();
+						}
+						
 						System.out.println(nombreResponsableExamen);
 						index = listaResponsables.getSelectedIndex();
 						System.out.println(index);
@@ -266,31 +332,27 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 
 			}
 		});
+		
+		scrollPane_1 = new JScrollPane();
+		
+		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_1.gridheight = 4;
+		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane_1.gridx = 4;
+		gbc_scrollPane_1.gridy = 3;
+		maingrid.add(scrollPane_1, gbc_scrollPane_1);
+		
+		//JList listAulas = new JList();
+		scrollPane_1.setViewportView(listaResponsables2);
+		scrollPane_1.setColumnHeaderView(listaResponsables2);
+		
 		GridBagConstraints gbc_cbCargos = new GridBagConstraints();
 		gbc_cbCargos.gridwidth = 2;
 		gbc_cbCargos.insets = new Insets(0, 0, 5, 5);
 		gbc_cbCargos.gridx = 2;
 		gbc_cbCargos.gridy = 4;
 		maingrid.add(cbCargos, gbc_cbCargos);
-		
-		JList listAulas = new JList();
-		listAulas.setModel(new AbstractListModel() {
-			String[] values = new String[] {};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		listAulas.setToolTipText("Pedro Ramirez,Vocal,Aula1\r\nGuillermo Canales,Vigilante,Aula2");
-		GridBagConstraints gbc_listAulas = new GridBagConstraints();
-		gbc_listAulas.gridheight = 4;
-		gbc_listAulas.insets = new Insets(0, 0, 5, 5);
-		gbc_listAulas.fill = GridBagConstraints.BOTH;
-		gbc_listAulas.gridx = 4;
-		gbc_listAulas.gridy = 3;
-		maingrid.add(listAulas, gbc_listAulas);
 		
 		bAnadir = new JButton("Anadir");
 		bAnadir.addActionListener(this);
@@ -333,11 +395,10 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		
 		
 		
-		
 		JButton bDescargarLog = new JButton("DescargarLog");
 		GridBagConstraints gbc_bDescargarLog = new GridBagConstraints();
 		gbc_bDescargarLog.anchor = GridBagConstraints.SOUTHEAST;
-		gbc_bDescargarLog.insets = new Insets(0, 0, 5, 5);
+		gbc_bDescargarLog.insets = new Insets(0, 0, 0, 5);
 		gbc_bDescargarLog.gridx = 1;
 		gbc_bDescargarLog.gridy = 9;
 		maingrid.add(bDescargarLog, gbc_bDescargarLog);
@@ -348,7 +409,6 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_logText.anchor = GridBagConstraints.NORTH;
 		gbc_logText.fill = GridBagConstraints.HORIZONTAL;
 		gbc_logText.gridwidth = 2;
-		gbc_logText.insets = new Insets(0, 0, 5, 5);
 		gbc_logText.gridx = 3;
 		gbc_logText.gridy = 9;
 		maingrid.add(logText, gbc_logText);
@@ -379,7 +439,6 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 			controladorResponsablesExamen.borrarDatos();
 			listModel.clear();
 		}else if(e.getSource()==bAnadir) {
-
 			if(cargo.equals("Vocal") && controladorResponsablesExamen.vocalAsignado(cargo,nombreExamen)) {
 				JOptionPane.showMessageDialog(null, "El responsable de examen ya existe");
 			}else{
@@ -387,10 +446,11 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 				System.out.println(listModel.elementAt(index));
 				listModel.removeElementAt(index);
 				//listModel.clear();
-				//refresh();
+				refresh();
+				refresh2();
 				scrollPane.repaint();
+				scrollPane_1.repaint();
 			}
-			
 			
 		}
 	}

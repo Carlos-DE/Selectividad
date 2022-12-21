@@ -23,6 +23,7 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
     List<String> lInstitutosAsignados  = new ArrayList<>();
     List<String> lVocalesAsignados = new ArrayList<>();
     List<String> lResponsablesExamenPorAnadir = new ArrayList<>();
+    List<String> lResponsablesExamenAnadidosAExamen = new ArrayList<>();
 
 
     private Connection conn;
@@ -446,7 +447,7 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
     @Override
 	public List<String> listaResponsablesExamenAnadidosAExamen(String examen) {
 		List<ResponsableExamen> lResponsables = new ArrayList<>(); 
-		String selectQueryBody = "SELECT * FROM RESPONSABLESEXAMEN where rol is not NULL and examen = "+ examen;
+		String selectQueryBody = "SELECT * FROM RESPONSABLESEXAMEN where rol is not NULL and examen = '"+ examen + "'";
 	        Statement querySt;
 	        try {
 	            querySt = conn.createStatement();
@@ -455,14 +456,14 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 	            if (rs.isBeforeFirst()) {
 	                while (rs.next()) {
 	                    String nombre = rs.getString(1);
-	                    lResponsablesExamenPorAnadir.add(nombre);
+	                    lResponsablesExamenAnadidosAExamen.add(nombre);
 	                }
 	            }
 
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
-	        return lResponsablesExamenPorAnadir;
+	        return lResponsablesExamenAnadidosAExamen;
 	}
 
 
