@@ -49,5 +49,7 @@ public abstract class ConexionConBaseDeDatos {
     public abstract int asignarExamenYRol(String id, String rol, String examen);
     public abstract int quitarExamenYRol(String id, String rol, String examen);
     public abstract boolean vocalAsignado(String rol, String examen);
+    public abstract List<String> listaResponsablesExamenPorAnadir();
+    public abstract List<String> listaResponsablesExamenAnadidosAExamen(String examen);
 
 	}

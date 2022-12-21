@@ -22,6 +22,7 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
     ArrayList<Aula> lAulas = new ArrayList<>();
     List<String> lInstitutosAsignados  = new ArrayList<>();
     List<String> lVocalesAsignados = new ArrayList<>();
+    List<String> lResponsablesExamenPorAnadir = new ArrayList<>();
 
 
     private Connection conn;
@@ -419,6 +420,53 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 	        }
 	        return lResponsables;
 	}
+
+    @Override
+	public List<String> listaResponsablesExamenPorAnadir() {
+		List<ResponsableExamen> lResponsables = new ArrayList<>(); 
+		String selectQueryBody = "SELECT * FROM RESPONSABLESEXAMEN where rol is NULL";
+	        Statement querySt;
+	        try {
+	            querySt = conn.createStatement();
+	            ResultSet rs = querySt.executeQuery(selectQueryBody);
+	            // position result to first
+	            if (rs.isBeforeFirst()) {
+	                while (rs.next()) {
+	                    String nombre = rs.getString(1);
+	                    lResponsablesExamenPorAnadir.add(nombre);
+	                }
+	            }
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return lResponsablesExamenPorAnadir;
+	}
+
+    @Override
+	public List<String> listaResponsablesExamenAnadidosAExamen(String examen) {
+		List<ResponsableExamen> lResponsables = new ArrayList<>(); 
+		String selectQueryBody = "SELECT * FROM RESPONSABLESEXAMEN where rol is not NULL and examen = "+ examen;
+	        Statement querySt;
+	        try {
+	            querySt = conn.createStatement();
+	            ResultSet rs = querySt.executeQuery(selectQueryBody);
+	            // position result to first
+	            if (rs.isBeforeFirst()) {
+	                while (rs.next()) {
+	                    String nombre = rs.getString(1);
+	                    lResponsablesExamenPorAnadir.add(nombre);
+	                }
+	            }
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return lResponsablesExamenPorAnadir;
+	}
+
+
+
 
 	@Override
 	public int insertarAula(Aula a) {

@@ -41,6 +41,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	private JPanel panel;
 	private Panel menu;
 	//private JButton bAlumnos;
+	private JScrollPane scrollPane;
 	private JButton bResponsablesExamen;
 	private JPanel panel_1;
 	private Panel menu_2;
@@ -57,10 +58,12 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	private JButton bResponsablesSedes;
 	private JButton bSedes;
 	private JComboBox comboBoxAsignaturas;
-	private JComboBox comboBoxAulas;
-	java.util.List<ResponsableExamen> lista;
+	private JComboBox comboBoxAulas = new JComboBox<>();
+	private int index=-1;
+	java.util.List<String> lista;
 	java.util.List<Aula> listaAulas = new ArrayList<Aula>();
 	java.util.List<Materia> listaMaterias = new ArrayList<Materia>();
+	private JList<String> listaResponsablesExamenPorAnadir;
 
 	String cargo="";
 	String nombreResponsableExamen="";
@@ -77,22 +80,14 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	 */
 	public VistaResponsablesExamen() {
 		
-		lista = conexionBD.listaResponsablesExamen();
+		lista = conexionBD.listaResponsablesExamenPorAnadir();
+		listModel.clear();
 		 listModel = new DefaultListModel();
-		 for(ResponsableExamen r : lista) {
-	            listModel.addElement(r.getNombre());
+		 for(String r : lista) {
+	            listModel.addElement(r);
 	        }
 		
-		listaAulas = conexionBD.listaAulas();
-		comboBoxAulas = new JComboBox();
-		comboBoxAulas.addItem("");
-		for(Aula a : listaAulas) {
-			if(((DefaultComboBoxModel)comboBoxAulas.getModel()).getIndexOf(a.getId())==-1) {
-				comboBoxAulas.addItem(a.getId());
-				refresh();
-			}
-		}
-		comboBoxAulas.setSelectedIndex(0);
+		comboBoxAulas.setSelectedIndex(-1);
 		
 		listaMaterias = conexionBD.listaMaterias();
 		comboBoxAsignaturas = new JComboBox();
@@ -109,6 +104,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 			if(((DefaultComboBoxModel)comboBoxAsignaturas.getModel()).getIndexOf(m.getIdMateria())==-1) {
 				comboBoxAsignaturas.addItem(m.getIdMateria());
 				refresh();
+				
 			}
 		}
 
@@ -119,14 +115,17 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	}
 
 	private void refresh() {
-		lista = conexionBD.listaResponsablesExamen();
+		
+		lista = conexionBD.listaResponsablesExamenPorAnadir();
+		listModel.clear();
 		//listModel = new DefaultListModel();
-		for(ResponsableExamen r : lista) {
+		for(String r : lista) {
 				
-			if(!listModel.contains(r.getNombre())) {
-				listModel.addElement(r.getNombre());
+			if(!listModel.contains(r)) {
+				listModel.addElement(r);
 			}
-				
+		listaResponsablesExamenPorAnadir = new JList<String>(listModel);
+	
 			
 	    }
 	}
@@ -230,7 +229,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_comboBoxAsignaturas.gridy = 2;
 		maingrid.add(comboBoxAsignaturas, gbc_comboBoxAsignaturas);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 4;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
@@ -246,9 +245,11 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
 					try {
-						String[] instituto = ((String) listaResponsables.getSelectedValue()).split(" -");
-						nombreResponsableExamen = instituto[0];
+						String[] cadena = ((String) listaResponsables.getSelectedValue()).split(" -");
+						nombreResponsableExamen = cadena[0];
 						System.out.println(nombreResponsableExamen);
+						index = listaResponsables.getSelectedIndex();
+						System.out.println(index);
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
@@ -393,7 +394,11 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(null, "El responsable de examen ya existe");
 			}else{
 				controladorResponsablesExamen.anadirResponsableExamen(nombreResponsableExamen,cargo, nombreExamen);
+				System.out.println(listModel.elementAt(index));
+				listModel.removeElementAt(index);
+				listModel.clear();
 				refresh();
+				scrollPane.repaint();
 			}
 			
 			
