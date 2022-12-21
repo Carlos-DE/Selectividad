@@ -81,7 +81,10 @@ public class VistaAsignaturas  extends JFrame implements ActionListener {
 		lista = conexionBD.listaMaterias();
 		//listModel = new DefaultListModel();
 		for(Materia a : lista) {
-	        listModel.addElement(a.getIdMateria());
+			if(!listModel.contains(a.getIdMateria())){
+				listModel.addElement(a.getIdMateria());
+			}
+	        
 	    }
 		
 	}
