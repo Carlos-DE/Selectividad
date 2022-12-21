@@ -536,6 +536,28 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 	        return res;
 	}
 
+    public int quitarInstituto(String nombreInstituto, String nombreSede) {
+		PreparedStatement preparedStatement = null;
+	        String updateBody = null;
+	        int res = 0;
+	        System.out.println("paso 1");
+            //En cada alumnos donde tiene ese nombre instituto tiene que tener ese valor para nombre sede
+            try {
+                updateBody = "UPDATE " + "ALUMNO" + " SET Sede = NULL WHERE (Centro = ? )";
+                preparedStatement = conn.prepareStatement(updateBody);
+                if (nombreSede == null) {
+                    //preparedStatement.setNull(1, java.sql.Types.INTEGER);
+                } else {
+                    //preparedStatement.setString(1, nombreSede);
+                    preparedStatement.setString(1, nombreInstituto);
+                }
+                res = preparedStatement.executeUpdate();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+	        return res;
+	}
+
     @Override
     public boolean consultarListaInstitutos() {
         String selectQueryBody = "SELECT * FROM ALUMNO";

@@ -35,6 +35,15 @@ public class ControladorInstituto {
         conexionBD.asignarInstituto(nombreInstituto, nombreSede);
         
     }
+
+    public void quitarInstituto(String nombreInstituto, String nombreSede){
+        assert nombreInstituto != null;
+        assert nombreSede != null;
+
+        conexionBD.quitarInstituto(nombreInstituto, nombreSede);
+        
+    }
+
     public boolean consultarListaInstitutos() {
         return conexionBD.consultarListaInstitutos();
     }

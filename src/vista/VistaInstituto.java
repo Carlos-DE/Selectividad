@@ -89,6 +89,9 @@ public class VistaInstituto extends JFrame implements ActionListener {
 
 	private String nombreInstituto;
 	private String nombreSede;
+
+	private String nombreInstitutoSeleccionado;
+	private String nombreSedeSeleccioanada;
 	
 	java.util.List<Alumno> lista;
 	java.util.List<String> lista2;
@@ -329,9 +332,14 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		listInstitutos.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
-					String[] instituto = ((String) listInstitutos.getSelectedValue()).split(" -");
-					nombreInstituto = instituto[0];
-					System.out.println(nombreInstituto);
+					try {
+						String[] instituto = ((String) listInstitutos.getSelectedValue()).split(" -");
+						nombreInstituto = instituto[0];
+						System.out.println(nombreInstituto);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+					
 				}
 			}
 		});
@@ -358,6 +366,20 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		
 		listAsginados = new JList<String>(listModel2);
 		scrollPane_1.setViewportView(listAsginados);
+		listAsginados.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				if (!e.getValueIsAdjusting()) {
+					try {
+						String[] instituto = ((String) listAsginados.getSelectedValue()).split(" -");
+						nombreInstitutoSeleccionado = instituto[0];
+						System.out.println(nombreInstitutoSeleccionado);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+					
+				}
+			}
+		});
 		
 
 
@@ -373,6 +395,7 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		gbc_bQuitar.gridx = 1;
 		gbc_bQuitar.gridy = 4;
 		maingrid.add(bQuitar, gbc_bQuitar);
+		bQuitar.addActionListener(this);
 		
 		bActualizarLista= new JButton("Actualizar Lista");
 		bActualizarLista.addActionListener(this);
@@ -456,6 +479,17 @@ public class VistaInstituto extends JFrame implements ActionListener {
 			refresh();
 			refresh2();
 
+		} else if (e.getSource()==bQuitar) {
+
+			assert nombreInstitutoSeleccionado != null;
+			assert nombreSede != null;
+			
+			controladorInstituto.conexionBD.quitarInstituto(nombreInstitutoSeleccionado, nombreSede);
+			System.out.println("paso 1");
+			refresh();
+			System.out.println("paso 2");
+			refresh2();
+			System.out.println("paso 3");
 		}
 //		else if (e.getSource()==bBorrarDatos) {
 //			controladorInstituto.borrarDatos();
