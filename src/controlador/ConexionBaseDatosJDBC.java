@@ -510,5 +510,17 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
         }
     	return lista;
     }
+
+
+    public int asignarInstituto(String nombreInstituto, String nombreSede) {
+		PreparedStatement preparedStatement = null;
+	        String updateBody = null;
+	        int res = 0;
+	        
+            //En cada alumnos donde tiene ese nombre instituto tiene que tener ese valor para nombre sede
+
+
+	        return res;
+	}
     
 }

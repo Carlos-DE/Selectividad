@@ -27,4 +27,11 @@ public class ControladorInstituto {
 	public void refresh() {
         
 	}
+
+    public void asignarInstituto(String nombreInstituto, String nombreSede){
+        assert nombreInstituto != null;
+        assert nombreSede != null;
+        
+    }
+
 }
