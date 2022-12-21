@@ -21,6 +21,7 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
     ArrayList<Responsable> lResponsables = new ArrayList<>();
     ArrayList<Aula> lAulas = new ArrayList<>();
     List<String> lInstitutosAsignados  = new ArrayList<>();
+    List<String> lVocalesAsignados = new ArrayList<>();
 
 
     private Connection conn;
@@ -638,5 +639,76 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
         }
         return lAlumnosSinSede;    
     }
+
+    public int asignarExamenYRol(String id, String rol, String examen) {
+
+		PreparedStatement preparedStatement = null;
+	        String updateBody = null;
+	        int res = 0;
+	        System.out.println("paso 1");
+            //En cada alumnos donde tiene ese nombre instituto tiene que tener ese valor para nombre sede
+            try {
+                updateBody = "UPDATE " + "RESPONSABLESEXAMEN" + " SET rol = ? , examen = ? WHERE idResponsablesExamen = ? ";
+                
+                preparedStatement = conn.prepareStatement(updateBody);
+                if (examen == null) {
+                    preparedStatement.setNull(1, java.sql.Types.INTEGER);
+                } else {
+                    preparedStatement.setString(1, rol);
+                    preparedStatement.setString(2, examen);
+                    preparedStatement.setString(3, id);
+                }
+                res = preparedStatement.executeUpdate();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+	        return res;
+	}
+
+    public int quitarExamenYRol(String id, String rol, String examen) {
+		PreparedStatement preparedStatement = null;
+	        String updateBody = null;
+	        int res = 0;
+	        System.out.println("paso 1");
+            //En cada alumnos donde tiene ese nombre instituto tiene que tener ese valor para nombre sede
+            try {
+                updateBody = "UPDATE " + "RESPONSABLESEXAMEN" + " SET rol = NULL, examen = NULL WHERE (idResponsablesExamen = ? )";
+                preparedStatement = conn.prepareStatement(updateBody);
+                if (examen == null) {
+                    //preparedStatement.setNull(1, java.sql.Types.INTEGER);
+                } else {
+                    preparedStatement.setString(1, id);
+                }
+                res = preparedStatement.executeUpdate();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+	        return res;
+	}
+
+    @Override
+    public boolean vocalAsignado(String rol, String examen) {//devuelve true si tiene algun vocal asignado
+    
+        String selectQueryBody = "SELECT * FROM RESPONSABLESEXAMEN WHERE examen = '"+examen+"' AND rol = 'Vocal'";
+        Statement querySt;
+        try {
+            querySt = conn.createStatement();
+            ResultSet rs = querySt.executeQuery(selectQueryBody);
+            // position result to first
+            if (rs.isBeforeFirst()) {
+                while (rs.next()) {
+                    String nombre = rs.getString(1);   
+                    lVocalesAsignados.add(nombre);               
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }    
+    return !lVocalesAsignados.isEmpty(); 
+    }
+
+
+    
     
 }

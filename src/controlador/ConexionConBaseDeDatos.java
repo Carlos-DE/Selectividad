@@ -46,6 +46,8 @@ public abstract class ConexionConBaseDeDatos {
     public abstract int quitarInstituto(String nombreInstituto, String nombreSede);
     public abstract boolean  consultarListaInstitutos();
     public abstract List<Alumno> listaAlumnosSinSede();
-
+    public abstract int asignarExamenYRol(String id, String rol, String examen);
+    public abstract int quitarExamenYRol(String id, String rol, String examen);
+    public abstract boolean vocalAsignado(String rol, String examen);
 
 	}

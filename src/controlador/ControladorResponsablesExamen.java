@@ -52,4 +52,19 @@ public class ControladorResponsablesExamen {
 			System.out.println("paso 1");
 			conexionBD.borrarResponsablesExamen();
 		}
+        public void anadirResponsableExamen(String nombreResponsableExamen,String Cargo, String nombreExamen ) {
+
+			assert nombreResponsableExamen != null;
+			assert Cargo != null;
+			assert nombreExamen != null;
+			
+			conexionBD.asignarExamenYRol(nombreResponsableExamen, Cargo, nombreExamen);
+
+        }
+
+		public boolean vocalAsignado(String rol, String examen){
+
+			return conexionBD.vocalAsignado(rol, examen);
+		}
+
 	}

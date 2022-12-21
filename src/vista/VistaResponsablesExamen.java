@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	private JButton bCargarDatos, bBorrarDatos;
@@ -45,6 +47,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	private JButton bHome;
 	private JButton bVicerrector;
 	private JButton bGestorSede;
+	JButton bAnadir;
 	private JPanel panel_2;
 	private Panel menu_1;
 	//private JButton bAlumnos;
@@ -58,6 +61,10 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	java.util.List<ResponsableExamen> lista;
 	java.util.List<Aula> listaAulas = new ArrayList<Aula>();
 	java.util.List<Materia> listaMaterias = new ArrayList<Materia>();
+
+	String cargo="";
+	String nombreResponsableExamen="";
+	String nombreExamen="";
 
 
 	/**
@@ -89,6 +96,14 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		
 		listaMaterias = conexionBD.listaMaterias();
 		comboBoxAsignaturas = new JComboBox();
+		comboBoxAsignaturas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nombreExamen = (String) comboBoxAsignaturas.getSelectedItem();
+				System.out.println(nombreExamen);
+				refresh();
+				//refresh2();
+			}
+		});
 		comboBoxAsignaturas.addItem("");
 		for(Materia m : listaMaterias) {
 			if(((DefaultComboBoxModel)comboBoxAsignaturas.getModel()).getIndexOf(m.getIdMateria())==-1) {
@@ -227,7 +242,20 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		//List listNombre = new List();
 		listaResponsables = new JList<String>(listModel);
 		scrollPane.setViewportView(listaResponsables);
-		
+		listaResponsables.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				if (!e.getValueIsAdjusting()) {
+					try {
+						String[] instituto = ((String) listaResponsables.getSelectedValue()).split(" -");
+						nombreResponsableExamen = instituto[0];
+						System.out.println(nombreResponsableExamen);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+					
+				}
+			}
+		});
 		//JComboBox comboBoxAulas = new JComboBox();
 		//comboBoxAulas.setModel(new DefaultComboBoxModel());
 		GridBagConstraints gbc_comboBoxAulas = new GridBagConstraints();
@@ -239,6 +267,14 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		
 		JComboBox cbCargos = new JComboBox();
 		cbCargos.setModel(new DefaultComboBoxModel(new String[] {"Vocal", "Vigilante"}));
+		cbCargos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cargo = (String) cbCargos.getSelectedItem();
+				System.out.println(cargo);
+
+
+			}
+		});
 		GridBagConstraints gbc_cbCargos = new GridBagConstraints();
 		gbc_cbCargos.gridwidth = 2;
 		gbc_cbCargos.insets = new Insets(0, 0, 5, 5);
@@ -265,7 +301,8 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_listAulas.gridy = 3;
 		maingrid.add(listAulas, gbc_listAulas);
 		
-		JButton bAnadir = new JButton("Anadir");
+		bAnadir = new JButton("Anadir");
+		bAnadir.addActionListener(this);
 		GridBagConstraints gbc_bAnadir = new GridBagConstraints();
 		gbc_bAnadir.gridwidth = 2;
 		gbc_bAnadir.insets = new Insets(0, 0, 5, 5);
@@ -350,6 +387,16 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		}else if(e.getSource()==bBorrarDatos) {
 			controladorResponsablesExamen.borrarDatos();
 			listModel.clear();
+		}else if(e.getSource()==bAnadir) {
+
+			if(cargo.equals("Vocal") && controladorResponsablesExamen.vocalAsignado(cargo,nombreExamen)) {
+				JOptionPane.showMessageDialog(null, "El responsable de examen ya existe");
+			}else{
+				controladorResponsablesExamen.anadirResponsableExamen(nombreResponsableExamen,cargo, nombreExamen);
+				refresh();
+			}
+			
+			
 		}
 	}
 	
