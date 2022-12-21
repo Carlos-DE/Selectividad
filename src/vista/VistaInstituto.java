@@ -62,7 +62,7 @@ public class VistaInstituto extends JFrame implements ActionListener {
 	private JPanel panel_2;
 	private JButton bInstitutos;
 	private JButton bExamenes;
-	private DefaultListModel listModel;
+	private DefaultListModel listModel = new DefaultListModel();
 
 	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
 
@@ -82,9 +82,7 @@ public class VistaInstituto extends JFrame implements ActionListener {
 	private JButton bQuitar;
 	private JPanel panel_5;
 	private JLabel lblInstitutosAsignadosA;
-	private JButton bCargarDatos;
-//	private JButton bBorrarDatos;
-	private JTextPane textPane;
+	private JButton bActualizarLista;
 	private JScrollPane scrollPane;
 	private JList listInstitutos;
 
@@ -95,6 +93,8 @@ public class VistaInstituto extends JFrame implements ActionListener {
 	java.util.List<Sede> listaSedes;
 	java.util.List<String> listaNombreCentros = new ArrayList<String>(); 
 	java.util.List<Centro> listaCentros = new ArrayList<Centro>();
+	private JList list;
+	private JScrollPane scrollPane_1;
 	public VistaInstituto() {
 		refresh();
 		
@@ -103,6 +103,7 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		for(Sede s : listaSedes) {
 			if(((DefaultComboBoxModel)comboBoxSedes.getModel()).getIndexOf(s.getNombre())==-1) {
 				comboBoxSedes.addItem(s.getNombre());
+				refresh();
 			}
 		}	
 
@@ -145,7 +146,7 @@ public class VistaInstituto extends JFrame implements ActionListener {
 
 	private void refresh() {
 		lista = conexionBD.listaAlumnos();
-		listModel = new DefaultListModel();
+		//listModel = new DefaultListModel();
 		for(Alumno a : lista) {
 			if(!listModel.contains(a.getCentro())) {
 				listModel.addElement(a.getCentro());
@@ -170,16 +171,16 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		JPanel maingrid = new JPanel();
 		getContentPane().add(maingrid, BorderLayout.CENTER);
 		GridBagLayout gbl_maingrid = new GridBagLayout();
-		gbl_maingrid.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_maingrid.columnWidths = new int[]{0, 0, 0};
 		gbl_maingrid.rowHeights = new int[]{40, 30, 0, 30, 0, 45, 96, 0};
-		gbl_maingrid.columnWeights = new double[]{1.0, 1.0, 0.0, 1.0};
+		gbl_maingrid.columnWeights = new double[]{1.0, 1.0, 1.0};
 		gbl_maingrid.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		maingrid.setLayout(gbl_maingrid);
 		
 		panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridwidth = 4;
+		gbc_panel_1.gridwidth = 3;
 		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_1.gridx = 0;
 		gbc_panel_1.gridy = 0;
@@ -297,7 +298,7 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		GridBagConstraints gbc_panel_5 = new GridBagConstraints();
 		gbc_panel_5.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_5.fill = GridBagConstraints.BOTH;
-		gbc_panel_5.gridx = 3;
+		gbc_panel_5.gridx = 2;
 		gbc_panel_5.gridy = 1;
 		maingrid.add(panel_5, gbc_panel_5);
 		
@@ -310,7 +311,7 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		listInstitutos.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
-					String[] instituto = ((String) listInstitutos.getSelectedValue()).split(";");
+					String[] instituto = ((String) listInstitutos.getSelectedValue()).split(" -");
 					nombreInstituto = instituto[0];
 					System.out.println(nombreInstituto);
 				}
@@ -325,28 +326,20 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		gbc_scrollPane.gridy = 2;
 		maingrid.add(scrollPane, gbc_scrollPane);
 		
-		
-//	scrollPane.setViewportView(list);
-//		JTextField txtAforo = new JTextField();
-//		txtAforo.setText("Aforo: 100");
-//		GridBagConstraints gbc_txtAforo = new GridBagConstraints();
-//		gbc_txtAforo.insets = new Insets(0, 0, 5, 5);
-//		gbc_txtAforo.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_txtAforo.gridx = 1;
-//		gbc_txtAforo.gridy = 2;
-//		maingrid.add(txtAforo, gbc_txtAforo);
-//		txtAforo.setColumns(10);
-		
-		textPane = new JTextPane();
-		GridBagConstraints gbc_textPane = new GridBagConstraints();
-		gbc_textPane.gridheight = 2;
-		gbc_textPane.insets = new Insets(0, 0, 5, 0);
-		gbc_textPane.fill = GridBagConstraints.BOTH;
-		gbc_textPane.gridx = 3;
-		gbc_textPane.gridy = 2;
-		maingrid.add(textPane, gbc_textPane);
-		
 		bAsignar = new JButton("Asignar");
+		bAsignar.addActionListener(this);
+		
+		scrollPane_1 = new JScrollPane();
+		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_1.gridheight = 3;
+		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane_1.gridx = 2;
+		gbc_scrollPane_1.gridy = 2;
+		maingrid.add(scrollPane_1, gbc_scrollPane_1);
+		
+		list = new JList();
+		scrollPane_1.setViewportView(list);
 		GridBagConstraints gbc_bAsignar = new GridBagConstraints();
 		gbc_bAsignar.insets = new Insets(0, 0, 5, 5);
 		gbc_bAsignar.gridx = 1;
@@ -360,13 +353,13 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		gbc_bQuitar.gridy = 4;
 		maingrid.add(bQuitar, gbc_bQuitar);
 		
-		bCargarDatos= new JButton("Actualizar Lista");
-		bCargarDatos.addActionListener(this);
+		bActualizarLista= new JButton("Actualizar Lista");
+		bActualizarLista.addActionListener(this);
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_2.gridx = 0;
 		gbc_btnNewButton_2.gridy = 5;
-		maingrid.add(bCargarDatos, gbc_btnNewButton_2);
+		maingrid.add(bActualizarLista, gbc_btnNewButton_2);
 		
 //		bBorrarDatos = new JButton("Borrar datos");
 //		GridBagConstraints gbc_bBorrarDatos = new GridBagConstraints();
@@ -390,7 +383,7 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		TextArea logText = new TextArea();
 		GridBagConstraints gbc_logText = new GridBagConstraints();
 		gbc_logText.fill = GridBagConstraints.BOTH;
-		gbc_logText.gridwidth = 3;
+		gbc_logText.gridwidth = 2;
 		gbc_logText.gridx = 1;
 		gbc_logText.gridy = 6;
 		maingrid.add(logText, gbc_logText);
@@ -423,8 +416,13 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		} else if (e.getSource()==bSedes) {
 			controlador.mostrarSedes();
 		}
-		else if (e.getSource()==bCargarDatos) {
-			refresh();
+		else if (e.getSource()==bActualizarLista) {
+			//Consulta si la lista en la BD esta vacia
+			
+				//si está vacía la pone vacía
+			
+				//si tiene contenido invoca al metodo refresh()
+				refresh();
 			
 		}else if (e.getSource()==bAsignar){
 			

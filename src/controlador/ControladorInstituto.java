@@ -31,6 +31,8 @@ public class ControladorInstituto {
     public void asignarInstituto(String nombreInstituto, String nombreSede){
         assert nombreInstituto != null;
         assert nombreSede != null;
+
+        conexionBD.asignarInstituto(nombreInstituto, nombreSede);
         
     }
 

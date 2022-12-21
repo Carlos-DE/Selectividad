@@ -516,10 +516,21 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 		PreparedStatement preparedStatement = null;
 	        String updateBody = null;
 	        int res = 0;
-	        
+	        System.out.println("paso 1");
             //En cada alumnos donde tiene ese nombre instituto tiene que tener ese valor para nombre sede
-
-
+            try {
+                updateBody = "UPDATE " + "ALUMNO" + " SET Sede = ? WHERE (Centro = ? )";
+                preparedStatement = conn.prepareStatement(updateBody);
+                if (nombreSede == null) {
+                    preparedStatement.setNull(1, java.sql.Types.INTEGER);
+                } else {
+                    preparedStatement.setString(1, nombreSede);
+                    preparedStatement.setString(2, nombreInstituto);
+                }
+                res = preparedStatement.executeUpdate();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
 	        return res;
 	}
     
