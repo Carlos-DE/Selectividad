@@ -15,10 +15,12 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 	PreparedStatement ps;
 	ResultSet rs;
     ArrayList<Alumno> lAlumnos = new ArrayList<>();
+    ArrayList<Alumno>  lAlumnosSinSede = new ArrayList<>();
 	ArrayList<Materia> lMaterias = new ArrayList<>();
     ArrayList<Sede> lSedes = new ArrayList<>();
     ArrayList<Responsable> lResponsables = new ArrayList<>();
     ArrayList<Aula> lAulas = new ArrayList<>();
+    List<String> lInstitutosAsignados  = new ArrayList<>();
 
 
     private Connection conn;
@@ -533,5 +535,85 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
             }
 	        return res;
 	}
+
+    @Override
+    public boolean consultarListaInstitutos() {
+        String selectQueryBody = "SELECT * FROM ALUMNO";
+        Statement querySt;
+        try {
+            querySt = conn.createStatement();
+            ResultSet rs = querySt.executeQuery(selectQueryBody);
+            // position result to first
+            lInstitutosAsignados.clear();
+            if (rs.isBeforeFirst()) {
+                while (rs.next()) {
+                    String nombreCentro = rs.getString(2);
+                    lInstitutosAsignados.add(nombreCentro);
+                }
+            }
+            
+
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        
+
+        }
+        return lInstitutosAsignados.isEmpty();
+    }
+
+    @Override
+    public List<String> listaInstitutosAsginados(String sede) {
+        String selectQueryBody = "SELECT * FROM ALUMNO where Sede = '"+sede+"'";
+        Statement querySt;
+        try {
+            querySt = conn.createStatement();
+            ResultSet rs = querySt.executeQuery(selectQueryBody);
+            // position result to first
+            lInstitutosAsignados.clear();
+            if (rs.isBeforeFirst()) {
+                while (rs.next()) {
+                    String nombreCentro = rs.getString(2);
+                    lInstitutosAsignados.add(nombreCentro);
+                }
+            }
+            
+
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        
+
+        }
+        return lInstitutosAsignados;
+    }
+
+    @Override
+    public List<Alumno> listaAlumnosSinSede() {
+        String selectQueryBody = "SELECT * FROM ALUMNO WHERE Sede IS NULL";
+        Statement querySt;
+        try {
+            querySt = conn.createStatement();
+            ResultSet rs = querySt.executeQuery(selectQueryBody);
+            // position result to first
+            if (rs.isBeforeFirst()) {
+                while (rs.next()) {
+                    String id = rs.getString(1);
+                    String c = rs.getString(2);
+                    String nombre = rs.getString(3);
+                    String ap1 = rs.getString(4);
+                    String ap2 = rs.getString(5);
+                    String det = rs.getString(6);
+                    lAlumnosSinSede.add(new Alumno(id,c,nombre,ap1,ap2,det));
+                    
+                }
+            }
+            
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lAlumnosSinSede;    
+    }
     
 }

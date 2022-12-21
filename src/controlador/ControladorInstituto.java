@@ -35,5 +35,8 @@ public class ControladorInstituto {
         conexionBD.asignarInstituto(nombreInstituto, nombreSede);
         
     }
+    public boolean consultarListaInstitutos() {
+        return conexionBD.consultarListaInstitutos();
+    }
 
 }
