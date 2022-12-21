@@ -10,6 +10,8 @@ import controlador.ControladorResponsables;
 import controlador.ControladorResponsablesExamen;
 import controlador.ControladorSede;
 import modelo.Alumno;
+import modelo.Aula;
+import modelo.Materia;
 import modelo.Responsable;
 import modelo.ResponsableExamen;
 import modelo.Sede;
@@ -18,6 +20,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.swing.border.TitledBorder;
 
 public class VistaResponsablesExamen extends JFrame implements ActionListener{
@@ -49,7 +53,11 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	//private JButton bInstitutos;
 	private JButton bResponsablesSedes;
 	private JButton bSedes;
+	private JComboBox comboBoxAsignaturas;
+	private JComboBox comboBoxAulas;
 	java.util.List<ResponsableExamen> lista;
+	java.util.List<Aula> listaAulas = new ArrayList<Aula>();
+	java.util.List<Materia> listaMaterias = new ArrayList<Materia>();
 
 
 	/**
@@ -67,6 +75,30 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		 for(ResponsableExamen r : lista) {
 	            listModel.addElement(r.getNombre());
 	        }
+		
+		listaAulas = conexionBD.listaAulas();
+		comboBoxAulas = new JComboBox();
+		comboBoxAulas.addItem("");
+		for(Aula a : listaAulas) {
+			if(((DefaultComboBoxModel)comboBoxAulas.getModel()).getIndexOf(a.getId())==-1) {
+				comboBoxAulas.addItem(a.getId());
+				refresh();
+			}
+		}
+		comboBoxAulas.setSelectedIndex(0);
+		
+		listaMaterias = conexionBD.listaMaterias();
+		comboBoxAsignaturas = new JComboBox();
+		comboBoxAsignaturas.addItem("");
+		for(Materia m : listaMaterias) {
+			if(((DefaultComboBoxModel)comboBoxAsignaturas.getModel()).getIndexOf(m.getIdMateria())==-1) {
+				comboBoxAsignaturas.addItem(m.getIdMateria());
+				refresh();
+			}
+		}
+
+		comboBoxAsignaturas.setSelectedIndex(0);
+			
 		
 		initialize();
 	}
@@ -174,14 +206,14 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_lblNewLabel.gridy = 2;
 		maingrid.add(lblNewLabel, gbc_lblNewLabel);
 		
-		JComboBox cbSedes = new JComboBox();
-		cbSedes.setModel(new DefaultComboBoxModel());
-		GridBagConstraints gbc_cbSedes = new GridBagConstraints();
-		gbc_cbSedes.insets = new Insets(0, 0, 5, 5);
-		gbc_cbSedes.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cbSedes.gridx = 4;
-		gbc_cbSedes.gridy = 2;
-		maingrid.add(cbSedes, gbc_cbSedes);
+		//JComboBox comboBoxAsignaturas = new JComboBox();
+		//comboBoxAsignaturas.setModel(new DefaultComboBoxModel());
+		GridBagConstraints gbc_comboBoxAsignaturas = new GridBagConstraints();
+		gbc_comboBoxAsignaturas.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxAsignaturas.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxAsignaturas.gridx = 4;
+		gbc_comboBoxAsignaturas.gridy = 2;
+		maingrid.add(comboBoxAsignaturas, gbc_comboBoxAsignaturas);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -196,14 +228,14 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		listaResponsables = new JList<String>(listModel);
 		scrollPane.setViewportView(listaResponsables);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel());
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.gridwidth = 2;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.gridx = 2;
-		gbc_comboBox.gridy = 3;
-		maingrid.add(comboBox, gbc_comboBox);
+		//JComboBox comboBoxAulas = new JComboBox();
+		//comboBoxAulas.setModel(new DefaultComboBoxModel());
+		GridBagConstraints gbc_comboBoxAulas = new GridBagConstraints();
+		gbc_comboBoxAulas.gridwidth = 2;
+		gbc_comboBoxAulas.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxAulas.gridx = 2;
+		gbc_comboBoxAulas.gridy = 3;
+		maingrid.add(comboBoxAulas, gbc_comboBoxAulas);
 		
 		JComboBox cbCargos = new JComboBox();
 		cbCargos.setModel(new DefaultComboBoxModel(new String[] {"Vocal", "Vigilante"}));
@@ -325,4 +357,3 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		this.controlador = controlador;
 	}
 }
-
