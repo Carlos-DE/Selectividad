@@ -92,8 +92,8 @@ public class VistaInstituto extends JFrame implements ActionListener {
 	private String nombreInstitutoSeleccionado;
 	private String nombreSedeSeleccioanada;
 	
-	java.util.List<Alumno> lista;
-	java.util.List<String> lista2;
+	java.util.List<Alumno> lista = new ArrayList<Alumno>();
+	java.util.List<String> lista2 = new ArrayList<String>();
 	java.util.List<Sede> listaSedes;
 	java.util.List<String> listaNombreCentros = new ArrayList<String>(); 
 	java.util.List<Centro> listaCentros = new ArrayList<Centro>();
@@ -154,6 +154,7 @@ public class VistaInstituto extends JFrame implements ActionListener {
 
 
 	private void refresh() {
+		lista.clear();
 		lista = conexionBD.listaAlumnosSinSede();
 		listModel.clear();
 		//listModel = new DefaultListModel();
@@ -165,6 +166,7 @@ public class VistaInstituto extends JFrame implements ActionListener {
 	}
 
 	private void refresh2() {
+		
 		listModel2.clear();
 		lista2 = conexionBD.listaInstitutosAsginados(nombreSede);
 		//listModel = new DefaultListModel();
