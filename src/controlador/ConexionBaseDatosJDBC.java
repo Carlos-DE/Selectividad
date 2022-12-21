@@ -734,7 +734,7 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 
     @Override
     public boolean vocalAsignado(String rol, String examen) {//devuelve true si tiene algun vocal asignado
-    
+        lVocalesAsignados.clear();
         String selectQueryBody = "SELECT * FROM RESPONSABLESEXAMEN WHERE examen = '"+examen+"' AND rol = 'Vocal'";
         Statement querySt;
         try {
@@ -747,11 +747,12 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
                     lVocalesAsignados.add(nombre);               
                 }
             }
+        
             
         } catch (SQLException e) {
             e.printStackTrace();
         }    
-    return !lVocalesAsignados.isEmpty(); 
+    return lVocalesAsignados.isEmpty(); 
     }
 
     @Override

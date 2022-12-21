@@ -442,7 +442,9 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 			controladorResponsablesExamen.borrarDatos();
 			listModel.clear();
 		}else if(e.getSource()==bAnadir) {
-			if(cargo.equals("Vocal") && controladorResponsablesExamen.vocalAsignado(cargo,nombreExamen)) {
+			System.out.println(cargo.equals("Vocal"));
+			System.out.println((!controladorResponsablesExamen.vocalAsignado(cargo,nombreExamen)));
+			if(cargo.equals("Vocal") && !controladorResponsablesExamen.vocalAsignado(cargo,nombreExamen)) {
 				JOptionPane.showMessageDialog(null, "El responsable de examen ya existe");
 			}else{
 				controladorResponsablesExamen.anadirResponsableExamen(nombreResponsableExamen,cargo, nombreExamen);
@@ -454,6 +456,8 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 				scrollPane.repaint();
 				scrollPane_1.repaint();
 			}
+			System.out.println(cargo.equals("Vocal"));
+			System.out.println((!controladorResponsablesExamen.vocalAsignado(cargo,nombreExamen)));
 			
 		}else if(e.getSource()==bQuitar){
 			controladorResponsablesExamen.quitarResponsableExamen(nombreAsingnado);
