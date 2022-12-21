@@ -144,7 +144,8 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		listModel.clear();
 
 		for(Centro c : listaCentros){
-			listModel.addElement(c.getNombre() + " - " + c.getnAlumnosString());
+			//listModel.addElement(c.getNombre() + " - " + c.getnAlumnosString());
+			listModel.addElement(c.getNombre());
 		}
 		
 		initialize();
