@@ -3,6 +3,15 @@ package modelo;
 public class Materia{
 
     String IdMateria;
+    String tramo;
+
+    public String getTramo() {
+        return tramo;
+    }
+
+    public void setTramo(String tramo) {
+        this.tramo = tramo;
+    }
 
     public Materia() {
     	

@@ -254,11 +254,12 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
     
     public int insertarAsignaturas(Materia m) {
         int materiaId = 0;
-        String insertBody = "INSERT INTO " + "MATERIA" + "(IdMateria) VALUES (?)";
+        String insertBody = "INSERT INTO " + "MATERIA" + "(IdMateria,Tramo) VALUES (?,?)";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(insertBody,
                     PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, m.getIdMateria());
+            preparedStatement.setString(2, m.getTramo());
             int res = preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             while (rs.next()) {
