@@ -61,7 +61,6 @@ public class VistaInstituto extends JFrame implements ActionListener {
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JButton bInstitutos;
-	private JButton bExamenes;
 	private DefaultListModel listModel = new DefaultListModel();
 	private DefaultListModel listModel2 = new DefaultListModel();
 
@@ -271,10 +270,6 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		bAsignaturas.addActionListener(this);
 		menu_1.add(bAsignaturas);
 		
-		bExamenes = new JButton("Examenes");
-		bExamenes.addActionListener(this);
-		menu_1.add(bExamenes);
-		
 		bInstitutos = new JButton("Institutos");
 		bInstitutos.addActionListener(this);
 		menu_1.add(bInstitutos);
@@ -451,8 +446,6 @@ public class VistaInstituto extends JFrame implements ActionListener {
 			controlador.mostrarAlumnos();
 		} else if (e.getSource()==bAsignaturas) {
 			controlador.mostrarAsignaturas();
-		} else if (e.getSource()==bExamenes) {
-			controlador.mostrarExamenes();
 		} else if (e.getSource()==bInstitutos) {
 			controlador.mostrarInstitutos();
 		}else if (e.getSource()==bResponsablesSedes) {

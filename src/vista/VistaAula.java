@@ -31,15 +31,13 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 
 public class VistaAula extends JFrame implements ActionListener{
-	private JButton bAulas;
 	private JButton bVicerrector;
 	private JButton bGestorSede;
 	private JButton bHome;
-	private JButton bResponsablesExamen;
 	private JButton bSedes;
 	private JList list;
 	private Controlador controlador;
-	private JButton bAnadirAula , bBorrarAula, bActualizarAula;
+	private JButton bAnadirAula , bBorrarAula, bActualizarAula, bResponsableAula, bExamenes,bResponsablesExamen,bAulas;
 	private ControladorAula controladorAula = new ControladorAula();
 	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
     private JTextField tCodigoAula;
@@ -91,8 +89,8 @@ public class VistaAula extends JFrame implements ActionListener{
 		GridBagLayout gbl_maingrid = new GridBagLayout();
 		gbl_maingrid.columnWidths = new int[]{210, 92, 178, 409, -21, 0};
 		gbl_maingrid.rowHeights = new int[]{40, 0, 30, 0, 66, 0, 0, 0, 0, 0, 0, 81, 0};
-		gbl_maingrid.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_maingrid.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_maingrid.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_maingrid.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		maingrid.setLayout(gbl_maingrid);
 		
 		Panel menu = new Panel();
@@ -118,22 +116,22 @@ public class VistaAula extends JFrame implements ActionListener{
 		bGestorSede = new JButton("GESTOR SEDE");
 		menu.add(bGestorSede);
 		bGestorSede.addActionListener(this);
-
-		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new TitledBorder(null, "GESTOR SEDE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-		gbc_panel_2.gridwidth = 5;
-		gbc_panel_2.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_2.fill = GridBagConstraints.BOTH;
-		gbc_panel_2.gridx = 0;
-		gbc_panel_2.gridy = 1;
-		maingrid.add(panel_2, gbc_panel_2);
-		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0, 0};
-		gbl_panel_2.rowHeights = new int[]{0, 0};
-		gbl_panel_2.columnWeights = new double[]{1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panel_2.setLayout(gbl_panel_2);
+		
+		JPanel panel_1_1 = new JPanel();
+		panel_1_1.setBorder(new TitledBorder(null, "GESTOR SEDE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_panel_1_1 = new GridBagConstraints();
+		gbc_panel_1_1.gridwidth = 5;
+		gbc_panel_1_1.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_1_1.fill = GridBagConstraints.BOTH;
+		gbc_panel_1_1.gridx = 0;
+		gbc_panel_1_1.gridy = 1;
+		maingrid.add(panel_1_1, gbc_panel_1_1);
+		GridBagLayout gbl_panel_1_1 = new GridBagLayout();
+		gbl_panel_1_1.columnWidths = new int[]{0, 0, 0, 0, 0};
+		gbl_panel_1_1.rowHeights = new int[]{0, 0};
+		gbl_panel_1_1.columnWeights = new double[]{1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_1_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel_1_1.setLayout(gbl_panel_1_1);
 		
 		Panel menu_1 = new Panel();
 		menu_1.setFont(new Font("Dialog", Font.PLAIN, 14));
@@ -144,11 +142,15 @@ public class VistaAula extends JFrame implements ActionListener{
 		gbc_menu_1.gridwidth = 4;
 		gbc_menu_1.gridx = 0;
 		gbc_menu_1.gridy = 0;
-		panel_2.add(menu_1, gbc_menu_1);
+		panel_1_1.add(menu_1, gbc_menu_1);
 		
 		bAulas = new JButton("Aulas");
 		menu_1.add(bAulas);
 		bAulas.addActionListener(this);
+		
+		 bExamenes = new JButton("Examenes");
+		menu_1.add(bExamenes);
+		bExamenes.addActionListener(this);
 		
 		bResponsablesExamen = new JButton("Responsables Examen");
 		menu_1.add(bResponsablesExamen);
@@ -418,6 +420,8 @@ public class VistaAula extends JFrame implements ActionListener{
 			controlador.mostrarAulas();
 		}else if (e.getSource()==bAulas){
 			controlador.mostrarAulas();
+		}else if(e.getSource()==bExamenes) {
+			controlador.mostrarExamenes();
 		}else if (e.getSource()==bResponsablesExamen){
 			controlador.mostrarResponsablesExamenes();
 		}else if(e.getSource()==bAnadirAula){

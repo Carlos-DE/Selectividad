@@ -20,7 +20,6 @@ public class VistaSedes extends JFrame implements ActionListener{
 	private JButton bVicerrector;
 	private JButton bGestorSede;
 	private JButton bHome;
-	private JButton bExamenes;
 	private JButton bAlumnos,bAsignaturas,bSedes,bResponsablesSedes;
 
 	private JButton bAulas;
@@ -128,10 +127,6 @@ public class VistaSedes extends JFrame implements ActionListener{
 		bAsignaturas = new JButton("Asignaturas");
 		menu_1.add(bAsignaturas);
 		bAsignaturas.addActionListener(this);
-
-		bExamenes = new JButton("Examenes");
-		menu_1.add(bExamenes);
-		bExamenes.addActionListener(this);
 
 		bInstitutos = new JButton("Institutos");
 		menu_1.add(bInstitutos);
@@ -289,8 +284,7 @@ public class VistaSedes extends JFrame implements ActionListener{
 			controlador.mostrarAlumnos();
 		}else if (e.getSource()==bAsignaturas){
 			controlador.mostrarAsignaturas();
-		}else if (e.getSource()==bExamenes){
-			controlador.mostrarExamenes();
+
 		}else if (e.getSource()==bInstitutos){
 			controlador.mostrarInstitutos();
 		}else if (e.getSource()==bResponsablesSedes){

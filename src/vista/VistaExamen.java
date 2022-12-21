@@ -41,15 +41,7 @@ public class VistaExamen extends JFrame implements ActionListener {
 	private ControladorAlumnos controladorAlumnos = new ControladorAlumnos();
 	private JButton bVicerrector;
 	private JButton bGestorSede;
-	private Panel menu_1;
-	private JButton bAlumnos;
-	private JButton bSedes;
-	private JButton bAsignaturas;
-	private JButton bResponsablesSedes;
 	private JPanel panel_1;
-	private JPanel panel_2;
-	private JButton bInstitutos;
-	private JButton bExamenes;
 	private DefaultListModel listModel;
 
 	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
@@ -74,6 +66,11 @@ public class VistaExamen extends JFrame implements ActionListener {
 	private JButton btnNewButton_1;
 	private JList list_1;
 	private JList list_2;
+	private JPanel panel_1_1;
+	private Panel menu_1;
+	private JButton bAulas;
+	private JButton bExamenes;
+	private JButton bResponsablesExamen;
 	public VistaExamen() {
 		refresh();
 		initialize();
@@ -122,7 +119,7 @@ public class VistaExamen extends JFrame implements ActionListener {
 		gbl_panel_1.columnWidths = new int[]{0, 0};
 		gbl_panel_1.rowHeights = new int[]{40, 0, 0};
 		gbl_panel_1.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
 		
@@ -148,56 +145,43 @@ public class VistaExamen extends JFrame implements ActionListener {
 		
 		bGestorSede = new JButton("GESTOR SEDE");
 		menu.add(bGestorSede);
-		bGestorSede.addActionListener(this);
 		
-		panel_2 = new JPanel();
-		panel_2.setBorder(new TitledBorder(null, "VICERRECTOR", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-		gbc_panel_2.fill = GridBagConstraints.BOTH;
-		gbc_panel_2.gridx = 0;
-		gbc_panel_2.gridy = 1;
-		panel_1.add(panel_2, gbc_panel_2);
-		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0, 0};
-		gbl_panel_2.rowHeights = new int[]{0, 0};
-		gbl_panel_2.columnWeights = new double[]{1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panel_2.setLayout(gbl_panel_2);
+		panel_1_1 = new JPanel();
+		panel_1_1.setBorder(new TitledBorder(null, "GESTOR SEDE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_panel_1_1 = new GridBagConstraints();
+		gbc_panel_1_1.fill = GridBagConstraints.BOTH;
+		gbc_panel_1_1.gridx = 0;
+		gbc_panel_1_1.gridy = 1;
+		panel_1.add(panel_1_1, gbc_panel_1_1);
+		GridBagLayout gbl_panel_1_1 = new GridBagLayout();
+		gbl_panel_1_1.columnWidths = new int[]{0, 0, 0, 0, 0};
+		gbl_panel_1_1.rowHeights = new int[]{0, 0};
+		gbl_panel_1_1.columnWeights = new double[]{1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_1_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel_1_1.setLayout(gbl_panel_1_1);
 		
 		menu_1 = new Panel();
-		GridBagConstraints gbc_menu_1 = new GridBagConstraints();
-		gbc_menu_1.fill = GridBagConstraints.BOTH;
-		gbc_menu_1.gridwidth = 4;
-		gbc_menu_1.insets = new Insets(0, 0, 0, 5);
-		gbc_menu_1.gridx = 0;
-		gbc_menu_1.gridy = 0;
-		panel_2.add(menu_1, gbc_menu_1);
 		menu_1.setFont(new Font("Dialog", Font.PLAIN, 14));
 		menu_1.setBackground(new Color(0, 64, 128));
+		GridBagConstraints gbc_menu_1 = new GridBagConstraints();
+		gbc_menu_1.insets = new Insets(0, 0, 0, 5);
+		gbc_menu_1.fill = GridBagConstraints.BOTH;
+		gbc_menu_1.gridwidth = 4;
+		gbc_menu_1.gridx = 0;
+		gbc_menu_1.gridy = 0;
+		panel_1_1.add(menu_1, gbc_menu_1);
 		
-		bAlumnos = new JButton("Alumnos");
-		bAlumnos.addActionListener(this);
-		menu_1.add(bAlumnos);
+		bAulas = new JButton("Aulas");
+		menu_1.add(bAulas);
+		bAulas.addActionListener(this);
 		
-		bAsignaturas = new JButton("Asignaturas");
-		bAsignaturas.addActionListener(this);
-		menu_1.add(bAsignaturas);
-		
-		bExamenes = new JButton("Examenes");
-		bExamenes.addActionListener(this);
+		 bExamenes = new JButton("Examenes");
 		menu_1.add(bExamenes);
+		bExamenes.addActionListener(this);
 		
-		bInstitutos = new JButton("Institutos");
-		bInstitutos.addActionListener(this);
-		menu_1.add(bInstitutos);
-		
-		bResponsablesSedes = new JButton("Responsables Sedes");
-		bResponsablesSedes.addActionListener(this);
-		menu_1.add(bResponsablesSedes);
-		
-		bSedes = new JButton("Sedes");
-		menu_1.add(bSedes);
-		bSedes.addActionListener(this);
+		bResponsablesExamen = new JButton("Responsables Examen");
+		menu_1.add(bResponsablesExamen);
+		bResponsablesExamen.addActionListener(this);
 		
 		GridBagConstraints gbc_scrollpane = new GridBagConstraints();
 		gbc_scrollpane.fill=GridBagConstraints.HORIZONTAL;
@@ -318,18 +302,13 @@ public class VistaExamen extends JFrame implements ActionListener {
 				controlador.mostrarAlumnos();
 		}else if(e.getSource()==bGestorSede){
 				controlador.mostrarAulas();
-		} else if (e.getSource()==bAlumnos) {
-			controlador.mostrarAlumnos();
-		} else if (e.getSource()==bAsignaturas) {
-			controlador.mostrarAsignaturas();
+		} else if (e.getSource()==bAulas) {
+			controlador.mostrarAulas();
+		} else if (e.getSource()==bResponsablesExamen ) {
+			controlador.mostrarResponsablesExamenes();
 		} else if (e.getSource()==bExamenes) {
 			controlador.mostrarExamenes();
-		} else if (e.getSource()==bInstitutos) {
-			controlador.mostrarInstitutos();
-		}else if (e.getSource()==bResponsablesSedes) {
-			controlador.mostrarResponsables();
-		} else if (e.getSource()==bSedes) {
-			controlador.mostrarSedes();
+		
 		}
 	}
 	

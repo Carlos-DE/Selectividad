@@ -117,10 +117,6 @@ public class VistaHome extends JFrame implements ActionListener{
 		menu_1.add(bAsignaturas);
 		bAsignaturas.addActionListener(this);
 		
-		bExamenes = new JButton("Examenes");
-		menu_1.add(bExamenes);
-		bExamenes.addActionListener(this);
-		
 		bInstitutos = new JButton("Institutos");
 		menu_1.add(bInstitutos);
 		bInstitutos.addActionListener(this);
@@ -163,6 +159,10 @@ public class VistaHome extends JFrame implements ActionListener{
 		bAulas = new JButton("Aulas");
 		menu.add(bAulas);
 		bAulas.addActionListener(this);
+		
+		bExamenes = new JButton("Examenes");
+		menu.add(bExamenes);
+		bExamenes.addActionListener(this);
 		
 		bResponsablesExamen = new JButton("Responsables Examen");
 		menu.add(bResponsablesExamen);

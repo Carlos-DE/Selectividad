@@ -35,7 +35,6 @@ public class VistaResponsablesSede extends JFrame implements ActionListener{
 	private Panel menu_1;
 	//private JButton bAlumnos;
 	private JButton bAsignaturas;
-	private JButton bExamenes;
 	//private JButton bInstitutos;
 	private JButton bResponsablesSedes;
 	private JButton bSedes;
@@ -141,10 +140,6 @@ public class VistaResponsablesSede extends JFrame implements ActionListener{
 		 bAsignaturas = new JButton("Asignaturas");
 		menu_1.add(bAsignaturas);
 		bAsignaturas.addActionListener(this);
-		
-		 bExamenes = new JButton("Examenes");
-		menu_1.add(bExamenes);
-		bExamenes.addActionListener(this);
 		
 		 bInstitutos = new JButton("Institutos");
 		menu_1.add(bInstitutos);
@@ -284,8 +279,7 @@ public class VistaResponsablesSede extends JFrame implements ActionListener{
 			controlador.mostrarAlumnos();
 		}else if (e.getSource()==bAsignaturas){
 			controlador.mostrarAsignaturas();
-		}else if (e.getSource()==bExamenes){
-			controlador.mostrarExamenes();
+
 		}else if (e.getSource()==bInstitutos){
 			controlador.mostrarInstitutos();
 		}else if (e.getSource()==bResponsablesSedes){
