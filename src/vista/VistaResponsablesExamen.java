@@ -79,14 +79,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	 * Create the application.
 	 */
 	public VistaResponsablesExamen() {
-		
-		lista = conexionBD.listaResponsablesExamenPorAnadir();
-		listModel.clear();
-		 listModel = new DefaultListModel();
-		 for(String r : lista) {
-	            listModel.addElement(r);
-	        }
-		
+		refresh();
 		comboBoxAulas.setSelectedIndex(-1);
 		
 		listaMaterias = conexionBD.listaMaterias();
@@ -120,14 +113,11 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		listModel.clear();
 		//listModel = new DefaultListModel();
 		for(String r : lista) {
-				
-			if(!listModel.contains(r)) {
-				listModel.addElement(r);
-			}
+			listModel.addElement(r);
+	    }		
 		listaResponsablesExamenPorAnadir = new JList<String>(listModel);
-	
-			
-	    }
+
+		
 	}
 	
 	private void initialize() {
@@ -396,8 +386,8 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 				controladorResponsablesExamen.anadirResponsableExamen(nombreResponsableExamen,cargo, nombreExamen);
 				System.out.println(listModel.elementAt(index));
 				listModel.removeElementAt(index);
-				listModel.clear();
-				refresh();
+				//listModel.clear();
+				//refresh();
 				scrollPane.repaint();
 			}
 			
