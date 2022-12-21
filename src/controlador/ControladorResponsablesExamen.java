@@ -66,5 +66,12 @@ public class ControladorResponsablesExamen {
 
 			return conexionBD.vocalAsignado(rol, examen);
 		}
+		public void quitarResponsableExamen(String nombreAsingnado) {
+			conexionBD.quitarExamenYRol(nombreAsingnado);
+		}
+		public String conseguirCargoResponsableExamen(String r, String nombreExamen) {
+			return conexionBD.conseguirCargoResponsableExamen(r, nombreExamen);
+			 
+		}
 
 	}

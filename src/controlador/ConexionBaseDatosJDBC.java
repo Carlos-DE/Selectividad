@@ -714,7 +714,7 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
 	        return res;
 	}
 
-    public int quitarExamenYRol(String id, String rol, String examen) {
+    public int quitarExamenYRol(String id) {
 		PreparedStatement preparedStatement = null;
 	        String updateBody = null;
 	        int res = 0;
@@ -723,11 +723,8 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
             try {
                 updateBody = "UPDATE " + "RESPONSABLESEXAMEN" + " SET rol = NULL, examen = NULL WHERE (idResponsablesExamen = ? )";
                 preparedStatement = conn.prepareStatement(updateBody);
-                if (examen == null) {
-                    //preparedStatement.setNull(1, java.sql.Types.INTEGER);
-                } else {
+               
                     preparedStatement.setString(1, id);
-                }
                 res = preparedStatement.executeUpdate();
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -755,6 +752,27 @@ public class ConexionBaseDatosJDBC extends ConexionConBaseDeDatos {
             e.printStackTrace();
         }    
     return !lVocalesAsignados.isEmpty(); 
+    }
+
+    @Override
+    public String conseguirCargoResponsableExamen(String r, String nombreExamen) {
+        String selectQueryBody = "SELECT rol FROM RESPONSABLESEXAMEN WHERE idResponsablesExamen = '"+r+"'";
+        Statement querySt;
+        String nombre = null;
+        try {
+            querySt = conn.createStatement();
+            ResultSet rs = querySt.executeQuery(selectQueryBody);
+            // position result to first
+            if (rs.isBeforeFirst()) {
+                while (rs.next()) {
+                    nombre = rs.getString(1);   
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }    
+    return nombre; 
     }
 
 

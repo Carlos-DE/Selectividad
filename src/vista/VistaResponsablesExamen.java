@@ -41,6 +41,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	//private Controlador controlador;
 
 	private JButton bAulas;
+	JButton bQuitar= new JButton("Quitar");
 	private JButton bInstitutos;
 	private JButton bGenerar;
 	private JPanel panel;
@@ -144,7 +145,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		System.out.println("listaResponsablesExamenAnadidosAExamen");
 
 		for(String r : lista2) {
-			listModel2.addElement(r);
+			listModel2.addElement(r + " - " + controladorResponsablesExamen.conseguirCargoResponsableExamen(r, nombreExamen));
 			System.out.println(r);
 	    }		
 		listaResponsablesExamenAnadidos = new JList<String>(listModel2);
@@ -323,6 +324,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		maingrid.add(comboBoxAulas, gbc_comboBoxAulas);
 		
 		JComboBox cbCargos = new JComboBox();
+		
 		cbCargos.setModel(new DefaultComboBoxModel(new String[] {"Vocal", "Vigilante"}));
 		cbCargos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -332,7 +334,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 
 			}
 		});
-		
+		cbCargos.setSelectedIndex(-1);
 		scrollPane_1 = new JScrollPane();
 		
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
@@ -363,7 +365,8 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_bAnadir.gridy = 5;
 		maingrid.add(bAnadir, gbc_bAnadir);
 		
-		JButton bQuitar = new JButton("Quitar");
+		bQuitar = new JButton("Quitar");
+		bQuitar.addActionListener(this);
 		GridBagConstraints gbc_bQuitar = new GridBagConstraints();
 		gbc_bQuitar.gridwidth = 2;
 		gbc_bQuitar.insets = new Insets(0, 0, 5, 5);
@@ -444,7 +447,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 			}else{
 				controladorResponsablesExamen.anadirResponsableExamen(nombreResponsableExamen,cargo, nombreExamen);
 				System.out.println(listModel.elementAt(index));
-				listModel.removeElementAt(index);
+				//listModel.removeElementAt(index);
 				//listModel.clear();
 				refresh();
 				refresh2();
@@ -452,6 +455,13 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 				scrollPane_1.repaint();
 			}
 			
+		}else if(e.getSource()==bQuitar){
+			controladorResponsablesExamen.quitarResponsableExamen(nombreAsingnado);
+			refresh();
+			refresh2();
+			scrollPane.repaint();
+			scrollPane_1.repaint();
+
 		}
 	}
 	
