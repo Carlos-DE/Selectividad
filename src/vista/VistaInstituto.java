@@ -63,6 +63,7 @@ public class VistaInstituto extends JFrame implements ActionListener {
 	private JButton bInstitutos;
 	private JButton bExamenes;
 	private DefaultListModel listModel = new DefaultListModel();
+	private DefaultListModel listModel2 = new DefaultListModel();
 
 	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
 
@@ -90,33 +91,38 @@ public class VistaInstituto extends JFrame implements ActionListener {
 	private String nombreSede;
 	
 	java.util.List<Alumno> lista;
+	java.util.List<String> lista2;
 	java.util.List<Sede> listaSedes;
 	java.util.List<String> listaNombreCentros = new ArrayList<String>(); 
 	java.util.List<Centro> listaCentros = new ArrayList<Centro>();
-	private JList list;
+	private JList listAsginados;
 	private JScrollPane scrollPane_1;
 	public VistaInstituto() {
 		refresh();
-		
+		refresh2();
 		listaSedes = conexionBD.listaSedes();
 		comboBoxSedes = new JComboBox();
+		comboBoxSedes.addItem("");
 		for(Sede s : listaSedes) {
 			if(((DefaultComboBoxModel)comboBoxSedes.getModel()).getIndexOf(s.getNombre())==-1) {
 				comboBoxSedes.addItem(s.getNombre());
 				refresh();
 			}
-		}	
+		}
+		comboBoxSedes.setSelectedIndex(0);	
 
 		comboBoxSedes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nombreSede = (String) comboBoxSedes.getSelectedItem();
 				System.out.println(nombreSede);
+				refresh();
+				refresh2();
 			}
 		});
 		
 
 		
-		lista = conexionBD.listaAlumnos();
+		lista = conexionBD.listaAlumnosSinSede();
 		listModel = new DefaultListModel();
 		for(Alumno a : lista) {
 			if(!listModel.contains(a.getCentro())) {
@@ -145,11 +151,23 @@ public class VistaInstituto extends JFrame implements ActionListener {
 
 
 	private void refresh() {
-		lista = conexionBD.listaAlumnos();
+		lista = conexionBD.listaAlumnosSinSede();
+		listModel.clear();
 		//listModel = new DefaultListModel();
 		for(Alumno a : lista) {
 			if(!listModel.contains(a.getCentro())) {
 				listModel.addElement(a.getCentro());
+			}
+	    }
+	}
+
+	private void refresh2() {
+		listModel2.clear();
+		lista2 = conexionBD.listaInstitutosAsginados(nombreSede);
+		//listModel = new DefaultListModel();
+		for(String s : lista2) {
+			if(!listModel2.contains(s)) {
+				listModel2.addElement(s);
 			}
 	    }
 	}
@@ -338,8 +356,11 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		gbc_scrollPane_1.gridy = 2;
 		maingrid.add(scrollPane_1, gbc_scrollPane_1);
 		
-		list = new JList();
-		scrollPane_1.setViewportView(list);
+		listAsginados = new JList<String>(listModel2);
+		scrollPane_1.setViewportView(listAsginados);
+		
+
+
 		GridBagConstraints gbc_bAsignar = new GridBagConstraints();
 		gbc_bAsignar.insets = new Insets(0, 0, 5, 5);
 		gbc_bAsignar.gridx = 1;
@@ -418,15 +439,22 @@ public class VistaInstituto extends JFrame implements ActionListener {
 		}
 		else if (e.getSource()==bActualizarLista) {
 			//Consulta si la lista en la BD esta vacia
-			
+			if(controladorInstituto.consultarListaInstitutos()){
 				//si está vacía la pone vacía
-			
+				listModel.clear();
+			}else{
 				//si tiene contenido invoca al metodo refresh()
+				listModel.clear();
 				refresh();
+				refresh2();
+			}
+				
 			
 		}else if (e.getSource()==bAsignar){
 			
 			controladorInstituto.asignarInstituto(nombreInstituto, nombreSede);
+			refresh();
+			refresh2();
 
 		}
 //		else if (e.getSource()==bBorrarDatos) {

@@ -40,7 +40,10 @@ public abstract class ConexionConBaseDeDatos {
     public abstract int  borrarAula(Aula a);
     //public abstract List<Aula> listaAulas();
     public  abstract List<Aula> listaAulas();
+    public abstract List<String> listaInstitutosAsginados(String sede);
     public abstract int asignarInstituto(String nombreInstituto, String nombreSede);
+    public abstract boolean  consultarListaInstitutos();
+    public abstract List<Alumno> listaAlumnosSinSede();
 
 
 	}
