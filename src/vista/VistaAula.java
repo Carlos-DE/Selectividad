@@ -89,7 +89,7 @@ public class VistaAula extends JFrame implements ActionListener{
 		GridBagLayout gbl_maingrid = new GridBagLayout();
 		gbl_maingrid.columnWidths = new int[]{210, 92, 178, 409, -21, 0};
 		gbl_maingrid.rowHeights = new int[]{40, 0, 30, 0, 66, 0, 0, 0, 0, 0, 0, 81, 0};
-		gbl_maingrid.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_maingrid.columnWeights = new double[]{1.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_maingrid.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		maingrid.setLayout(gbl_maingrid);
 		
@@ -228,6 +228,8 @@ public class VistaAula extends JFrame implements ActionListener{
 		tAforoAula.setColumns(10);
 		
 		JPanel panel_4 = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel_4.getLayout();
+		flowLayout.setHgap(0);
 		GridBagConstraints gbc_panel_4 = new GridBagConstraints();
 		gbc_panel_4.gridheight = 7;
 		gbc_panel_4.gridwidth = 2;
@@ -257,14 +259,15 @@ public class VistaAula extends JFrame implements ActionListener{
 		});
 		
 		
-		listAulas.setVisibleRowCount(16);
+		listAulas.setVisibleRowCount(14);
 
 		
 		scrollPane.setViewportView(listAulas);
 		
 		panel_4.add(scrollPane);
 		
-		JLabel lblNewLabel_6 = new JLabel("CodigoAula; Aforo");
+		JLabel lblNewLabel_6 = new JLabel("CodigoAula;Aforo");
+		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane.setColumnHeaderView(lblNewLabel_6);
 
 		
