@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import javax.swing.JFileChooser;
 
@@ -34,11 +35,12 @@ public class ControladorResponsables {
 	    }
 	    private void carga(String ruta) throws FileNotFoundException, IOException {
 	        String cadena;
-	        FileReader f = new FileReader(ruta);
+	        FileReader f = new FileReader(ruta,StandardCharsets.UTF_8);
 	        BufferedReader b = new BufferedReader(f);
 	        b.readLine();
 	        
 	        while((cadena = b.readLine())!=null) {
+				cadena = cadena.replace("\t", " ");
 	            System.out.println(cadena);
 	            var responsable = new Responsable(cadena);
 	            conexionBD.insertarResponsable(responsable);
