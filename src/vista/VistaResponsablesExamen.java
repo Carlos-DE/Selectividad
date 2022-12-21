@@ -9,6 +9,7 @@ import controlador.Controlador;
 import controlador.ControladorResponsables;
 import controlador.ControladorResponsablesExamen;
 import controlador.ControladorSede;
+import modelo.Alumno;
 import modelo.Responsable;
 import modelo.ResponsableExamen;
 import modelo.Sede;
@@ -23,10 +24,10 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	private JButton bCargarDatos, bBorrarDatos;
 	private JButton bAlumnos;
 	private Controlador controlador;
-	private ControladorResponsablesExamen controladorResponsables = new ControladorResponsablesExamen();
+	private ControladorResponsablesExamen controladorResponsablesExamen = new ControladorResponsablesExamen();
 	private ConexionConBaseDeDatos conexionBD = ConexionBaseDatosJDBC.getInstance();
 	private JList<String> listaResponsables;
-    private DefaultListModel listModel;
+    private DefaultListModel listModel = new DefaultListModel();
 	//private Controlador controlador;
 	private JButton bAulas;
 	private JButton bInstitutos;
@@ -48,6 +49,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	//private JButton bInstitutos;
 	private JButton bResponsablesSedes;
 	private JButton bSedes;
+	java.util.List<ResponsableExamen> lista;
 
 
 	/**
@@ -59,7 +61,8 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 	 * Create the application.
 	 */
 	public VistaResponsablesExamen() {
-		java.util.List<ResponsableExamen> lista = conexionBD.listaResponsablesExamen();
+		
+		lista = conexionBD.listaResponsablesExamen();
 		 listModel = new DefaultListModel();
 		 for(ResponsableExamen r : lista) {
 	            listModel.addElement(r.getNombre());
@@ -68,6 +71,18 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		initialize();
 	}
 
+	private void refresh() {
+		lista = conexionBD.listaResponsablesExamen();
+		//listModel = new DefaultListModel();
+		for(ResponsableExamen r : lista) {
+				
+			if(!listModel.contains(r.getNombre())) {
+				listModel.addElement(r.getNombre());
+			}
+				
+			
+	    }
+	}
 	
 	private void initialize() {
 		setSize(960, 540);
@@ -81,7 +96,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbl_maingrid.columnWidths = new int[]{0, 0, 164, -21, 0, 0, 0};
 		gbl_maingrid.rowHeights = new int[]{40, 0, 30, 30, 110, 40, 120, 113, 0, 81, 15, 0};
 		gbl_maingrid.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_maingrid.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_maingrid.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		maingrid.setLayout(gbl_maingrid);
 		
 		Panel menu = new Panel();
@@ -90,7 +105,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		GridBagConstraints gbc_menu = new GridBagConstraints();
 		gbc_menu.fill = GridBagConstraints.BOTH;
 		gbc_menu.gridwidth = 6;
-		gbc_menu.insets = new Insets(0, 0, 5, 5);
+		gbc_menu.insets = new Insets(0, 0, 5, 0);
 		gbc_menu.gridx = 0;
 		gbc_menu.gridy = 0;
 		maingrid.add(menu, gbc_menu);
@@ -152,7 +167,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_lblResponsables.gridy = 2;
 		maingrid.add(lblResponsables, gbc_lblResponsables);
 		
-		JLabel lblNewLabel = new JLabel("Sede X");
+		JLabel lblNewLabel = new JLabel("Aulario Severo Ochoa");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 2;
@@ -160,7 +175,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		maingrid.add(lblNewLabel, gbc_lblNewLabel);
 		
 		JComboBox cbSedes = new JComboBox();
-		cbSedes.setModel(new DefaultComboBoxModel(new String[] {"Matematicas", "Lengua", "Latin"}));
+		cbSedes.setModel(new DefaultComboBoxModel());
 		GridBagConstraints gbc_cbSedes = new GridBagConstraints();
 		gbc_cbSedes.insets = new Insets(0, 0, 5, 5);
 		gbc_cbSedes.fill = GridBagConstraints.HORIZONTAL;
@@ -168,18 +183,21 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		gbc_cbSedes.gridy = 2;
 		maingrid.add(cbSedes, gbc_cbSedes);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 4;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 3;
+		maingrid.add(scrollPane, gbc_scrollPane);
+		
 		//List listNombre = new List();
 		listaResponsables = new JList<String>(listModel);
-		GridBagConstraints gbc_listNombre = new GridBagConstraints();
-		gbc_listNombre.fill = GridBagConstraints.BOTH;
-		gbc_listNombre.gridheight = 4;
-		gbc_listNombre.insets = new Insets(0, 0, 5, 5);
-		gbc_listNombre.gridx = 1;
-		gbc_listNombre.gridy = 3;
-		maingrid.add(listaResponsables, gbc_listNombre);
+		scrollPane.setViewportView(listaResponsables);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Aula X1", "Aula X2"}));
+		comboBox.setModel(new DefaultComboBoxModel());
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 2;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -198,7 +216,7 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		
 		JList listAulas = new JList();
 		listAulas.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Pedro Ramirez,Vocal,Aula1", "Guillermo Canales,Vigilante,Aula2"};
+			String[] values = new String[] {};
 			public int getSize() {
 				return values.length;
 			}
@@ -289,12 +307,17 @@ public class VistaResponsablesExamen extends JFrame implements ActionListener{
 		}else if (e.getSource()==bResponsablesExamen) {
 			controlador.mostrarResponsablesExamenes();
 		}else if(e.getSource()==bCargarDatos) {
+			
 			System.out.println("llego al boton");
 			try {
-				controladorResponsables.abrirArchivo();
+				controladorResponsablesExamen.abrirArchivo();
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
+			refresh();
+		}else if(e.getSource()==bBorrarDatos) {
+			controladorResponsablesExamen.borrarDatos();
+			listModel.clear();
 		}
 	}
 	

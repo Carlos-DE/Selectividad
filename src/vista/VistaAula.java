@@ -163,7 +163,7 @@ public class VistaAula extends JFrame implements ActionListener{
 		gbc_panel.gridy = 2;
 		maingrid.add(panel, gbc_panel);
 		
-		JLabel lblNewLabel = new JLabel("Nombre Sede");
+		JLabel lblNewLabel = new JLabel("Aulario Severo Ochoa");
 		panel.add(lblNewLabel);
 		
 		JPanel panel_1 = new JPanel();
